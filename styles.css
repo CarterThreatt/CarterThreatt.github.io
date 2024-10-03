@@ -29,11 +29,12 @@ h2 {
     color: red;
     background-color: darkred;
     font-family: Garamond;
-    { display:flex; flex-wrap:wrap; } 
-    width: 30%;
+    flex-wrap: wrap;
+    width: 100%; /* Adjusted to ensure it spans across the container */
     margin: 10px;
-    padding: 20px 10px; 
+    padding: 20px 10px;
     border-radius: 25%;
+
 }
 
 .contact {
