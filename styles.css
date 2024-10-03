@@ -29,6 +29,11 @@ h2 {
     color: red;
     background-color: darkred;
     font-family: Garamond;
+    { display:flex; flex-wrap:wrap; } 
+    width: 30%;
+    margin: 10px;
+    padding: 20px 10px; 
+    border-radius: 25%;
 }
 
 .contact {
