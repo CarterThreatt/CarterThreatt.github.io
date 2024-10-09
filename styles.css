@@ -2,6 +2,7 @@ body {
     background-color: darkgray;
     font-family: Garamond;
 }
+
 h1 {
     text-align: center;
     color: black;
@@ -30,10 +31,14 @@ h2 {
     background-color: darkred;
     font-family: Garamond;
     flex-wrap: wrap;
-    width: 50%; /* Adjusted to ensure it spans across the container */
+    width: 50%;
     margin: 10px;
     padding: 20px 10px;
     border-radius: 25%;
+}
+
+.project img {
+    width: 450px; /* Default for all project images */
 }
 
 .contact {
