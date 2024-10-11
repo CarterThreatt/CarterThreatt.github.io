@@ -1,27 +1,29 @@
 /* General Styling */
 body {
     background-color: #2c3e50;
-    font-family: 'MMontserrat', Sans-Serif;
+    font-family: 'Montserrat', Sans-Serif;
     margin: 0;
     padding: 0;
-    color: #ecf0f1; 
-    text-align: center; 
+    color: #ecf0f1;
+    text-align: center;
 }
 
-/* Hyperlink Styling */
+/* Hyperlink Color */
 a {
     color: #ecf0f1;
     text-decoration: none;
+    font-style: italic;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-
+/* Header Styling */
 h1 {
     color: #ecf0f1;
     margin-top: 20px;
+    size: 25px;
 }
 
 h2 {
@@ -29,22 +31,13 @@ h2 {
     margin-bottom: 10px;
 }
 
-
-.section-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; /* Space between the sections */
-    margin: 20px auto;
-    width: 90%;
-}
-
 .about, .skills, .contact {
     background-color: #34495e;
     color: #ecf0f1;
     padding: 20px;
     border-radius: 10px;
-    min-width: 250px;
+    margin: 20px auto;
+    max-width: 80%;
     box-sizing: border-box;
     text-align: center;
 }
@@ -58,45 +51,31 @@ h2 {
     width: 90%;
 }
 
+
 .project {
     background-color: #34495e;
     padding: 20px;
     border-radius: 15px;
     margin: 10px;
+    flex: 1 1 calc(33% - 40px);
+    max-width: 450px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 45%; 
-    max-width: 450px;
+    height: 500px; 
+    text-align: center;
 }
 
+/* Images inside projects */
 .project img {
     width: 100%;
-    max-width: 450px;
+    max-width: 350px;
     border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-
-.affinity-diagram {
-    width: 150px; 
-}
-
-.project p {
-    color: #ecf0f1;
-}
-
-@media (min-width: 768px) {
-    .projects {
-        justify-content: space-between; 
-    }
-
-    .about, .skills, .contact {
-        flex-basis: 50%; 
-    }
-
-    .project {
-        flex-basis: 45%;
-        margin: 20px;
-    }
+    margin: 0 auto; 
+    flex-grow: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
