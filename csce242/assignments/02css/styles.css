@@ -1,0 +1,82 @@
+/* Structure */
+body {
+    background-image: url("images/coffee-beans.jpg");
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+    width: 70%;
+    margin: auto;
+    background: #F3E9DC;
+    padding: 30px 40px;
+    border-radius: 6px;
+
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* I found a StackOverflow thread to figure out how to make the content div take up all verticle space https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space */
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+    color: #6F4518;
+    /* I found a StackOverflow thread to figure out how to make the footer stick to the bottom of the page https://stackoverflow.com/questions/55541850/how-to-make-footer-stay-at-bottom-of-the-page-with-flex-box */
+}
+
+/* Navigation */
+
+/* Tables */
+table {
+    border: solid;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+th {
+    background: #6F4518;
+    color: #F3E9DC;
+    border: 2px solid #2B1B14;
+    padding: 10px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+ 
+td {
+    border: 2px solid #A47148;
+    padding: 10px;
+    background: #FFFFFF;
+}
+
+/* Images */
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border: 6px solid #6F4518;
+    border-radius: 6px;
+}
+
+/* Typography */
+h1 {
+    color: #6F4518;
+    text-align: center;
+}
+
+h2 {
+    color: #A47148;
+    text-align: center;
+}
+
+h3 {
+    color: #6F4518;
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+}
