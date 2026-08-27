@@ -1,3 +1,14 @@
+/* structure */
 body{
-    background: skyblue
+    background: whitesmoke;
+}
+
+/* Navigation */
+
+/* Tables */
+
+/* Header */ 
+h1 {
+    color: maroon;
+    font-style: italic;
 }

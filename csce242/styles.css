@@ -1,0 +1,29 @@
+/* Structure */
+body {
+    background: ;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+    width: 80%;
+    margin: auto;
+    background: #E3B0AB;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Navigation */
+a {
+    text-decoration: none;
+    color: #E3B0AB;
+    background: #6B0504;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+a:hover {
+    background: #9B1A17;
+}
+/* Tables */
+
+/* Typography */
