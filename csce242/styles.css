@@ -41,6 +41,12 @@ a:hover {
     background: #9B1A17;
 }
 
+li a {
+    display: block;
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
 #git-link {
     display: block;
     width: fit-content;
