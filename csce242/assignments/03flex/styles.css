@@ -14,12 +14,9 @@ body {
 }
 
 #sidebar {
-    padding:5px;
-}
-
-#sidebar {
     background-color: #84A9C0;
     text-align: center;
+    padding:5px;
 }
 
 #sidebar li {
@@ -31,7 +28,6 @@ body {
 
 .tile {
     margin-bottom: 10px;
-
 }
 
 .tile-header {
@@ -59,7 +55,6 @@ body {
 
 footer {
     text-align: center;
-    margin-top: auto;
     padding: 10px;
     background: #B3CBB9;
     color: #1B1F3B;
@@ -109,7 +104,7 @@ p {
 
 /* Responsive Design */
 
-/* 100 px or larger */
+/* 1000 px or larger */
 @media (min-width: 1000px) {
     
     main {
@@ -120,12 +115,7 @@ p {
 
     .columns {
         display:flex;
-        
     }  
-
-    .idea {
-        display: flex;
-    }
 
     .idea-text{
         padding: 20px;
@@ -159,7 +149,7 @@ p {
     }
 
     .four {
-        flex:4
+        flex:4;
     }
 
     .five {
