@@ -51,7 +51,7 @@ body {
 
 /* Responsive Design */
 
-/* 600 px or larger */
+/* 1000 px or larger */
 @media (min-width: 1000px) {
     .columns {
         display:flex;
