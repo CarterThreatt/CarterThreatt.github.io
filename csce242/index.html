@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8"> <!-- when I added the é in my résumé link in my main nav it was displying garbage for those characters, I found that this fixed it https://help.crisp.chat/en/article/how-to-troubleshoot-encoding-issues-in-the-chatbox-xja6ge/ -->
         <title>CSCE 242 Portfolio Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div id="content">
             <header>
-                <h1>CSCE 242 Portfolio Page</h1>
-                <h2>Carter T. Threatt</h2>
-                <a id="git-link" href="https://github.com/CarterThreatt/CarterThreatt.github.io" target="_blank">GitHub Repository</a>
+                <div id="name">
+                    <h2>Carter T. Threatt</h2>
+                </div>
+                <h1>CSCE 242: Web Applications</h1>
+                <ul id="main-nav">
+                    <li><a href="https://github.com/CarterThreatt/CarterThreatt.github.io" target="_blank">GitHub Repository</a></li>
+                    <li><a href="https://www.linkedin.com/in/carter-threatt/" target="_blank">LinkedIn</a></li>
+                    <li><a href="../homepage-files/cthreatt-resume.pdf" target="_blank">Résumé</a></li>
+                </ul>
             </header>
+
             <main>
-                <div id="assignments">
-                    <h3>Assignments</h3>
-                    <ul>
-                        <li><a href="assignments/01html/index.html">Assignment 1</a></li>
-                        <li><a href="assignments/02css/index.html">Assignment 2</a></li>
-                        <li><a href="assignments/03flex/index.html">Assignment 3</a></li>
-                    </ul>
+                <h2>Assignments</h2>
+                <div id="assignments" class="columns tile-row">
+                    <a href="assignments/01html/index.html" class="tile three">
+                        <div class="tile-header">
+                            <h3>Assignment 1 - Basic HTML</h3>
+                        </div>
+                        <img class="tile-img" src="../homepage-files/images/01html.png" alt="">
+                        <p>Basic HTML with headings, images, list, tables and anchor tags.</p>
+                    </a>
+
+                    <a href="assignments/02css/index.html" class="tile three">
+                        <div class="tile-header">
+                            <h3>Assignment 2 - Basic CSS</h3>
+                        </div>
+                        <img class="tile-img" src="../homepage-files/images/02css.png" alt="">
+                        <p>Basic CSS to style a website including background images, divs, typography, images, table styling along with novice use of padding. </p>
+                    </a>
+
+                    <a href="assignments/03flex/index.html" class="tile three">
+                        <div class="tile-header">
+                            <h3>Assignment 3 - Page Layout</h3>
+                        </div>
+                        <img class="tile-img" src="../homepage-files/images/03flex.png" alt="">
+                        <p>An introduction to flexbox to create columns on a webpage along with basic reponsive design and media querys.</p>
+                    </a>
+                </div>
+
+                <h2>Projects</h2>
+                <div id="projects" class="columns tile-row">
+                      <a href="projects/part1/topic_selection.pdf" class="tile one">
+                        <div class="tile-header">
+                            <h3>Project Topic Selection </h3>
+                        </div>
+                        <img class="tile-img" src="../homepage-files/images/topicselection.png" alt="">
+                        <p>View my full topic proposal for my main project. Capitol Connect will be a website to help first time visitors to Washington DC plan their trip.</p>
+                    </a>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2026 Carter T. Threatt. All rights reserved.</p>
             </footer>
