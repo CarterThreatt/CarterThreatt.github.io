@@ -103,6 +103,11 @@ a {
     text-decoration: none;
     border-radius: 6px;
 }
+
+.tile-links a:hover {
+    background: #9B1A17;
+}
+
 /* Typography */
 h1 {
     color: #2B2622;
