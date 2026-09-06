@@ -87,13 +87,22 @@ a {
     max-width: 100%;
     max-height: 200px;
     margin: 0 auto;
-} /* I found a StackOverflow thread to figure out how to center the anchor tag and tried it here also and it worked. https://stackoverflow.com/questions/9721831/how-do-i-center-an-anchor-element-in-css */   
+} /* I found a StackOverflow thread to figure out how to center the anchor tag and tried it here also and it worked. https://stackoverflow.com/questions/9721831/how-do-i-center-an-anchor-element-in-css */
 
 .tile p {
     text-align: center;
     margin-bottom: 0;
 }
-
+.tile-links a {
+    display: block;
+    text-align: center;
+    color: #F5EFE4;
+    background: #73000A;
+    padding: 10px;
+    border-right: solid 2px #9B1A17;
+    text-decoration: none;
+    border-radius: 6px;
+}
 /* Typography */
 h1 {
     color: #2B2622;
