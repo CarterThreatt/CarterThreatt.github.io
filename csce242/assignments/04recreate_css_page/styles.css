@@ -1,0 +1,581 @@
+/* Structure */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #14151a;
+    margin: 0;
+}
+
+/* Header */
+#main-header {
+    background-color: #000000;
+    color: #ffffff;
+    position: relative;
+    padding-top: 60px;
+}
+
+#logo {
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    padding-left: 2.5em;
+}
+
+#logo img {
+    width: 58px;
+}
+
+#logo-text {
+    line-height: 1.15;
+}
+
+.logo-small {
+    font-size: 0.8em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.logo-big {
+    font-family: Georgia, serif;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* Hero */
+#hero {
+    position: relative;
+}
+
+#hero img {
+    display: block;
+    width: 100%;
+}
+
+.hero-arrow {
+    position: absolute;
+    top: 35%;
+    font-size: 12em;
+    color: white;
+    text-decoration: none;
+}
+
+#hero-arrow-right {
+    right: 2%;
+}
+
+#hero-arrow-left {
+    left: 2%;
+}
+
+/* Sidebar */
+#sidebar, #info {
+    padding: 5px;
+}
+
+#sidebar {
+    background-color: #ffffff;
+}
+
+#sidebar img {
+    display: block;
+    margin: 0 auto;
+}
+
+#info {
+    background-color: #ffffff;
+}
+
+/* Footer links */
+#footer-links-title {
+    width: fit-content;
+    margin: auto;
+    align-items: center;
+}
+
+#footer-links-title h1, #footer-links h2 {
+    margin: 0;
+    padding-left: 10px;
+}
+
+#footer-links-title h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: white;
+}
+
+#footer-links-title h1 {
+    font-family: Georgia, serif;
+    font-size: 1.8em;
+}
+
+#footer-links {
+    background: #73000a;
+    color: white;
+}
+
+#footer-links a {
+    color: white;
+}
+
+/*Footer Copy */
+#footer-copy {
+    background: #000000;
+    border-top: 1px solid #ffffff;
+    color: white;
+}
+
+#footer-copy a {
+    color: white;
+}
+
+/* Navigation */
+#main-nav ul, #quick-links, #top-nav ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+#main-nav li {
+    background-color: #73000a;
+    padding: 10px 5px;
+    border-bottom: 1px solid white;
+    text-align: center;
+}
+
+#main-nav a, #top-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* top nav */
+#top-nav {
+    position: absolute;
+    top: 0.75em;
+    left: 2.5em;
+}
+
+#top-nav a {
+    color: #ffffff;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+#top-nav li {
+    display: inline-block;
+}
+
+#top-nav li:not(:last-child):not(:first-child)::after {
+  content: " | ";
+  color: #ffffff;
+}
+
+/* images */
+img {
+    max-width: 100%;
+}
+
+/* Typography */
+#main-header h1 {
+    text-align: right;
+    font-family: Georgia, serif;
+    font-size: 2.4em;
+    line-height: 58px;
+    margin: 0;
+    padding: 0 3em 0 0;
+}
+
+/* columns for all devices */
+.columns-mobile {
+    display: flex;
+}
+
+.band {
+    position: relative;
+    margin: 40px 0;
+}
+
+.band img {
+    display: block;
+    width: 100%;
+}
+
+.textbox {
+    background: #73000a;
+    color: #ffffff;
+    padding: 35px 40px;
+}
+
+.textbox h2 {
+    color: #ffffff;
+    margin-top: 0;
+    font-size: 2.2em;
+}
+
+.textbox p {
+    line-height: 1.8;
+}
+
+/*  Buttons  */
+.button {
+    display: inline-block;
+    background: #73000a;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 14px 26px;
+    text-decoration: none;
+    font-family: Impact, sans-serif;
+    font-size: 1.05em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* garnet boxes flip their buttons to black */
+.textbox .button,
+.button-black {
+    background: #000000;
+}
+
+/*  Header type  */
+
+#main-header h1 a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#main-nav a {
+    font-family: Impact, 'Arial Narrow', sans-serif;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#top-nav ul {
+    text-transform: uppercase;
+}
+
+h2, h3 {
+    color: #73000a;
+}
+
+/*  Intro paragraph  */
+#intro {
+    max-width: 40em;
+    margin: auto;
+    padding: 50px 20px;
+    font-size: 1.35em;
+    font-weight: bold;
+    line-height: 1.9;
+}
+
+#info {
+    position: relative;
+    padding: 20px 40px;
+}
+
+.quote {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    color: #73000a;
+    font-size: 1.45em;
+    line-height: 1.6;
+    margin: 0;
+}
+
+#quote-band {
+    align-items: center;
+}
+
+.cite {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+/*  Cards  */
+.card {
+    padding: 0 15px;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1.4em;
+}
+
+.card h3 a {
+    color: #73000a;
+    text-decoration: none;
+}
+
+.card h3 a::after {
+    content: " \00BB";
+}
+
+/*  Stay connected  */
+#connect {
+    background: #ededed;
+    text-align: center;
+    padding: 70px 10px;
+}
+
+#connect h2 {
+    font-size: 3em;
+    margin: 0 0 15px;
+}
+
+#connect-links {
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+#connect-links a {
+    background: #73000a;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 14px 26px;
+    text-decoration: none;
+    font-family: Impact, 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* ---- connect footer ---- */
+#connect-footer {
+    background: #ededed;
+    padding: 50px 10px;
+}
+
+/* using the child combinator (>) so that only direct children of the
+   container get the padding, not every div nested inside found on W3 Schools*/
+#connect-footer > div {
+    padding: 0 20px;
+}
+
+#connect-footer h3 {
+    font-family: Georgia, serif;
+    font-size: 1.6em;
+    margin-top: 0;
+}
+
+#connect-footer h3 a {
+    color: #73000a;
+    text-decoration: none;
+}
+
+#connect-footer-row {
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#connect-footer .social {
+    list-style-type: none;
+    display: flex;
+    gap: 18px;
+    padding-left: 0;
+    margin: 0;
+}
+
+#connect-footer .social a {
+    color: #844348;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#quick-links {
+    flex-wrap: wrap;
+    line-height: 2.2;
+}
+
+/* each item is locked to half the width and won't grow or
+   shrink, so the list wraps into two columns */
+#quick-links li {
+    flex: 0 0 50%;
+}
+
+#quick-links a,
+#connect-footer address a {
+    color: #73000a;
+    font-family: Impact, 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+}
+
+#connect-footer address {
+    font-style: normal;
+    line-height: 1.7;
+}
+
+#connect-footer address a {
+    text-transform: none;
+    font-family: inherit;
+    text-decoration: underline;
+}
+
+/* Sitemap footer */
+
+.footer-columns {
+    padding: 30px 10px 40px;
+}
+
+.footer-columns > div {
+    padding: 0 15px;
+}
+
+/* using the child combinator (>) so that only direct children of the
+   container get the padding, not every div nested inside found on W3 Schools*/
+.footer-columns > div {
+    padding: 0 15px;
+}
+
+.footer-columns h3 {
+    font-family: Impact, sans-serif;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 0.25em;
+    margin-bottom: 0.75em;
+}
+
+.footer-columns ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.footer-columns li {
+    font-size: 0.875em;
+    line-height: 1.3;
+    margin-bottom: 7px;
+}
+
+.footer-columns a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/*  Copyright strip  */
+#footer-copy p {
+    padding: 12px 10px;
+    line-height: 2.2;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+#footer-copy a {
+    padding: 0 1em;
+    border-right: 1px solid #ffffff;
+    text-decoration: none;
+}
+
+#footer-copy a:last-child {
+    border-right: 0;
+}
+
+/* Responsive Design */
+
+/* 600 px or larger */
+@media (min-width: 1000px) {
+
+    #logo {
+        position: absolute;
+        left: 2.5em;
+        top: 55px;
+        padding-left: 0;
+    }
+
+    #main-nav {
+        background-color: #73000a;
+    }
+
+    #main-nav ul {
+        justify-content: flex-end;
+        padding-right: 3em;
+    }
+
+    /* each item is locked to half the width and won't grow or
+    shrink, so the list wraps into two columns */
+    #main-nav li {
+        flex: 0 0 auto;
+        padding: 20px 25px;
+        border: 0;
+    }
+
+    .textbox {
+        position: absolute;
+        width: 45%;
+        box-shadow: 0 0 20px 5px rgba(30, 30, 60, 0.3);
+    }
+
+    .textbox-narrow {
+        width: 32%;
+    }
+
+    /* negative bottom pushes the box past the image edge,
+       so it hangs over the white space below not sure if this
+       is the right way to do this but I could not figure a more
+       proper seeming solution out. */
+    .box-bottom-right {
+        right: 6%;
+        bottom: -6%;
+    }
+
+    .box-bottom-left {
+        left: 6%;
+        bottom: -6%;
+    }
+
+    .band {
+        margin-bottom: 100px;
+    }
+    #footer-links-title {
+        margin: 0 0 0 1.5em;
+        padding-top: 1.5em;
+    }
+
+    #content {
+        width: 80%;
+        margin: auto;
+    }
+
+    .columns {
+        display: flex;
+    }
+
+    .one {
+        flex: 1;
+    }
+
+    .two {
+        flex: 2;
+    }
+
+    .three {
+        flex: 3;
+    }
+
+    .four {
+        flex: 4
+    }
+
+    .five {
+        flex: 5;
+    }
+
+    .six {
+        flex: 6;
+    }
+}
