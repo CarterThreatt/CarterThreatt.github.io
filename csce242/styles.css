@@ -104,6 +104,12 @@ a {
     border-radius: 6px;
 }
 
+.tile-body {
+    display: block;
+    color: #2B2622;
+    text-decoration: none;
+}
+
 .tile-links a:hover {
     background: #9B1A17;
 }
