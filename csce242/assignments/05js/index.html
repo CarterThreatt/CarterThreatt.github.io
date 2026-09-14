@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>JavaScript</title>
+        <title>JavaScript Assignment</title>
         <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+        <meta charset="UTF-8">
     </head>
     <body>
         <div id="content">
             <header id="main-header">
                 <h1>JavaScript</h1>
-                <nav id="main-nav">
-                    <ul class="columns">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="intro.html">Introduction</a></li>
-                        <li><a href="loops.html">Loops/Arrays</a></li>
-                        <li><a href="classes.html">Classes</a></li>
-                        <li><a href="json.html">JSON</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </nav>
             </header>
-            <section id="hero">
-                <img src="https://dummyimage.com/1600x400/C2CFC7/ffffff">
-                <a href="#" class="hero-arrow" id="hero-arrow-right">&gt;</a>
-                <a href="#" class="hero-arrow" id="hero-arrow-left">&lt;</a>
-            </section>
+            <main>
+                <div class="projects">
+                    <section class="project-card" id="card-speech-bubble">
+                        <h3>Speech Bubble</h3>
+                        <p id="p-message" class="speech-bubble"></p>
+                </section>
+                    <section class="project-card">
+                        <h3>Beverage</h3>
+                        <p>Pick your morning beverage:
+                        <select id="beverage-select">
+                            <option value="">Choose a beverage</option>
+                            <option value="Coffee">Coffee</option>
+                            <option value="Tea">Tea</option>
+                            <option value="Apple Juice">Apple Juice</option>
+                            <option value="Orange Juice">Orange Juice</option>
+                            <option value="Milk">Milk</option>
+                        </select>
+                        </p>
+                        <p id="beverage-result"></p>
+                    </section>
+                    <section class="project-card">
+                    <h3>Add a Sticker</h3>
+                    <div id="sticker-container">
+                        <img src="images/gamecock logo.jpeg" id="sticker-image" alt="Add a sticker">
+                        <span id="sticker">🔥</span>
+                    </div>
+                    </section>
+                </div>
+            </main>
         </div>
+        <script src="index.js"></script>
     </body>
 </html>
