@@ -168,6 +168,11 @@ h1, h2, h3 {
     100% {bottom: 0;}
 }
 
+/* Hiding */
+.hidden {
+    display:none;
+}
+
 /* Responsive Design */
 
 /* 600 px or larger */
