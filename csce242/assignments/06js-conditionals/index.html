@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript: Conditionals</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="content">
+            <header id="main-header">
+                <h1>JavaScript: Conditionals</h1>
+            </header>
+            <nav id="main-nav">
+                <button id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span id="nav-toggle-arrow">&#9660;</span>
+                </button>
+                <ul id="nav-list">
+                    <li><a href="#" id="nav-exercise-1" class="nav-link">Exercise 1</a></li>
+                    <li><a href="#" id="nav-exercise-2" class="nav-link">Exercise 2</a></li>
+                </ul>
+            </nav>
+            <main>
+                <section class="project-card exercise-card show" id="card-attendance">
+                    <h3>Missing Class Points Deduction</h3>
+                    <p>How many days do you plan on missing class?
+                    <input type="number" id="days-input" min="0" max="25">
+                    </p>
+                    <p id="deduction-result"></p>
+                    <p id="deduction-message"></p>
+                </section>
+                <section class="project-card exercise-card" id="card-semester-counter">
+                    <h3>End of Semester Counter</h3>
+                    <p id="days-left-result"></p>
+                    <p id="semester-message"></p>
+                </section>
+            </main>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
