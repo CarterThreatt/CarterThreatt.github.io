@@ -1,0 +1,380 @@
+:root {
+    --navy: #10213b;
+    --navy-deep: #091628;
+    --maroon: #7a2436;
+    --gold: #edbd69;
+    --gold-accent: #b08d54;
+    --cream: #ece7de;
+    --off-white: #fbfaf7;
+    --footer-muted: #9fb0c9;
+    --body-text: #14151a;
+
+    --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Structure */
+body {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: var(--body-text);
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Header and logo */
+#main-header {
+    background-color: var(--navy);
+    border-top: 5px solid var(--maroon);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+#logo {
+    align-items: center;
+    gap: 12px;
+    color: var(--off-white);
+    text-decoration: none;
+}
+
+#logo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+#logo-text {
+    font-family: var(--font-serif);
+    font-size: 1.3em;
+    letter-spacing: 0.02em; /* I wanted to increase the spacing between letters for a more elegant look and to match my wireframe*/
+}
+
+/* Navigation and toggle menu */
+#nav-toggle {
+    display: block;
+    background: none;
+    border: 0;
+    padding: 15px 4px;
+    font-size: 14px;
+    color: var(--off-white);
+    cursor: pointer; /* I added a cursor pointer to indicate that the button is clickable - not sure if this is the right way to do this but it works for now */
+}
+
+#main-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 4px 0 10px;
+    display: none;
+}
+
+#main-nav ul.show {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: var(--navy);
+    z-index: 10; /*forces the nav to show on top of other elements on the page - I am not sure why it was not showing but this fixed*/
+}
+
+#main-nav li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#main-nav a {
+    color: var(--off-white);
+    text-decoration: none;
+    font-size: 1.05em;
+}
+
+#main-nav a:hover {
+    color: var(--gold-accent);
+}
+
+.nav-link-active {
+    border-bottom: 2px solid var(--gold-accent);
+    padding-bottom: 2px;
+}
+
+/* Hero band */
+.band {
+    position: relative;
+}
+
+.band img {
+    display: block;
+    width: 100%;
+}
+
+#hero img {
+    object-fit: cover;
+    background: var(--navy);
+}
+
+.textbox {
+    background: var(--navy);
+    color: var(--off-white);
+    padding: 30px 20px;
+}
+
+.textbox-center {
+    text-align: center;
+}
+
+/* Overlay the hero text on top of the image at all screen sizes
+   (this used to live inside the desktop media query only) */
+#hero .textbox-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(1, 1, 1, 0.30);
+    padding: 40px;
+}
+
+#hero-eyebrow {
+    font-size: 1em;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    margin: 0 0 14px;
+}
+
+#hero-title {
+    font-size: 2em;
+    line-height: 1.2;
+    margin: 0 0 16px;
+}
+
+#hero-subtitle {
+    font-size: 1.05em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Destinations */
+#destinations {
+    background: var(--cream);
+    padding: 40px 20px 50px;
+}
+
+#destinations h2 {
+    color: var(--navy);
+    font-size: 1.5em;
+    margin-bottom: 26px;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    margin-bottom: 24px;
+}
+
+.cards {
+    margin-bottom: 0;
+}
+
+.card img {
+    display: block;
+    width: 100%;
+}
+
+.card h3 {
+    font-size: 1.15em;
+    padding: 14px 14px 8px;
+}
+
+.card h3 a {
+    color: var(--navy);
+    text-decoration: none;
+}
+
+.card p {
+    margin: 0;
+    padding: 0 14px 18px;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* Timeline */
+#timeline {
+    background: var(--navy);
+    color: var(--off-white);
+    padding: 40px 20px 50px;
+}
+
+#timeline h2 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-bottom: 34px;
+}
+
+.steps {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.step {
+    position: relative;
+    padding: 66px 24px 0 calc(49px / 2); /* the step number circle is 49px wide, so I added padding to the left to make sure the text does not overlap with the circle I wanted the text to start halfway through the circle so I added /2*/
+    margin-bottom: 6px;
+}
+
+.step-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    background: var(--gold-accent);
+    color: #ffffff;
+    font-family: var(--font-serif);
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step h3 {
+    color: #ffffff;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.step p {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Footer */
+#footer-copy {
+    background: var(--navy-deep);
+    border-bottom: 5px solid var(--maroon);
+}
+
+#footer-copy p {
+    margin: 0;
+    padding: 20px;
+    font-size: 0.9em;
+    color: var(--footer-muted);
+}
+
+/* columns for all devices */
+.columns-mobile {
+    display: flex;
+}
+
+/* Responsive Design */
+
+/* 1000px or larger */
+@media (min-width: 1000px) {
+
+    #main-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 40px;
+    }
+
+    #nav-toggle {
+        display: none;
+    }
+
+    #main-nav ul {
+        display: flex;
+        gap: 34px;
+        padding: 0;
+    }
+
+    #main-nav li {
+        border: 0;
+        padding: 0;
+    }
+
+    /* Columns grid system */
+    .columns {
+        display: flex;
+        gap: 24px;
+    }
+
+    .one   {
+        flex: 1;
+    }
+
+    .two   {
+        flex: 2;
+    }
+
+    .three {
+        flex: 3;
+    }
+
+    .four  {
+        flex: 4;
+    }
+
+    .five  {
+        flex: 5;
+    }
+
+    .six   {
+        flex: 6;
+    }
+
+    .card {
+        margin-bottom: 0;
+    }
+
+    #hero-title {
+        font-size: 3.2em;
+        max-width: 900px;
+    }
+
+    #hero-subtitle {
+        max-width: 700px;
+        font-size: 1.2em;
+    }
+
+    #destinations,
+    #timeline {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    .steps {
+        position: relative;
+    }
+
+    .steps::before {
+        content: "";
+        position: absolute;
+        top: 24px;
+        left: calc(49px / 2);
+        right: calc(49px / 2);
+        height: 1px;
+        background: var(--gold-accent);
+    }
+
+    .step {
+        padding-bottom: 0;
+    }
+}

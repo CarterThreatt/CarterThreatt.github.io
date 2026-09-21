@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"?>
+    <title>Capitol Compass — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="/csce242/projects/homepage/index.html" id="logo" class="columns-mobile">
+            <div>
+                <img id="logo-icon" src="images/capitol_icon.png" alt="Capitol Compass logo" aria-hidden="true">
+            </div>
+            <div id="logo-text">CAPITOL COMPASS</div>
+        </a>
+
+        <nav id="main-nav">
+            <button id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span id="nav-toggle-arrow">...</span>
+            </button>
+            <ul id="nav-list">
+                <li><a href="#" id="nav-home" class="nav-link nav-link-active">Home</a></li>
+                <li><a href="#" id="nav-monuments" class="nav-link">Monuments & Memorials</a></li>
+                <li><a href="#" id="nav-capitol-tours" class="nav-link">Capitol Tours</a></li>
+                <li><a href="#" id="nav-wh-tours" class="nav-link">White House Tours</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="top">
+
+        <!-- Hero band -->
+        <section id="hero" class="band">
+            <img src="images/homepage_hero.png" alt="Aerial sunset view of the U.S. Capitol and Washington, D.C. skyline">
+            <div class="textbox textbox-center" id="hero-textbox">
+                <p id="hero-eyebrow">A VISITOR'S GUIDE TO WASHINGTON, D.C</p>
+                <h1 id="hero-title">Get inside the buildings you came to see</h1>
+                <p id="hero-subtitle">Tours, timelines and the real process -- compiled by a former congressional tour coordinator</p>
+            </div>
+        </section>
+
+        <!-- Destinations -->
+        <section id="destinations">
+            <h2>Four Destinations, one unique process each</h2>
+            <div class="columns cards">
+
+                <div class="one card" id="monuments">
+                    <img src="images/monumnets_and_memorials.png" alt="Lincoln Memorial and Washington Monument at sunset">
+                    <h3><a href="#monuments">Monuments &amp; Memorials</a></h3>
+                    <p>Photos, hours, and ticket links for every stop on the National Mall.</p>
+                </div>
+
+                <div class="one card" id="capitol-tours">
+                    <img src="images/cap_tours.png" alt="U.S. Capitol building with cherry blossoms">
+                    <h3><a href="#capitol-tours">Capitol Tours</a></h3>
+                    <p>Staff lead vs. public tours and how to request each.</p>
+                </div>
+
+                <div class="one card" id="white-house-tours">
+                    <img src="images/wh_tours.png" alt="The White House with fountain and gardens">
+                    <h3><a href="#white-house-tours">White House Tours</a></h3>
+                    <p>Request window, screening details and day of logistics.</p>
+                </div>
+
+                <div class="one card" id="smithsonian">
+                    <img src="images/si.png" alt="Smithsonian Institution Building with cherry blossoms">
+                    <h3><a href="#smithsonian">Smithsonian Institution</a></h3>
+                    <p>Locations, timing, special exhibits and tickets.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section id="timeline">
+            <h2>How you should actually plan your DC trip</h2>
+            <ol class="columns steps">
+
+                <li class="one step">
+                    <span class="step-number">1</span>
+                    <h3>Pick Your Dates</h3>
+                    <p>Choose when you will visit the nation’s Capitol. Ideally you should start planning no less than 5 months in advance.</p>
+                </li>
+
+                <li class="one step">
+                    <span class="step-number">2</span>
+                    <h3>Send the request</h3>
+                    <p>Reach out to your Representative or Senator as far out as possible, but no less than 90 days prior to your trip. Some tours can be scheduled in less than 90 days, but 3 months is best!</p>
+                </li>
+
+                <li class="one step">
+                    <span class="step-number">3</span>
+                    <h3>Check your email</h3>
+                    <p>Many top destinations in DC require background screening to visit. These these details are almost entirely requested through email. A missed email can lead to a missed tour!</p>
+                </li>
+
+                <li class="one step">
+                    <span class="step-number">4</span>
+                    <h3>Show up prepared</h3>
+                    <p>Bring a Real ID or passport. Many DC attractions now require them for entry! Pack and wear comfortable shoes, when walking between tours and attractions your feet will thank you!</p>
+                </li>
+
+            </ol>
+        </section>
+
+    </main>
+
+    <footer id="footer-copy">
+        <p>© 2026 Capitol Connect. All Rights Reserved</p>
+    </footer>
+
+<script src="homepage.js"></script>
+</body>
+</html>
