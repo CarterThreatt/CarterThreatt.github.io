@@ -134,6 +134,11 @@ h1, h2, h3 {
     color:var(--headings);
 }
 
+.error {
+    color:red;
+    font-style:italic;
+}
+
 /* columns for all devices */
 .columns-mobile {
     display:flex;
