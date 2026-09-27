@@ -1,0 +1,151 @@
+/* Structure */
+:root {
+    --background:#FAF1E8;
+    --headings: #393D3B;
+    --header: #FAF1E8;
+    --footer: #393D3B;
+    --main-nav: #393D3B;
+    --hero: #C2CFC7;
+    --highlight-bg:#F7BECC;
+    --highlight-fg:  #393D3B;
+    --cards-bg:#FAF1E8;
+    --cards-border:#C2B7AB;
+    --muted-details:#C2B7AB;
+    --light-text: #FAF1E8;
+    --footer-copy-bg: #C2B7AB;
+    --accent-text:#A64F6C;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background);
+    padding:0px;
+    margin:0px;
+}
+
+/* Header */
+#main-header {
+    background-color: var(--background);
+    position: relative;
+}
+
+#main-header h1 {
+    text-align: center;
+    padding:70px 0 20px;
+    margin:0;
+}
+
+h1, h2, h3 {
+    color:var(--headings);
+}
+
+/* Navigation / Toggle Menu */
+#nav-toggle {
+    display:block;
+    background:none;
+    border:0;
+    padding:15px 20px;
+    font-size:14px;
+    color: var(--headings);
+    cursor:pointer;
+}
+
+#nav-toggle-arrow {
+    display:inline-block;
+}
+
+#nav-toggle.open #nav-toggle-arrow {
+    transform: rotate(180deg);
+}
+
+#main-nav ul {
+    list-style-type: none;
+    margin:0;
+    padding:0 20px 15px;
+    display:none;
+}
+
+#main-nav ul.show {
+    display:block;
+}
+
+#main-nav li {
+    padding:6px 0;
+    text-align: left;
+}
+
+#main-nav a {
+    color: var(--headings);
+    text-decoration: none;
+    cursor: pointer;
+    font-size:18px;
+}
+
+#main-nav a:hover {
+    color: var(--accent-text);
+}
+
+/* Projects / Exercise Cards */
+.project-card {
+    background: var(--cards-bg);
+    border: 2px solid var(--cards-border);
+    box-shadow: 4px 4px 0 var(--cards-border);
+    margin:18px 15px;
+}
+
+.project-card h3 {
+    margin: 0;
+    padding: 12px 16px;
+    background: var(--hero);
+    color: var(--headings);
+    text-align: center;
+}
+
+.project-card p {
+    margin: 0;
+    padding: 18px;
+}
+
+/* Styles for JS */
+
+/* Exercise sections - toggled by the nav links */
+.exercise-card {
+    display:none;
+}
+
+.exercise-card.show {
+    display:block;
+}
+
+/* Responsive Design */
+
+/* 1000px or larger */
+@media (min-width: 1000px) {
+    /* Structure */
+    #content {
+        width:80%;
+        margin:auto;
+    }
+
+    /* Navigation */
+    #nav-toggle {
+        display:none;
+    }
+
+    #main-nav ul {
+        display:flex;
+        justify-content:center;
+    }
+
+    #main-nav li {
+        border:0;
+        padding:16px 12px;
+        background-color: transparent;
+    }
+
+    #main-nav li:not(:last-child)::after {
+        content: "|";
+        color: var(--highlight-bg);
+        margin-left: 12px;
+    }
+}
