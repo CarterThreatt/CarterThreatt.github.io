@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitol Compass — Capitol Tours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="../homepage/index.html" id="logo" class="columns-mobile">
+            <div>
+                <img id="logo-icon" src="../homepage/images/capitol_icon.png" alt="Capitol Compass logo" aria-hidden="true">
+            </div>
+            <div id="logo-text">CAPITOL COMPASS</div>
+        </a>
+
+        <nav id="main-nav">
+            <button id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span id="nav-toggle-arrow">...</span>
+            </button>
+            <ul id="nav-list">
+                <li><a href="../homepage/index.html" id="nav-home" class="nav-link">Home</a></li>
+                <li><a href="../monumnets/index.html" id="nav-monuments" class="nav-link">Monuments & Memorials</a></li>
+                <li><a href="../cap-tours/index.html" id="nav-capitol-tours" class="nav-link nav-link-active">Capitol Tours</a></li>
+                <li><a href="../wh-tours/index.html" id="nav-wh-tours" class="nav-link">White House Tours</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="top">
+
+        <!-- Hero band -->
+        <section id="hero" class="band page-hero">
+            <img src="images/hero.png" alt="U.S. Capitol building">
+            <div class="textbox textbox-center" id="hero-textbox">
+                <h1 id="hero-title">Capitol Tours</h1>
+                <p id="hero-subtitle">Two different tours, two different processes. Most visitors request the wrong one — here's how to pick and how to ask.</p>
+            </div>
+        </section>
+
+        <!-- Tour comparison table -->
+        <section id="tour-table" class="content-section">
+            <div class="section-heading">
+                <h2>Which tour do you actually want?</h2>
+            </div>
+            <p class="section-intro">Every constituent asks for "a tour of the Capitol." These are the three things that phrase can mean.</p>
+
+            <div class="compare-table">
+
+                <div class="columns compare-row compare-header">
+                    <div class="one compare-label"></div>
+                    <div class="one">Staff-led tour</div>
+                    <div class="one">Visitors Center Tour</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">Who leads it</div>
+                    <div class="one">An intern or staffer from your Member's office</div>
+                    <div class="one">A trained visitors center tour guide</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">How you book</div>
+                    <div class="one">Online form or emailing your Member's DC office.</div>
+                    <div class="one">Self service portal at: visitthecapitol.gov</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">When to request</div>
+                    <div class="one">2-4 weeks minimum; 3 months during spring and summer</div>
+                    <div class="one">Up to 6 months out. Same day is typically possible.</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">Group Size</div>
+                    <div class="one">Typically just your group! Sometime merged with other small groups from your district.</div>
+                    <div class="one">40-50 people per group.</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">Group Size</div>
+                    <div class="one">Personalized and unique tour that changes based on your interest and stops that the visitors center skips.</div>
+                    <div class="one">Orientation film, Crypt, Rotunda and Statuary Hall</div>
+                </div>
+
+                <div class="columns compare-row">
+                    <div class="one compare-label">Best For</div>
+                    <div class="one">Most visitors - start here</div>
+                    <div class="one">Last-minute or walk-up visits</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- How to request a staff-led tour -->
+        <section id="how-to-request" class="content-section content-section-alt">
+            <div class="section-heading">
+                <h2>How to request a staff-led tour</h2>
+            </div>
+
+            <div class="columns">
+
+                <div class="two">
+                    <ol class="req-steps">
+                        <li class="req-step">
+                            <span class="req-step-number">1</span>
+                            <h3>Find your member's D.C. office</h3>
+                            <p>House.gov and Senate.gov both have a "find your representative" lookup. Use the Washington office, not the district one.</p>
+                            <p class="req-step-links">
+                                <a class="btn-copy" href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">Lookup House Member</a>
+                                <a class="btn-copy" href="https://www.senate.gov/senators/senators-contact.htm" target="_blank" rel="noopener">Lookup Senator</a>
+                            </p>
+                        </li>
+                        <li class="req-step">
+                            <span class="req-step-number">2</span>
+                            <h3>Send one request email</h3>
+                            <p>Preferred date, two backup dates, group size, number of guest, number of children.</p>
+                        </li>
+                        <li class="req-step">
+                            <span class="req-step-number">3</span>
+                            <h3>Confirm the day before</h3>
+                            <p>Most staff-led tours start inside the Member's office in a House Office Building, not on the Capitol steps.</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="one">
+                    <div class="email-template">
+                        <h4>WHAT TO PUT IN THE EMAIL</h4>
+                        <pre>Subject: Capitol tour request - [last name] [date]
+
+Preferred Date:
+Backup Dates:
+Group Size:
+Number of Guest:
+Number of Children:
+Phone and Email:
+Tours Requested:</pre>
+                        <p>Make sure to put the date in the subject line and allow a full week for a responce.</p>
+                        <button class="btn-copy">Copy this template</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Security details + what you'll see -->
+        <section id="on-the-day" class="content-section">
+            <div class="columns">
+
+                <div class="one">
+                    <div class="section-heading">
+                        <h2>Security Details</h2>
+                    </div>
+
+                    <div class="security-box">
+                        <h4>BRING</h4>
+                        <ul>
+                            <li>Real ID or passport</li>
+                            <li>Phone, wallet, keys</li>
+                            <li>Confirmation email</li>
+                            <li>Comfortable Shoes</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-box">
+                        <h4>DON'T BRING</h4>
+                        <ul>
+                            <li>Food, drinks, aerosols</li>
+                            <li>Signs</li>
+                            <li>Pocket Knives</li>
+                            <li>Anything you'd have to check</li>
+                        </ul>
+                    </div>
+
+                    <p><a class="btn-copy" target = new href="https://www.uscp.gov/sites/evo-subsites/uscp.house.gov/files/evo-media-document/prohibited-items-list-graphic-vertical_1.pdf">Full Prohibited Items List</a></p>
+                </div>
+
+                <div class="one">
+                    <div class="section-heading">
+                        <h2>What you'll actually see</h2>
+                    </div>
+
+                    <div class="columns">
+                        <div class="one mini-gallery-card">
+                            <img src="images/rotunda.jpg" alt="The Rotunda">
+                            <div class="mini-gallery-card-body">
+                                <h4>The Rotunda</h4>
+                                <p>Every tour stops here. It may be crowded, but it is breathtaking.</p>
+                            </div>
+                        </div>
+                        <div class="one mini-gallery-card">
+                            <img src="images/statuary-hall.jpg" alt="Statuary Hall">
+                            <div class="mini-gallery-card-body">
+                                <h4>Statuary Hall</h4>
+                                <p>Ask your guide about the whisper tunnels.</p>
+                            </div>
+                        </div>
+                        <div class="one mini-gallery-card">
+                            <img src="images/the-crypt.png" alt="The Crypt">
+                            <div class="mini-gallery-card-body">
+                                <h4>The Crypt</h4>
+                                <p>The center point all DC addresses count from.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="callout">
+                        Gallery Passes for the house and senate chambers are separate. Request them from the same office in your initial email.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Cross CTA -->
+        <section class="cross-cta">
+            <div>
+                <h2>Want to visit the White House too?</h2>
+                <p>Same office, entirely different timeline — start that request at least three months out.</p>
+            </div>
+            <a class="btn" href="../wh-tours/index.html">White House Tours</a>
+        </section>
+
+    </main>
+
+    <footer id="footer-copy">
+        <p>© 2026 Capitol Connect. All Rights Reserved</p>
+    </footer>
+
+<script src="../homepage/homepage.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitol Compass — Monuments & Memorials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="../homepage/index.html" id="logo" class="columns-mobile">
+            <div>
+                <img id="logo-icon" src="../homepage/images/capitol_icon.png" alt="Capitol Compass logo" aria-hidden="true">
+            </div>
+            <div id="logo-text">CAPITOL COMPASS</div>
+        </a>
+
+        <nav id="main-nav">
+            <button id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span id="nav-toggle-arrow">...</span>
+            </button>
+            <ul id="nav-list">
+                <li><a href="../homepage/index.html" id="nav-home" class="nav-link">Home</a></li>
+                <li><a href="../monumnets/index.html" id="nav-monuments" class="nav-link nav-link-active">Monuments & Memorials</a></li>
+                <li><a href="../cap-tours/index.html" id="nav-capitol-tours" class="nav-link">Capitol Tours</a></li>
+                <li><a href="../wh-tours/index.html" id="nav-wh-tours" class="nav-link">White House Tours</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="top">
+
+        <!-- Hero band -->
+        <section id="hero" class="band page-hero">
+            <img src="images/hero.png" alt="Lincoln Memorial reflecting pool at sunset">
+            <div class="textbox textbox-center" id="hero-textbox">
+                <h1 id="hero-title">Monuments &amp; Memorials</h1>
+                <p id="hero-subtitle">Photos, hours, nearest Metro, and ticket links for every stop on the Mall — plus when it's best to go.</p>
+            </div>
+        </section>
+
+        <!-- Filter bar -->
+        <nav class="filter-bar" aria-label="Filter monuments and memorials">
+            <button class="filter-btn filter-btn-active">All 12</button>
+            <button class="filter-btn">Presidential</button>
+            <button class="filter-btn">War Memorials</button>
+            <button class="filter-btn">Open 24 Hours</button>
+            <button class="filter-btn">Tickets Required</button>
+        </nav>
+
+        <!-- Start Here -->
+        <section id="start-here" class="content-section">
+            <div class="section-heading">
+                <h2>Start Here: the four you can't skip</h2>
+                <a href="#top" class="section-link">Open the full map →</a>
+            </div>
+
+            <div class="slideshow" id="start-here-slideshow">
+
+                <div class="slide active">
+                    <div class="feature-card">
+                        <img src="images/lincoln-memorial.png" alt="Lincoln Memorial at night">
+                        <div class="feature-card-body">
+                            <div class="tag-badges">
+                                <span class="tag-badge">OPEN 24 HOURS</span>
+                                <span class="tag-badge">NO TICKETS</span>
+                            </div>
+                            <p class="landmark-tag">PRESIDENTIAL</p>
+                            <h3>Lincoln Memorial</h3>
+                            <p class="feature-desc">Go after 9 p.m. — the crowds thin, the chamber is lit, and the walk back down the Mall is the best view in the city.</p>
+                            <div class="meta-row">
+                                <div>
+                                    <span class="meta-label">HOURS</span>
+                                    <span class="meta-value">24 Hours, 9:30 am - 10 pm</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">NEAREST METRO</span>
+                                    <span class="meta-value">Foggy Bottom - 20 min walk</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">TIME NEEDED</span>
+                                    <span class="meta-value">20-30 mins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="feature-card">
+                        <img src="images/washington-monument.jpg" alt="Washington Monument">
+                        <div class="feature-card-body">
+                            <div class="tag-badges">
+                                <span class="tag-badge">TICKETS REQUIRED</span>
+                            </div>
+                            <p class="landmark-tag">PRESIDENTIAL</p>
+                            <h3>Washington Monument</h3>
+                            <p class="feature-desc">Free timed tickets drop at 10 a.m. daily on recreation.gov and are gone in minutes.</p>
+                            <div class="meta-row">
+                                <div>
+                                    <span class="meta-label">HOURS</span>
+                                    <span class="meta-value">9am - 5pm</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">NEAREST METRO</span>
+                                    <span class="meta-value">Smithsonian</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">TIME NEEDED</span>
+                                    <span class="meta-value">30-45 mins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="feature-card">
+                        <img src="images/jefferson-memorial.jpg" alt="Jefferson Memorial">
+                        <div class="feature-card-body">
+                            <div class="tag-badges">
+                                <span class="tag-badge">OPEN 24 HOURS</span>
+                                <span class="tag-badge">NO TICKETS</span>
+                            </div>
+                            <p class="landmark-tag">PRESIDENTIAL</p>
+                            <h3>Jefferson Memorial</h3>
+                            <p class="feature-desc">The furthest walk of the four, and the only one worth renting a bike for in peak bloom.</p>
+                            <div class="meta-row">
+                                <div>
+                                    <span class="meta-label">HOURS</span>
+                                    <span class="meta-value">24 hours</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">NEAREST METRO</span>
+                                    <span class="meta-value">Smithsonian</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">TIME NEEDED</span>
+                                    <span class="meta-value">30-45 mins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="feature-card">
+                        <img src="images/wwii-memorial.jpg" alt="World War II Memorial">
+                        <div class="feature-card-body">
+                            <div class="tag-badges">
+                                <span class="tag-badge">NO TICKETS</span>
+                            </div>
+                            <p class="landmark-tag">WAR MEMORIAL</p>
+                            <h3>World War II Memorial</h3>
+                            <p class="feature-desc">Sits directly between Lincoln and the Monument, nobody plans for it but you will walk through it.</p>
+                            <div class="meta-row">
+                                <div>
+                                    <span class="meta-label">HOURS</span>
+                                    <span class="meta-value">9am - 5pm</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">NEAREST METRO</span>
+                                    <span class="meta-value">Smithsonian</span>
+                                </div>
+                                <div>
+                                    <span class="meta-label">TIME NEEDED</span>
+                                    <span class="meta-value">30-45 mins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slideshow-controls">
+                    <button class="slideshow-btn slideshow-prev" aria-label="Previous stop">&#8249; Prev</button>
+                    <div class="slideshow-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="slideshow-btn slideshow-next" aria-label="Next stop">Next &#8250;</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- The Rest of The District -->
+        <section id="rest-of-district" class="content-section content-section-alt">
+            <div class="section-heading">
+                <h2>The Rest of The District</h2>
+            </div>
+
+            <div class="columns">
+
+                <div class="one landmark-card">
+                    <img src="images/mlk-memorial.jpg" alt="Martin Luther King, Jr. Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">IMPORTANT FIGURES</p>
+                        <h3>Martin Luther King, Jr. Memorial</h3>
+                        <p class="landmark-desc">On the Tidal Basin loop between Lincoln and Jefferson.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 20 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one landmark-card">
+                    <img src="images/korean-war-memorial.jpg" alt="Korean War Veterans Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">WAR MEMORIAL</p>
+                        <h3>Korean War Veterans Memorial</h3>
+                        <p class="landmark-desc">Best in rain or fog — the statues were built for it.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 20 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one landmark-card">
+                    <img src="images/vietnam-veterans-memorial.jpg" alt="Vietnam Veterans Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">WAR MEMORIAL</p>
+                        <h3>Vietnam Veterans Memorial</h3>
+                        <p class="landmark-desc">Rangers will help you find a name — ask at the kiosk.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 20 Mins</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="columns">
+
+                <div class="one landmark-card">
+                    <img src="images/einstein-memorial.jpg" alt="Albert Einstein Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">IMPORTANT FIGURES</p>
+                        <h3>Albert Einstein Memorial</h3>
+                        <p class="landmark-desc">You're allowed to climb into his lap — the one statue in D.C. you can touch.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 5 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one landmark-card">
+                    <img src="images/grant-memorial.png" alt="Ulysses S. Grant Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">MILITARY</p>
+                        <h3>Ulysses S. Grant Memorial</h3>
+                        <p class="landmark-desc">Where the loop starts. Largest equestrian statue in the country.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 20 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one landmark-card">
+                    <img src="images/fdr-memorial.jpg" alt="Franklin D. Roosevelt Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">PRESIDENT</p>
+                        <h3>Franklin D. Roosevelt Memorial</h3>
+                        <p class="landmark-desc">Four outdoor rooms; allow more time than you think.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 30-40 Mins</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="columns">
+
+                <div class="one landmark-card">
+                    <img src="images/dc-war-memorial.jpg" alt="District of Columbia War Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">WAR MEMORIAL</p>
+                        <h3>District of Columbia War Memorial</h3>
+                        <p class="landmark-desc">Tucked in the trees off the main path; almost always empty.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 5 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one landmark-card">
+                    <img src="images/marine-corps-war-memorial.jpg" alt="Marine Corps War Memorial">
+                    <div class="landmark-card-body">
+                        <p class="landmark-tag">WAR MEMORIAL</p>
+                        <h3>Marine Corps War Memorial</h3>
+                        <p class="landmark-desc">Off the loop in Arlington — pair it with the cemetery, not the Mall.</p>
+                        <p class="landmark-meta">24 Hours - No Ticket - 10 Mins</p>
+                    </div>
+                </div>
+
+                <div class="one"></div>
+
+            </div>
+        </section>
+
+        <!-- Walk it in one afternoon -->
+        <section id="loop-cta">
+            <div class="columns">
+                <div class="two">
+                    <p class="eyebrow">WALK IT IN ONE AFTERNOON</p>
+                    <h2>The 3.5 mile loop, in the right order</h2>
+                    <p>Start at the Capitol steps, finish at Lincoln after dark. Every memorial above, no backtracking, about four hours with stops.</p>
+                </div>
+                <div class="one loop-map">
+                    <img src="https://placehold.co/586x371/091628/9fb0c9?text=National+Mall+Route+Map" alt="Map of the walking loop between the Capitol and the National Mall memorials">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="footer-copy">
+        <p>© 2026 Capitol Connect. All Rights Reserved</p>
+    </footer>
+
+<script src="../homepage/homepage.js"></script>
+</body>
+</html>
