@@ -15,14 +15,29 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 document.querySelectorAll(".slideshow").forEach((show) => {
     const slides = show.querySelectorAll(".slide");
     const dots = show.querySelectorAll(".dot");
-    let current = 0;
 
-    const goTo = (index) => {
-        slides[current].classList.remove("active");
-        dots[current].classList.remove("active");
-        current = (index + slides.length) % slides.length;
-        slides[current].classList.add("active");
-        dots[current].classList.add("active");
+    const showSlide = (index) => {
+        slides.forEach((slide, i) => {
+            slide.classList.remove("active");
+            dots[i].classList.remove("active");
+        });
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+    };
+
+    // step is 1 for next and -1 for previous, slides hidden by the filter are skipped
+    const move = (step) => {
+        let current = 0;
+        slides.forEach((slide, i) => {
+            if (slide.classList.contains("active")) {
+                current = i;
+            }
+        });
+        let next = (current + step + slides.length) % slides.length;
+        while (slides[next].classList.contains("hidden")) {
+            next = (next + step + slides.length) % slides.length;
+        }
+        showSlide(next);
     };
 
     const prevBtn = show.querySelector(".slideshow-prev");
@@ -30,21 +45,83 @@ document.querySelectorAll(".slideshow").forEach((show) => {
 
     if (prevBtn) {
         prevBtn.onclick = (e) => {
-            goTo(current - 1);
+            move(-1);
         };
     }
 
     if (nextBtn) {
         nextBtn.onclick = (e) => {
-            goTo(current + 1);
+            move(1);
         };
     }
 
     dots.forEach((dot, i) => {
         dot.onclick = (e) => {
-            goTo(i);
+            showSlide(i);
         };
     });
+});
+
+// Filter the monuments and memorials with the buttons in the filter bar
+document.querySelectorAll(".filter-btn").forEach((button) => {
+    button.onclick = (e) => {
+        const type = button.value;
+
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+            btn.classList.remove("filter-btn-active");
+        });
+        button.classList.add("filter-btn-active");
+
+        document.querySelectorAll(".monument").forEach((item) => {
+            if (type == "all" || item.classList.contains(type)) {
+                item.classList.remove("hidden");
+            } else {
+                item.classList.add("hidden");
+            }
+        });
+
+        // slideshow starts again on the first stop that is left
+        const slides = document.querySelectorAll(".slide");
+        const dots = document.querySelectorAll(".dot");
+        let shown = 0;
+        slides.forEach((slide, i) => {
+            slide.classList.remove("active");
+            dots[i].classList.remove("active");
+            if (slide.classList.contains("hidden")) {
+                dots[i].classList.add("hidden");
+            } else {
+                dots[i].classList.remove("hidden");
+                if (shown == 0) {
+                    slide.classList.add("active");
+                    dots[i].classList.add("active");
+                }
+                shown++;
+            }
+        });
+
+        // one stop left does not need the prev and next buttons
+        const controls = document.querySelector(".slideshow-controls");
+        if (shown > 1) {
+            controls.classList.remove("hidden");
+        } else {
+            controls.classList.add("hidden");
+        }
+
+        // hide a whole section when nothing in it matches
+        document.querySelectorAll("#start-here, #rest-of-district").forEach((section) => {
+            let matches = 0;
+            section.querySelectorAll(".monument").forEach((item) => {
+                if (!item.classList.contains("hidden")) {
+                    matches++;
+                }
+            });
+            if (matches == 0) {
+                section.classList.add("hidden");
+            } else {
+                section.classList.remove("hidden");
+            }
+        });
+    };
 });
 
 // Copy the email template text to the clipboard - Found how to do this on W3 Schools

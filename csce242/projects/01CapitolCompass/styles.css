@@ -123,6 +123,7 @@ h1, h2, h3 {
 
 #hero img {
     object-fit: cover;
+    height: 460px;
     background: var(--navy);
 }
 
@@ -151,7 +152,8 @@ h1, h2, h3 {
 
 #hero-eyebrow {
     font-size: 1em;
-    color: var(--gold);
+    font-weight: 700;
+    color: var(--off-white);
     letter-spacing: 0.04em;
     margin: 0 0 14px;
 }
@@ -188,6 +190,10 @@ h1, h2, h3 {
 
 .cards {
     margin-bottom: 0;
+}
+
+.card > a {
+    display: block;
 }
 
 .card img {
@@ -567,6 +573,8 @@ h1, h2, h3 {
 
 /* Mini gallery card (room previews) */
 .mini-gallery-card {
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     margin-bottom: 20px;
 }
@@ -579,6 +587,9 @@ h1, h2, h3 {
 }
 
 .mini-gallery-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 14px;
 }
 
@@ -599,7 +610,7 @@ h1, h2, h3 {
 .mini-gallery-card .btn-secondary {
     display: block;
     text-align: center;
-    margin-top: 12px;
+    margin-top: auto;
     background: var(--navy);
     color: #ffffff;
     text-decoration: none;
@@ -609,6 +620,10 @@ h1, h2, h3 {
 .mini-gallery-card .btn-secondary:hover {
     background: var(--maroon);
     font-size: 0.9em;
+}
+
+#cant-get-in .mini-gallery-card p {
+    margin-bottom: 12px;
 }
 
 /* Comparison table (Capitol Tours) */
@@ -685,6 +700,11 @@ h1, h2, h3 {
     font-size: 0.95em;
     line-height: 1.5;
     margin-top: 20px;
+}
+
+#guest-info .callout,
+#on-the-day .one > p {
+    margin-bottom: 40px;
 }
 
 /* Email template card */
@@ -892,6 +912,10 @@ h1, h2, h3 {
     color: var(--footer-muted);
 }
 
+.hidden {
+    display: none;
+}
+
 /* columns for all devices */
 .columns-mobile {
     display: flex;
@@ -915,7 +939,7 @@ h1, h2, h3 {
 
     #main-nav ul {
         display: flex;
-        gap: 34px;
+        gap: 24px;
         padding: 0;
     }
 
@@ -956,6 +980,10 @@ h1, h2, h3 {
 
     .card {
         margin-bottom: 0;
+    }
+
+    #hero img {
+        height: auto;
     }
 
     #hero-title {
@@ -1023,6 +1051,23 @@ h1, h2, h3 {
     .section-heading .section-link,
     .section-heading .section-note {
         margin-top: 0;
+    }
+
+    #guest-info .callout {
+        margin-bottom: 0;
+    }
+
+    #on-the-day .one > p {
+        margin-bottom: 1em;
+    }
+
+    #rest-of-district .columns {
+        flex-wrap: wrap;
+        row-gap: 0;
+    }
+
+    #rest-of-district .landmark-card {
+        flex: 0 0 calc((100% - 48px) / 3);
     }
 
     .mini-card {
