@@ -258,6 +258,10 @@ h2 {
     background: var(--maroon-light);
 }
 
+.tile-links a + a {
+    margin-top: 8px;
+}
+
 /* Used by the filter buttons */
 .hidden {
     display: none;
