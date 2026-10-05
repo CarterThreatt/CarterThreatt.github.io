@@ -1,169 +1,216 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8"> <!-- when I added the é in my résumé link in my main nav it was displying garbage for those characters, I found that this fixed it https://help.crisp.chat/en/article/how-to-troubleshoot-encoding-issues-in-the-chatbox-xja6ge/ -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CSCE 242 Portfolio Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div id="content">
-            <header>
-                <div id="name">
-                    <h2>Carter T. Threatt</h2>
-                </div>
+            <header id="main-header">
+                <p id="name">Carter T. Threatt</p>
                 <h1>CSCE 242: Web Applications</h1>
-                <ul id="main-nav">
-                    <li><a href="https://github.com/CarterThreatt/CarterThreatt.github.io" target="_blank">GitHub Repository</a></li>
-                    <li><a href="https://www.linkedin.com/in/carter-threatt/" target="_blank">LinkedIn</a></li>
-                    <li><a href="../homepage-files/cthreatt-resume.pdf" target="_blank">Résumé</a></li>
-                </ul>
+                <p id="intro">My assignments from the semester and my main project, Capitol Connect, a website to help first time visitors to Washington DC plan their trip.</p>
+
+                <nav id="main-nav">
+                    <button id="nav-toggle" aria-label="Toggle navigation menu">
+                        <span id="nav-toggle-arrow">...</span>
+                    </button>
+                    <ul id="nav-list">
+                        <li><a href="https://github.com/CarterThreatt/CarterThreatt.github.io" target="_blank">GitHub Repository</a></li>
+                        <li><a href="https://www.linkedin.com/in/carter-threatt/" target="_blank">LinkedIn</a></li>
+                        <li><a href="../homepage-files/cthreatt-resume.pdf" target="_blank">Résumé</a></li>
+                    </ul>
+                </nav>
             </header>
 
             <main>
-                <h2>Assignments</h2>
-                <div id="assignments" class="columns tile-row">
-                    <a href="assignments/01html/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 1 - Basic HTML</h3>
+                <section id="filter-bar">
+                    <p id="filter-label">Show:</p>
+                    <button class="filter-btn filter-btn-active" value="all">All</button>
+                    <button class="filter-btn" value="html-css">HTML &amp; CSS</button>
+                    <button class="filter-btn" value="javascript">JavaScript</button>
+                    <button class="filter-btn" value="project">Main Project</button>
+                    <p id="filter-count"></p>
+                </section>
+
+                <section id="assignments">
+                    <h2>Assignments</h2>
+                    <div class="columns tile-row">
+                        <div class="tile html-css">
+                            <a href="assignments/01html/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/01html.png" alt="Screenshot of Assignment 1">
+                                <div class="tile-text">
+                                    <span class="tile-tag">HTML &amp; CSS</span>
+                                    <h3>Assignment 1 - Basic HTML</h3>
+                                    <p>Basic HTML with headings, images, lists, tables and anchor tags.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/01html.png" alt="">
-                        <p>Basic HTML with headings, images, list, tables and anchor tags.</p>
-                    </a>
 
-                    <a href="assignments/02css/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 2 - Basic CSS</h3>
+                        <div class="tile html-css">
+                            <a href="assignments/02css/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/02css.png" alt="Screenshot of Assignment 2">
+                                <div class="tile-text">
+                                    <span class="tile-tag">HTML &amp; CSS</span>
+                                    <h3>Assignment 2 - Basic CSS</h3>
+                                    <p>Basic CSS to style a website including background images, divs, typography, images, table styling along with novice use of padding.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/02css.png" alt="">
-                        <p>Basic CSS to style a website including background images, divs, typography, images, table styling along with novice use of padding. </p>
-                    </a>
 
-                    <a href="assignments/03flex/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 3 - Page Layout</h3>
+                        <div class="tile html-css">
+                            <a href="assignments/03flex/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/03flex.png" alt="Screenshot of Assignment 3">
+                                <div class="tile-text">
+                                    <span class="tile-tag">HTML &amp; CSS</span>
+                                    <h3>Assignment 3 - Page Layout</h3>
+                                    <p>An introduction to flexbox to create columns on a webpage along with basic responsive design and media queries.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/03flex.png" alt="">
-                        <p>An introduction to flexbox to create columns on a webpage along with basic reponsive design and media querys.</p>
-                    </a>
-                </div>
-                <div id="assignments" class="columns tile-row">
-                    <a href="assignments/04recreate_css_page/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 4 - Recreate CSS Page</h3>
+
+                        <div class="tile html-css">
+                            <a href="assignments/04recreate_css_page/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/04recreate_css_page.png" alt="Screenshot of Assignment 4">
+                                <div class="tile-text">
+                                    <span class="tile-tag">HTML &amp; CSS</span>
+                                    <h3>Assignment 4 - Recreate CSS Page</h3>
+                                    <p>Recreating the HTML and CSS structure of the Floyd School of Medicine Webpage to practice flexbox techniques and responsive design.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/04recreate_css_page.png" alt="">
-                        <p>Recreateing the HTML and CSS structure of the Floyd School of Medicine Webpage to practice flexbox techniques and responsive design.</p>
-                    </a>
 
-                    <a href="assignments/05js/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 5 - JavaScript Intro</h3>
+                        <div class="tile javascript">
+                            <a href="assignments/05js/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/05js.png" alt="Screenshot of Assignment 5">
+                                <div class="tile-text">
+                                    <span class="tile-tag">JavaScript</span>
+                                    <h3>Assignment 5 - JavaScript Intro</h3>
+                                    <p>Simple implementation of JavaScript concepts.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/05js.png" alt="">
-                        <p>Simple Implementation of JavaScript Concepts.</p>
-                    </a>
 
-                    <a href="assignments/06js-conditionals/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 6 - JavaScript Conditionals</h3>
+                        <div class="tile javascript">
+                            <a href="assignments/06js-conditionals/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/06js_conditionals.png" alt="Screenshot of Assignment 6">
+                                <div class="tile-text">
+                                    <span class="tile-tag">JavaScript</span>
+                                    <h3>Assignment 6 - JavaScript Conditionals</h3>
+                                    <p>Implementation of JavaScript conditionals to create dynamic content.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/06js_conditionals.png" alt="">
-                        <p>Implementation of JavaScript conditionals to create dynamic content.</p>
-                    </a>
 
-                </div>
-
-                <div id="assignments" class="columns tile-row">
-
-                <a href="assignments/07js-loops/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 7 - JavaScript Loops</h3>
+                        <div class="tile javascript">
+                            <a href="assignments/07js-loops/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/07jsdrawing-a-road.png" alt="Screenshot of Assignment 7">
+                                <div class="tile-text">
+                                    <span class="tile-tag">JavaScript</span>
+                                    <h3>Assignment 7 - JavaScript Loops</h3>
+                                    <p>Implementation of JavaScript loops to draw a road on the page.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/07jsdrawing-a-road.png" alt="">
-                        <p>Implementation of JavaScript conditionals to create dynamic content.</p>
-                </a>
 
-                 <a href="assignments/08js-arrays/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 8 - JavaScript Arrays</h3>
+                        <div class="tile javascript">
+                            <a href="assignments/08js-arrays/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/08JSArrays.png" alt="Screenshot of Assignment 8">
+                                <div class="tile-text">
+                                    <span class="tile-tag">JavaScript</span>
+                                    <h3>Assignment 8 - JavaScript Arrays</h3>
+                                    <p>Implementation of JavaScript arrays to pick a destination type and show its places on a map.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/08JSLoops.png" alt="">
-                        <p>Implementation of JavaScript arrays to create dynamic content.</p>
-                </a>
 
-                <a href="assignments/09classes/index.html" class="tile three" target="_blank">
-                        <div class="tile-header">
-                            <h3>Assignment 9 - JavaScript Classes</h3>
+                        <div class="tile javascript">
+                            <a href="assignments/09classes/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/09classes.png" alt="Screenshot of Assignment 9">
+                                <div class="tile-text">
+                                    <span class="tile-tag">JavaScript</span>
+                                    <h3>Assignment 9 - JavaScript Classes</h3>
+                                    <p>Implementation of JavaScript classes to build a vacation gallery with a popup that shows each destination's details and map.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/09classes.png" alt="">
-                        <p>Implementation of JavaScript classes to build a vacation gallery with a popup that shows each destination's details and map.</p>
-                </a>
-
-                </div>
-        <h2>Projects</h2>
-            <div id="projects" class="columns tile-row">
-                <a href="projects/part1/topic_selection.pdf" class="tile one tile-body" target="_blank">
-                    <div class="tile-header">
-                        <h3>Project Topic Selection</h3>
                     </div>
-                    <img class="tile-img" src="../homepage-files/images/topicselection.png" alt="">
-                    <p>View my full topic proposal for my main project. Capitol Connect will be a website to help first time visitors to Washington DC plan their trip.</p>
-                </a>
+                </section>
 
-                <div class="tile one">
-                    <a href="projects/part2/02homepage_wireframe.pdf" class="tile one tile-body" target="_blank">
-                        <div class="tile-header">
-                            <h3>Homepage Wireframe</h3>
+                <section id="projects">
+                    <h2>Projects</h2>
+                    <div class="columns tile-row">
+                        <div class="tile project">
+                            <a href="projects/part1/topic_selection.pdf" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/topicselection.png" alt="First page of my project topic selection">
+                                <div class="tile-text">
+                                    <span class="tile-tag">Main Project</span>
+                                    <h3>Project Topic Selection</h3>
+                                    <p>View my full topic proposal for my main project. Capitol Connect will be a website to help first time visitors to Washington DC plan their trip.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/homepage_wireframe.png" alt="">
-                        <p>View the wireframe for the homepage of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
-                    </a>
-                    <p class="tile-links">
-                        <a href="https://youtu.be/JxXRB0-YEc4" target="_blank">Video</a>
-                    </p>
-                </div>
 
-                 <div class="tile one">
-                    <a href="projects/part3/03_full_wireframe.pdf" class="tile one tile-body" target="_blank">
-                        <div class="tile-header">
-                            <h3>Full Wireframe</h3>
+                        <div class="tile project">
+                            <a href="projects/part2/02homepage_wireframe.pdf" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/homepage_wireframe.png" alt="Wireframe of the Capitol Connect homepage">
+                                <div class="tile-text">
+                                    <span class="tile-tag">Main Project</span>
+                                    <h3>Homepage Wireframe</h3>
+                                    <p>View the wireframe for the homepage of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
+                                </div>
+                            </a>
+                            <p class="tile-links">
+                                <a href="https://youtu.be/JxXRB0-YEc4" target="_blank">Video</a>
+                            </p>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/full_wireframe.png" alt="">
-                        <p>View the wireframe of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
-                    </a>
-                    <p class="tile-links">
-                        <a href="https://youtu.be/C-Q94I2ZW-4" target="_blank">Video</a>
-                    </p>
-                </div>
-            </div>
 
-            <div id="projects" class="columns tile-row">
-                <div class="tile one">
-                    <a href="projects/01CapitolCompass/homepage/index.html" class="tile one tile-body" target="_blank">
-                        <div class="tile-header">
-                            <h3>Homepage</h3>
+                        <div class="tile project">
+                            <a href="projects/part3/03_full_wireframe.pdf" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/full_wireframe.png" alt="Full wireframe of the Capitol Connect website">
+                                <div class="tile-text">
+                                    <span class="tile-tag">Main Project</span>
+                                    <h3>Full Wireframe</h3>
+                                    <p>View the wireframe of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
+                                </div>
+                            </a>
+                            <p class="tile-links">
+                                <a href="https://youtu.be/C-Q94I2ZW-4" target="_blank">Video</a>
+                            </p>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/homepage_coded.png" alt="">
-                        <p>View the homepage of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
-                    </a>
-                </div>
 
-                 <div class="tile one">
-                    <a href="projects/01CapitolCompass/homepage/index.html" class="tile one tile-body" target="_blank">
-                        <div class="tile-header">
-                            <h3>Full Site HTML/CSS</h3>
+                        <div class="tile project">
+                            <a href="projects/01CapitolCompass/homepage/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/homepage_coded.png" alt="Screenshot of the Capitol Connect homepage">
+                                <div class="tile-text">
+                                    <span class="tile-tag">Main Project</span>
+                                    <h3>Homepage</h3>
+                                    <p>View the homepage of my main project, Capitol Connect, which will help first time visitors to Washington DC plan their trip.</p>
+                                </div>
+                            </a>
                         </div>
-                        <img class="tile-img" src="../homepage-files/images/homepage_coded.png" alt="">
-                        <p>View my entire main project Capitol Connect, which will help first time visitors to Washington DC plan their trip. No JavaScript yet.</p>
-                    </a>
-                </div>
 
+                        <div class="tile project">
+                            <a href="projects/01CapitolCompass/homepage/index.html" class="tile-body" target="_blank">
+                                <img class="tile-img" src="../homepage-files/images/homepage_coded.png" alt="Screenshot of the Capitol Connect homepage">
+                                <div class="tile-text">
+                                    <span class="tile-tag">Main Project</span>
+                                    <h3>Full Site</h3>
+                                    <p>View my entire main project Capitol Connect, which will help first time visitors to Washington DC plan their trip. Now with JavaScript.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </main>
 
-            </div>
-        </main>
             <footer>
                 <p>&copy; 2026 Carter T. Threatt. All rights reserved.</p>
             </footer>
         </div>
+
+        <script src="index.js"></script>
     </body>
 </html>
