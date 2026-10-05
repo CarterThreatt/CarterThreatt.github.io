@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Assignment 9 - Classes</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header id="main-header">
+            <h1>Vacations</h1>
+            <h2>Vacation Experiences</h2>
+        </header>
+
+        <main id="content">
+            <section id="gallery"></section>
+        </main>
+
+        <footer id="photo-credits">
+            <p>
+                Photos from Wikimedia Commons: Asheville by Asheville Photography (CC BY-SA 4.0),
+                Boone by allison from Hickory, NC (CC BY 2.0), Blowing Rock by Fjmustak (CC BY-SA 4.0),
+                Table Rock by Clemson3564 (CC BY 3.0), Edisto Beach from NARA (public domain),
+                Pawleys Island by Phoebe (CC BY-SA 4.0), Folly Beach by Brian Stansberry (CC BY 4.0),
+                Myrtle Beach by Loadmaster (David R. Tribble) (CC BY-SA 3.0).
+            </p>
+        </footer>
+
+        <div id="vacation-modal" class="w3-modal">
+            <div class="w3-modal-content">
+                <span id="modal-close" class="w3-button w3-display-topright">&times;</span>
+                <div class="modal-body">
+                    <div class="modal-map">
+                        <iframe id="modal-map" title="Vacation map" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                    </div>
+                    <div class="modal-info">
+                        <h2 id="modal-title"></h2>
+                        <p><strong>Type:</strong> <span id="modal-type"></span></p>
+                        <p><strong>Description:</strong> <span id="modal-description"></span></p>
+                        <p><strong>Things To Do:</strong> <span id="modal-things"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="classes.js"></script>
+    </body>
+</html>
