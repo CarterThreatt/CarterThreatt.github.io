@@ -57,3 +57,6 @@ document.querySelectorAll(".filter-btn").forEach((button) => {
 });
 
 updateCount();
+
+// Keeps the copyright year current in the footer
+document.getElementById("footer-year").textContent = new Date().getFullYear();
