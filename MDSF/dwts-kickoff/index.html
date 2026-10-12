@@ -37,12 +37,12 @@
   }
   @keyframes drift { from { transform: scale(1.08) translateX(-12px); } to { transform: scale(1.14) translateX(12px); } }
   .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events: none; }
-  #sparkle { position: absolute; inset: 0; width: 1024px; height: 768px; z-index: 3; pointer-events: none; }
+  #sparkle { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
 
   /* Slides */
   .slide {
     position: absolute; inset: 0; z-index: 2;
-    padding: 56px 72px 96px;
+    padding: 56px max(72px, calc((100% - 880px) / 2)) 96px;
     display: flex; flex-direction: column; justify-content: center;
     opacity: 0; visibility: hidden;
     transition: opacity .7s ease, visibility 0s linear .7s;
@@ -93,9 +93,9 @@
 
   /* ---------- Cover (fully coded, animated) ---------- */
   .cover { padding: 0; background: radial-gradient(ellipse at 35% 45%, #1c1406 0%, #070503 55%, #000 100%); }
-  .cover canvas, .thanks canvas { position: absolute; inset: 0; width: 1024px; height: 768px; }
+  .cover canvas, .thanks canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   .thanks { padding: 0; background: radial-gradient(ellipse at 30% 45%, #1c1406 0%, #070503 55%, #000 100%); }
-  .thanks .content { position: absolute; left: 430px; right: 18px; top: 312px; z-index: 4; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .thanks .content { position: absolute; left: calc(50% - 82px); right: calc(50% - 494px); top: 312px; z-index: 4; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .thanks h2 { font-size: 46px; }
   .thanks .stars { grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 0; width: 100%; }
   .thanks .ring { width: 118px; height: 118px; padding: 5px; }
@@ -503,8 +503,14 @@
 
   // Keep the 1024x768 (4:3) stage fitted to the screen
   const fit = () => {
-    const s = Math.min(window.innerWidth / 1024, window.innerHeight / 768) * zoom;
-    stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
+    // Content is designed at 1024x768; the stage stretches to fill the whole screen
+    // (any extra width or height is filled with background, content stays centered).
+    const base = Math.min(window.innerWidth / 1024, window.innerHeight / 768);
+    const sw = window.innerWidth / base, sh = window.innerHeight / base;
+    stage.style.width = sw + "px"; stage.style.height = sh + "px";
+    stage.style.transform = "translate(-50%, -50%) scale(" + (base * zoom) + ")";
+    const sp = document.getElementById("sparkle");
+    ["sparkle", "coverCanvas", "thanksCanvas"].forEach((id) => { const c = document.getElementById(id); if (c) { c.width = Math.round(sw); c.height = Math.round(sh); } });
   };
 
   // Seats slide: final numbers are already in the HTML; this just animates into them
@@ -736,9 +742,9 @@
 
     // Floor glitter + falling dust
     const floor = [];
-    for (let i = 0; i < 700; i++) { const y = rand(690, 768); floor.push({ x: rand(0, W), y, s: rand(.6, 1.6) + (y - 690) / 50, ph: Math.random() * 6.28, sp: rand(1, 4) }); }
+    for (let i = 0; i < 1100; i++) { const y = rand(690, 768); floor.push({ x: Math.random(), y, s: rand(.6, 1.6) + (y - 690) / 50, ph: Math.random() * 6.28, sp: rand(1, 4) }); }
     const dust = [];
-    for (let i = 0; i < 140; i++) dust.push({ x: rand(0, W), y: rand(0, H), vy: rand(.15, .55), vx: rand(-.1, .1), s: rand(.5, 1.6), ph: Math.random() * 6.28 });
+    for (let i = 0; i < 200; i++) dust.push({ x: Math.random(), y: rand(0, H), vy: rand(.15, .55), vx: rand(-.1, .1), s: rand(.5, 1.6), ph: Math.random() * 6.28 });
 
     // Star flares
     const flares = [
@@ -797,7 +803,9 @@
 
     const frame = (now) => {
       const t = (now - t0) / 1000;
-      ctx.clearRect(0, 0, W, H);
+      const CW = cv.width, CH = cv.height, ox = (CW - W) / 2, oy = (CH - H) / 2;
+      ctx.clearRect(0, 0, CW, CH);
+      ctx.save(); ctx.translate(ox, oy);
 
       // warm glow
       const halo = ctx.createRadialGradient(330, 360, 20, 330, 360, 540);
@@ -851,30 +859,35 @@
       if (sprites.logo) drawPts(sprites.logo.pts, t, 0);
       ctx.restore();
 
-      // floor
+      ctx.restore();
+      // floor + dust span the full screen width
+      ctx.save(); ctx.translate(0, CH - H);
       const fl = ctx.createLinearGradient(0, 680, 0, H);
       fl.addColorStop(0, "rgba(228,178,84,0)"); fl.addColorStop(.25, "rgba(228,178,84," + .16 * clamp(t / 2) + ")"); fl.addColorStop(1, "rgba(120,80,15,.05)");
-      ctx.fillStyle = fl; ctx.fillRect(0, 680, W, H - 680);
+      ctx.fillStyle = fl; ctx.fillRect(0, 680, CW, H - 680);
       ctx.save(); ctx.globalCompositeOperation = "lighter";
       for (const f of floor) {
         const tw = Math.sin(t * f.sp + f.ph);
         ctx.globalAlpha = (0.15 + 0.85 * tw * tw) * clamp(t / 1.5) * 0.8;
         ctx.fillStyle = tw > .9 ? "#FFF8E1" : "#E4B254";
-        ctx.fillRect(f.x, f.y, f.s, f.s);
+        ctx.fillRect(f.x * CW, f.y, f.s, f.s);
       }
       for (const d of dust) {
-        d.y += d.vy; d.x += d.vx; if (d.y > H) { d.y = -5; d.x = rand(0, W); }
+        d.y += d.vy; d.x += d.vx / CW; if (d.y > H) { d.y = -5; d.x = Math.random(); }
         ctx.globalAlpha = (0.2 + 0.6 * Math.sin(t * 2 + d.ph) ** 2) * clamp(t / 2);
-        ctx.fillStyle = "#F6D37A"; ctx.fillRect(d.x, d.y, d.s, d.s);
+        ctx.fillStyle = "#F6D37A"; ctx.fillRect(d.x * CW, d.y, d.s, d.s);
       }
+      ctx.restore();
       ctx.restore();
 
       // star flares
+      ctx.save(); ctx.translate(ox, oy);
       for (const f of flares) {
         if (t < f.d) continue;
         const a = Math.pow(Math.max(0, Math.sin((t - f.d) * 1.3)), 3);
         drawFlare(f.x, f.y, f.r * (0.7 + 0.3 * a), a);
       }
+      ctx.restore();
 
       if (active) raf = requestAnimationFrame(frame);
     };
@@ -904,7 +917,7 @@
   const dots = [];
   for (let i = 0; i < 60; i++) {
     dots.push({
-      x: Math.random() * 1024, y: Math.random() * 768,
+      x: Math.random() * 1400, y: Math.random() * 1000,
       r: Math.random() * 2.4 + 0.6,
       vy: -(Math.random() * 0.25 + 0.06),
       vx: (Math.random() - 0.5) * 0.12,
@@ -913,10 +926,11 @@
     });
   }
   const draw = (t) => {
-    ctx.clearRect(0, 0, 1024, 768);
+    ctx.clearRect(0, 0, cv.width, cv.height);
     for (const d of dots) {
       d.y += d.vy; d.x += d.vx;
-      if (d.y < -20) { d.y = 788; d.x = Math.random() * 1024; }
+      if (d.y < -20) { d.y = cv.height + 20; d.x = Math.random() * cv.width; }
+      if (d.x > cv.width + 20) d.x = Math.random() * cv.width;
       const a = 0.3 + 0.35 * Math.sin(t / 900 + d.p);
       const r = d.big ? d.r * 6 : d.r;
       const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, r * 2);
