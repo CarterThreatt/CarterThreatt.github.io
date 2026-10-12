@@ -12,55 +12,58 @@ document.querySelectorAll(".nav-link").forEach((link) => {
     };
 });
 // Slideshow (Start Here sidebar stops on the Monuments & Memorials page)
-document.querySelectorAll(".slideshow").forEach((show) => {
-    const slides = show.querySelectorAll(".slide");
-    const dots = show.querySelectorAll(".dot");
+// The slides on that page come from the json file, so monuments.js calls this once they are built
+const setUpSlideshows = () => {
+    document.querySelectorAll(".slideshow").forEach((show) => {
+        const slides = show.querySelectorAll(".slide");
+        const dots = show.querySelectorAll(".dot");
 
-    const showSlide = (index) => {
-        slides.forEach((slide, i) => {
-            slide.classList.remove("active");
-            dots[i].classList.remove("active");
-        });
-        slides[index].classList.add("active");
-        dots[index].classList.add("active");
-    };
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.remove("active");
+                dots[i].classList.remove("active");
+            });
+            slides[index].classList.add("active");
+            dots[index].classList.add("active");
+        };
 
-    // step is 1 for next and -1 for previous, slides hidden by the filter are skipped
-    const move = (step) => {
-        let current = 0;
-        slides.forEach((slide, i) => {
-            if (slide.classList.contains("active")) {
-                current = i;
+        // step is 1 for next and -1 for previous, slides hidden by the filter are skipped
+        const move = (step) => {
+            let current = 0;
+            slides.forEach((slide, i) => {
+                if (slide.classList.contains("active")) {
+                    current = i;
+                }
+            });
+            let next = (current + step + slides.length) % slides.length;
+            while (slides[next].classList.contains("hidden")) {
+                next = (next + step + slides.length) % slides.length;
             }
-        });
-        let next = (current + step + slides.length) % slides.length;
-        while (slides[next].classList.contains("hidden")) {
-            next = (next + step + slides.length) % slides.length;
+            showSlide(next);
+        };
+
+        const prevBtn = show.querySelector(".slideshow-prev");
+        const nextBtn = show.querySelector(".slideshow-next");
+
+        if (prevBtn) {
+            prevBtn.onclick = (e) => {
+                move(-1);
+            };
         }
-        showSlide(next);
-    };
 
-    const prevBtn = show.querySelector(".slideshow-prev");
-    const nextBtn = show.querySelector(".slideshow-next");
+        if (nextBtn) {
+            nextBtn.onclick = (e) => {
+                move(1);
+            };
+        }
 
-    if (prevBtn) {
-        prevBtn.onclick = (e) => {
-            move(-1);
-        };
-    }
-
-    if (nextBtn) {
-        nextBtn.onclick = (e) => {
-            move(1);
-        };
-    }
-
-    dots.forEach((dot, i) => {
-        dot.onclick = (e) => {
-            showSlide(i);
-        };
+        dots.forEach((dot, i) => {
+            dot.onclick = (e) => {
+                showSlide(i);
+            };
+        });
     });
-});
+};
 
 // Filter the monuments and memorials with the buttons in the filter bar
 document.querySelectorAll(".filter-btn").forEach((button) => {
@@ -125,7 +128,7 @@ document.querySelectorAll(".filter-btn").forEach((button) => {
 });
 
 // Copy the email template text to the clipboard - Found how to do this on W3 Schools
-document.querySelectorAll(".email-template .btn-copy").forEach((button) => {
+document.querySelectorAll(".email-template button.btn-copy").forEach((button) => {
     const originalText = button.textContent;
 
     button.onclick = (e) => {
