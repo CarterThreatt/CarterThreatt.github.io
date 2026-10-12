@@ -6,7 +6,7 @@
 <title>Dancer Kickoff · Dancing With the Stars for Marlie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@800;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold-1: #A8761E;
@@ -61,7 +61,7 @@
   /* Type */
   .eyebrow { font-family: "Cinzel", Georgia, serif; font-size: 15px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold-2); margin: 0 0 14px; }
   h2 {
-    font-family: "Playfair Display", Georgia, serif; font-weight: 800; margin: 0; font-size: 50px; line-height: 1.1;
+    font-family: "Playfair Display", Georgia, serif; font-weight: 800; margin: 0; font-size: 50px; line-height: 1.3; padding: 0.12em 0.12em 0.4em 0.02em; margin: -0.12em 0 -0.34em -0.02em;
     background: var(--gold-grad); background-size: 220% 100%;
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-2);
     animation: sheen 6s ease-in-out infinite alternate;
@@ -93,7 +93,13 @@
 
   /* ---------- Cover (fully coded, animated) ---------- */
   .cover { padding: 0; background: radial-gradient(ellipse at 35% 45%, #1c1406 0%, #070503 55%, #000 100%); }
-  .cover canvas { position: absolute; inset: 0; width: 1024px; height: 768px; }
+  .cover canvas, .thanks canvas { position: absolute; inset: 0; width: 1024px; height: 768px; }
+  .thanks { padding: 0; background: radial-gradient(ellipse at 30% 45%, #1c1406 0%, #070503 55%, #000 100%); }
+  .thanks .content { position: absolute; left: 430px; right: 18px; top: 312px; z-index: 4; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .thanks h2 { font-size: 46px; }
+  .thanks .stars { grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 0; width: 100%; }
+  .thanks .ring { width: 118px; height: 118px; padding: 5px; }
+  .thanks .star .nm { font-size: 17px; margin-top: 12px; text-shadow: 0 2px 10px #000; white-space: nowrap; }
   .cover .caption { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; z-index: 4; }
   .cover .caption .k { font-family: "Playfair Display", Georgia, serif; font-weight: 800; font-size: 28px; color: #fff; letter-spacing: 1px; text-shadow: 0 2px 16px rgba(0,0,0,.95); }
   .cover .caption .w { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 5px; color: var(--gold-3); margin-top: 6px; text-shadow: 0 2px 10px #000; }
@@ -129,15 +135,7 @@
 
   /* Trophies */
   .trophy { text-align: center; padding: 30px 26px; }
-  .ball {
-    width: 74px; height: 74px; margin: 0 auto 16px; border-radius: 50%;
-    background:
-      radial-gradient(circle at 32% 30%, rgba(255,255,255,.95) 0 6%, transparent 14%),
-      repeating-conic-gradient(from 10deg, #F6D37A 0 9deg, #8a6418 9deg 18deg, #FFF1C1 18deg 27deg, #C9952F 27deg 36deg);
-    box-shadow: 0 0 26px rgba(246,211,122,.7), inset -10px -10px 18px rgba(0,0,0,.45);
-    animation: twirl 8s linear infinite;
-  }
-  @keyframes twirl { to { filter: hue-rotate(0deg); background-position: 0 0; transform: rotate(360deg); } }
+  .mball { display: block; width: 100px; height: 124px; margin: -6px auto 10px; }
 
   /* Alert slide */
   .alert { border: 2px solid var(--gold-2); box-shadow: 0 0 40px rgba(228,178,84,.25), inset 0 0 30px rgba(228,178,84,.06); }
@@ -196,6 +194,12 @@
   .btn:disabled { opacity: .3; cursor: default; transform: none; filter: none; }
   .btn.ghost { background: rgba(0,0,0,.4); color: var(--gold-3); }
   .counter { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 2px; color: var(--muted); min-width: 64px; text-align: center; }
+  /* Last slide: hide navigation; hover the bottom edge (or use the arrow keys) to bring it back */
+  .controls, .progress { transition: opacity .6s ease; }
+  #stage.clean .controls, #stage.clean .progress { opacity: 0; }
+  #stage.clean .controls:hover { opacity: 1; }
+  #stage.clean { cursor: none; }
+  #stage.clean .controls:hover, #stage.clean .controls:hover * { cursor: pointer; }
   .progress { position: absolute; left: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #A8761E, #F6D37A); box-shadow: 0 0 10px rgba(246,211,122,.8); transition: width .6s ease; z-index: 7; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -273,8 +277,8 @@
     <h2 class="a" style="--d:1">Two Mirror Ball Trophies</h2>
     <div class="rule a fade" style="--d:2"></div>
     <div class="grid2">
-      <div class="card trophy a pop" style="--d:3"><div class="ball"></div><span class="icon">Top Fundraiser</span><h3>Most Money Raised</h3><p>Awarded to the Star who raises the most for the Foundation.</p></div>
-      <div class="card trophy a pop" style="--d:4"><div class="ball" style="animation-direction:reverse"></div><span class="icon">Judges’ Choice</span><h3>Most Points Earned</h3><p>Awarded to the Star whose dance earns the most points from the judges at the Gala.</p></div>
+      <div class="card trophy a pop" style="--d:3"><canvas class="mball" width="200" height="248"></canvas><span class="icon">Top Fundraiser</span><h3>Most Money Raised</h3><p>Awarded to the Star who raises the most for the Foundation.</p></div>
+      <div class="card trophy a pop" style="--d:4"><canvas class="mball" width="200" height="248" data-dir="-1"></canvas><span class="icon">Judges’ Choice</span><h3>Most Points Earned</h3><p>Awarded to the Star whose dance earns the most points from the judges at the Gala.</p></div>
     </div>
     <p class="small a" style="--d:6; margin-top:26px; font-size:19px">What counts toward your fundraising: gifts on your personal page or with your name selected at marliedrusullivan.org/dwts, cash and checks you record, and sponsorships credited to you.</p>
   </section>
@@ -329,7 +333,7 @@
     <div class="rule a fade" style="--d:2"></div>
     <div class="tiers">
       <div class="card tier a" style="--d:3"><div class="lvl">Diamond</div><div class="amt">$22,000</div><div class="tix">2 tables · 16 tickets</div></div>
-      <div class="card tier feature a" style="--d:4"><div class="lvl">Platinum</div><div class="amt">$10,000</div><div class="tix">1 table · 8 tickets</div></div>
+      <div class="card tier a" style="--d:4"><div class="lvl">Platinum</div><div class="amt">$10,000</div><div class="tix">1 table · 8 tickets</div></div>
       <div class="card tier a" style="--d:5"><div class="lvl">Gold</div><div class="amt">$3,000</div><div class="tix">4 tickets</div></div>
       <div class="card tier a" style="--d:6"><div class="lvl">Silver</div><div class="amt">$1,220</div><div class="tix">2 tickets</div></div>
     </div>
@@ -448,6 +452,22 @@
     <p class="eyebrow a fade" style="--d:8; margin-top:14px">#LiveLikeMarlie</p>
   </section>
 
+  <!-- 16 · THANK YOU (leave up for the meet & greet) -->
+  <section class="slide thanks" id="thanksSlide">
+    <canvas id="thanksCanvas" width="1024" height="768"></canvas>
+    <div class="content">
+      <h2 class="a" style="--d:9">Thank You</h2>
+      <div class="rule a fade" style="--d:10; margin:14px auto 26px"></div>
+      <div class="stars">
+        <div class="star a pop" style="--d:11"><div class="ring"><div class="face" style="background-image:url('angela.jpg')"></div></div><div class="nm">Angela Woods</div></div>
+        <div class="star a pop" style="--d:12"><div class="ring"><div class="face" style="background-image:url('bethany.jpg')"></div></div><div class="nm">Bethany Thomas</div></div>
+        <div class="star a pop" style="--d:13"><div class="ring"><div class="face" style="background-image:url('kevin.jpg')"></div></div><div class="nm">Dr. Kevin Miller</div></div>
+        <div class="star a pop" style="--d:14"><div class="ring"><div class="face" style="background-image:url('lucas.jpg')"></div></div><div class="nm">Lucas McFadden</div></div>
+      </div>
+      <p class="eyebrow a fade" style="--d:16; margin:40px 0 0">#LiveLikeMarlie</p>
+    </div>
+  </section>
+
   <canvas id="sparkle" width="1024" height="768"></canvas>
 
   <div class="controls">
@@ -517,6 +537,8 @@
     history.replaceState(null, "", "#" + (current + 1));
     if (slides[current].id === "seatsSlide") runSeats();
     if (window.coverScene) coverScene.setActive(slides[current].id === "coverSlide");
+    if (window.thanksScene) thanksScene.setActive(slides[current].id === "thanksSlide");
+    stage.classList.toggle("clean", slides[current].id === "thanksSlide");
   };
 
   prevBtn.onclick = (e) => show(current - 1);
@@ -547,118 +569,137 @@
   show((parseInt(location.hash.slice(1), 10) || 1) - 1);
 
 
+
+  // ================= MIRROR BALLS (slide 5) =================
+  // A real faceted sphere that slowly turns, with glints that catch the light.
+  (() => {
+    const balls = Array.from(document.querySelectorAll(".mball")).map((cv) => ({
+      cv, ctx: cv.getContext("2d"), dir: parseFloat(cv.dataset.dir || "1"), rot: Math.random() * 6,
+      seed: Array.from({ length: 2000 }, () => Math.random())
+    }));
+    if (!balls.length) return;
+    const R = 84, CX = 100, CY = 152, ROWS = 16, COLS = 32;
+    const L = { x: -0.45, y: -0.6, z: 0.66 };   // light from the upper left
+    const proj = (lat, lon, rot) => {
+      const lo = lon + rot;
+      const x = Math.cos(lat) * Math.sin(lo), y = Math.sin(lat), z = Math.cos(lat) * Math.cos(lo);
+      return { x: CX + x * R, y: CY + y * R, z, nx: x, ny: y };
+    };
+    const draw = (b, t) => {
+      const g = b.ctx;
+      g.clearRect(0, 0, 200, 248);
+      // hanging chain
+      g.strokeStyle = "rgba(246,211,122,.7)"; g.lineWidth = 2;
+      g.beginPath(); g.moveTo(CX, 0); g.lineTo(CX, CY - R - 4); g.stroke();
+      g.fillStyle = "#C9952F"; g.fillRect(CX - 7, CY - R - 10, 14, 9);
+      // glow
+      const glow = g.createRadialGradient(CX, CY, R * .6, CX, CY, R * 1.25);
+      glow.addColorStop(0, "rgba(246,200,90,.35)"); glow.addColorStop(1, "rgba(246,200,90,0)");
+      g.fillStyle = glow; g.beginPath(); g.arc(CX, CY, R * 1.25, 0, 6.283); g.fill();
+      g.save(); g.beginPath(); g.arc(CX, CY, R, 0, 6.283); g.clip();
+      g.fillStyle = "#2a1c06"; g.fillRect(CX - R, CY - R, R * 2, R * 2);
+      let k = 0;
+      for (let i = 0; i < ROWS; i++) {
+        const la0 = -Math.PI / 2 + (i / ROWS) * Math.PI, la1 = -Math.PI / 2 + ((i + 1) / ROWS) * Math.PI;
+        for (let j = 0; j < COLS; j++, k++) {
+          const lo0 = (j / COLS) * 6.283, lo1 = ((j + 1) / COLS) * 6.283;
+          const c = proj((la0 + la1) / 2, (lo0 + lo1) / 2, b.rot);
+          if (c.z <= 0.02) continue;
+          const p = [proj(la0, lo0, b.rot), proj(la0, lo1, b.rot), proj(la1, lo1, b.rot), proj(la1, lo0, b.rot)];
+          const diff = Math.max(0, c.nx * L.x + c.ny * L.y + c.z * L.z);
+          const rnd = b.seed[k];
+          let v = 0.25 + 0.55 * diff + (rnd - 0.5) * 0.35;
+          const glint = Math.sin(t * 2.2 + rnd * 40) > 0.985 - diff * 0.03;
+          if (glint) v = 1.3;
+          v = Math.max(0.08, Math.min(1.3, v));
+          const r = Math.min(255, 70 + 200 * v), gg = Math.min(255, 45 + 170 * v), bb = Math.min(255, 10 + 110 * v * v);
+          g.fillStyle = "rgb(" + (r | 0) + "," + (gg | 0) + "," + (bb | 0) + ")";
+          g.beginPath(); g.moveTo(p[0].x, p[0].y); g.lineTo(p[1].x, p[1].y); g.lineTo(p[2].x, p[2].y); g.lineTo(p[3].x, p[3].y); g.closePath(); g.fill();
+          g.strokeStyle = "rgba(40,26,4,.85)"; g.lineWidth = 0.9; g.stroke();
+          if (glint) { // little four-point sparkle
+            g.save(); g.globalCompositeOperation = "lighter"; g.fillStyle = "rgba(255,250,230,.9)";
+            g.fillRect(c.x - 7, c.y - .6, 14, 1.2); g.fillRect(c.x - .6, c.y - 7, 1.2, 14); g.restore();
+          }
+        }
+      }
+      // sphere shading + specular highlight
+      const sh = g.createRadialGradient(CX - R * .35, CY - R * .4, R * .1, CX, CY, R);
+      sh.addColorStop(0, "rgba(255,248,220,.25)"); sh.addColorStop(.55, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.55)");
+      g.fillStyle = sh; g.fillRect(CX - R, CY - R, R * 2, R * 2);
+      g.restore();
+      g.strokeStyle = "rgba(246,211,122,.6)"; g.lineWidth = 1.5; g.beginPath(); g.arc(CX, CY, R, 0, 6.283); g.stroke();
+    };
+    let last = 0;
+    const loop = (now) => {
+      const onSlide = balls[0].cv.closest(".slide").classList.contains("active");
+      if (onSlide) {
+        const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+        for (const b of balls) { if (!reduce) b.rot += 0.35 * dt * b.dir; draw(b, now / 1000); }
+      }
+      last = now;
+      requestAnimationFrame(loop);
+    };
+    balls.forEach((b) => draw(b, 0));
+    requestAnimationFrame(loop);
+  })();
+
   // ================= COVER SCENE =================
-  // Everything on the cover is drawn in code: a glitter dancer, glitter lettering,
-  // swirling particle trails, drifting bokeh, star flares, and a sparkling floor.
-  const coverScene = (() => {
-    const cv = document.getElementById("coverCanvas");
+  // The dancer and lettering are cut out of the homepage art (dancer.png, logo.png);
+  // everything else is drawn live in code: glitter that flies in and builds them,
+  // swirling particle trails, drifting bokeh, star flares, light sweeps, and a sparkling floor.
+  const makeScene = (canvasId, logoAt) => {
+    const cv = document.getElementById(canvasId);
     const ctx = cv.getContext("2d");
     const W = 1024, H = 768;
     const GOLDS = ["#FFF8E1", "#FFF1C1", "#F6D37A", "#E4B254", "#D9A23A"];
     const rand = (a, b) => a + Math.random() * (b - a);
     const clamp = (v) => Math.max(0, Math.min(1, v));
     const ease = (t) => 1 - Math.pow(1 - t, 3);
-    let ready = false, active = false, raf = null, t0 = 0;
-    let dancerBase, textBase, dancerPts = [], textPts = [];
+    let active = false, raf = null, t0 = 0;
 
-    // Dancer silhouette (traced from the homepage art) as a tiny 1-bit mask
-    const DANCER = { x: 36, y: 36, w: 395, h: 640 };
-    const maskImg = new Image();
-
-    const off = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
-
-    // Fill whatever is already drawn on c with a gold gradient + static glitter texture
-    const goldify = (c, x0, y0, x1, y1) => {
-      const g = c.getContext("2d");
-      g.globalCompositeOperation = "source-in";
-      const grad = g.createLinearGradient(x0, y0, x1, y1);
-      grad.addColorStop(0, "#FFF4CC"); grad.addColorStop(.35, "#F2C55E");
-      grad.addColorStop(.65, "#D9A23A"); grad.addColorStop(1, "#9E6E1A");
-      g.fillStyle = grad; g.fillRect(0, 0, W, H);
-      g.globalCompositeOperation = "source-atop";
-      for (let i = 0; i < 26000; i++) {
-        const x = rand(x0, x1), y = rand(y0, y1), r = Math.random();
-        g.fillStyle = r < .5 ? "rgba(255,250,225,.55)" : r < .8 ? "rgba(120,80,15,.45)" : "rgba(255,215,120,.7)";
-        const s = rand(.8, 2.4);
-        g.fillRect(x, y, s, s);
-      }
-      g.globalCompositeOperation = "source-over";
+    // Placement (scaled from the homepage art so the two pieces sit exactly as designed)
+    const S = 0.95;
+    const sprites = {
+      dancer: { img: new Image(), src: "dancer.png", x: 32, y: 30, w: 444 * S, h: 689 * S, delay: 0.5, pts: [], shine: null, ready: false },
+      logo:   { img: new Image(), src: "logo.png",   x: logoAt ? logoAt.x : 32 + (760 - 566) * S, y: logoAt ? logoAt.y : 30 + (240 - 21) * S, w: 816 * (logoAt ? logoAt.s : S), h: 365 * (logoAt ? logoAt.s : S), delay: 1.5, pts: [], shine: null, ready: false }
     };
 
-    // Pick random points inside the drawn shape on canvas c
-    const sample = (c, n, x0, y0, x1, y1) => {
-      const g = c.getContext("2d");
-      const data = g.getImageData(0, 0, W, H).data;
-      const pts = [];
-      let tries = 0;
-      while (pts.length < n && tries < n * 60) {
-        tries++;
-        const x = Math.floor(rand(x0, x1)), y = Math.floor(rand(y0, y1));
-        if (data[(y * W + x) * 4 + 3] > 128) pts.push({ x, y });
-      }
-      return pts;
+    const prepSprite = (sp) => {
+      // a copy we can wash a moving highlight across
+      const c = document.createElement("canvas"); c.width = Math.ceil(sp.w); c.height = Math.ceil(sp.h);
+      const g = c.getContext("2d"); g.drawImage(sp.img, 0, 0, sp.w, sp.h);
+      sp.shine = c;
+      // glitter points sampled from the bright parts of the art
+      try {
+        const data = g.getImageData(0, 0, c.width, c.height).data;
+        let tries = 0;
+        while (sp.pts.length < 2600 && tries < 200000) {
+          tries++;
+          const x = Math.floor(Math.random() * c.width), y = Math.floor(Math.random() * c.height);
+          const i = (y * c.width + x) * 4;
+          if (data[i + 3] > 200 && data[i] + data[i + 1] > 330) {
+            sp.pts.push({ x: sp.x + x, y: sp.y + y, sx: rand(-120, W + 120), sy: rand(-120, H + 120),
+              d: sp.delay + Math.random() * .8, ph: Math.random() * 6.28, sp: rand(1.5, 4), s: rand(.8, 2.2),
+              c: GOLDS[Math.floor(Math.random() * GOLDS.length)] });
+          }
+        }
+      } catch (err) { /* opened from a local file: skip the fly-in glitter, the art still fades in */ }
+      sp.ready = true;
     };
-
-    const spaced = (g, text, cx, y, spacing) => {
-      const widths = [...text].map((ch) => g.measureText(ch).width);
-      const total = widths.reduce((a, b) => a + b, 0) + spacing * (text.length - 1);
-      let x = cx - total / 2;
-      [...text].forEach((ch, i) => { g.fillText(ch, x, y); x += widths[i] + spacing; });
-      return total;
-    };
-
-    const build = () => {
-      // Dancer
-      dancerBase = off();
-      dancerBase.getContext("2d").drawImage(maskImg, DANCER.x, DANCER.y, DANCER.w, DANCER.h);
-      const dancerShape = off(); dancerShape.getContext("2d").drawImage(dancerBase, 0, 0);
-      goldify(dancerBase, DANCER.x, DANCER.y, DANCER.x + DANCER.w, DANCER.y + DANCER.h);
-      dancerPts = sample(dancerShape, 2400, DANCER.x, DANCER.y, DANCER.x + DANCER.w, DANCER.y + DANCER.h);
-
-      // Lettering
-      textBase = off();
-      const g = textBase.getContext("2d");
-      g.fillStyle = "#fff"; g.textBaseline = "alphabetic";
-      const round = '"Nunito", "Arial Rounded MT Bold", "Helvetica Neue", Arial, sans-serif';
-      g.font = "900 128px " + round; g.fillText("dancing", 300, 318);
-      const danW = g.measureText("dancing").width;
-      g.font = "800 46px " + round; g.fillText("with the", 336, 372);
-      g.font = "900 158px " + round; g.fillText("STARS", 312, 510);
-      const starsW = g.measureText("STARS").width;
-      const cx = 312 + starsW / 2;
-      g.font = "500 50px Cinzel, Georgia, serif";
-      const fmW = spaced(g, "FOR MARLIE", cx, 588, 7);
-      // thin rules either side of FOR MARLIE
-      g.fillRect(cx - fmW / 2 - 190, 570, 165, 2);
-      g.fillRect(cx + fmW / 2 + 25, 570, 165, 2);
-      const textShape = off(); textShape.getContext("2d").drawImage(textBase, 0, 0);
-      goldify(textBase, 290, 200, Math.max(300 + danW, cx + fmW / 2 + 200), 600);
-      textPts = sample(textShape, 3000, 290, 200, 1000, 600);
-
-      // Each glitter point flies in from somewhere on screen to its spot
-      const prep = (p, delay) => {
-        p.sx = rand(-100, W + 100); p.sy = rand(-100, H + 100);
-        p.d = delay + Math.random() * 0.9; p.ph = Math.random() * 6.28;
-        p.sp = rand(1.5, 4); p.s = rand(.8, 2.2); p.c = GOLDS[Math.floor(Math.random() * GOLDS.length)];
-      };
-      dancerPts.forEach((p) => prep(p, 0.4));
-      textPts.forEach((p) => prep(p, 1.4));
-      ready = true;
-    };
+    Object.values(sprites).forEach((sp) => { sp.img.onload = (e) => prepSprite(sp); sp.img.src = sp.src; });
 
     // Swirl ring around the dancer
     const swirl = [];
     for (let i = 0; i < 2600; i++) {
-      const th = Math.random() * 6.283;
-      swirl.push({ th, w: rand(.12, .32), off: (Math.random() + Math.random() + Math.random() - 1.5) * 22, s: rand(.9, 2.8), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
+      swirl.push({ th: Math.random() * 6.283, w: rand(.12, .32), off: (Math.random() + Math.random() + Math.random() - 1.5) * 22, s: rand(.9, 2.6), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
     }
-    const SW = { cx: 330, cy: 360, rx: 345, ry: 262, rot: -0.32 };
+    const SW = { cx: 300, cy: 360, rx: 330, ry: 262, rot: -0.32 };
 
     // Right-side swoosh (quadratic curve)
     const swoosh = [];
-    for (let i = 0; i < 650; i++) swoosh.push({ u: Math.random(), v: rand(.04, .12), off: (Math.random() + Math.random() - 1) * 24, s: rand(.6, 2), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
+    for (let i = 0; i < 700; i++) swoosh.push({ u: Math.random(), v: rand(.04, .12), off: (Math.random() + Math.random() - 1) * 24, s: rand(.6, 2), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
     const curve = (u) => {
-      const p0 = { x: 1080, y: 20 }, p1 = { x: 900, y: 440 }, p2 = { x: 600, y: 470 };
+      const p0 = { x: 1080, y: 10 }, p1 = { x: 930, y: 420 }, p2 = { x: 640, y: 470 };
       const a = (1 - u) * (1 - u), b = 2 * (1 - u) * u, c = u * u;
       return { x: a * p0.x + b * p1.x + c * p2.x, y: a * p0.y + b * p1.y + c * p2.y };
     };
@@ -667,21 +708,19 @@
     const bokeh = [];
     for (let i = 0; i < 26; i++) {
       const right = Math.random() < .7;
-      bokeh.push({ x: right ? rand(680, 1040) : rand(-20, 300), y: rand(0, 760), r: rand(8, 38), a: rand(.05, .22), vx: rand(-.08, .08), vy: rand(-.12, -.02), ph: Math.random() * 6.28 });
+      bokeh.push({ x: right ? rand(700, 1040) : rand(-20, 260), y: rand(0, 760), r: rand(8, 38), a: rand(.05, .22), vx: rand(-.08, .08), vy: rand(-.12, -.02), ph: Math.random() * 6.28 });
     }
 
-    // Floor glitter
+    // Floor glitter + falling dust
     const floor = [];
-    for (let i = 0; i < 700; i++) { const y = rand(686, 768); floor.push({ x: rand(0, W), y, s: rand(.6, 1.6) + (y - 686) / 50, ph: Math.random() * 6.28, sp: rand(1, 4) }); }
-
-    // Falling dust
+    for (let i = 0; i < 700; i++) { const y = rand(690, 768); floor.push({ x: rand(0, W), y, s: rand(.6, 1.6) + (y - 690) / 50, ph: Math.random() * 6.28, sp: rand(1, 4) }); }
     const dust = [];
     for (let i = 0; i < 140; i++) dust.push({ x: rand(0, W), y: rand(0, H), vy: rand(.15, .55), vx: rand(-.1, .1), s: rand(.5, 1.6), ph: Math.random() * 6.28 });
 
     // Star flares
     const flares = [
-      { x: 286, y: 54, r: 46, d: 2.0 }, { x: 815, y: 262, r: 62, d: 3.1 }, { x: 812, y: 420, r: 40, d: 4.2 },
-      { x: 120, y: 560, r: 34, d: 5.0 }, { x: 960, y: 150, r: 30, d: 2.6 }, { x: 410, y: 140, r: 26, d: 3.7 }
+      { x: 296, y: 132, r: 46, d: 2.2 }, { x: 820, y: 262, r: 64, d: 3.2 }, { x: 640, y: 418, r: 40, d: 4.3 },
+      { x: 120, y: 560, r: 34, d: 5.0 }, { x: 960, y: 150, r: 30, d: 2.7 }, { x: 905, y: 556, r: 26, d: 3.8 }
     ];
     const drawFlare = (x, y, r, a) => {
       ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = a;
@@ -694,18 +733,57 @@
       ctx.restore();
     };
 
+    // Draw one cut-out piece with its fade-in, gentle float, and a light band sweeping across it
+    const drawSprite = (sp, t, floatY) => {
+      if (!sp.ready) return;
+      const a = clamp((t - sp.delay - 1.1) / 1.3);
+      if (a <= 0) return;
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.globalAlpha = a;
+      ctx.drawImage(sp.img, sp.x, sp.y + floatY, sp.w, sp.h);
+      // moving highlight, clipped to the art itself
+      const g = sp.shine.getContext("2d");
+      g.globalCompositeOperation = "source-over";
+      g.clearRect(0, 0, sp.shine.width, sp.shine.height);
+      g.drawImage(sp.img, 0, 0, sp.w, sp.h);
+      g.globalCompositeOperation = "source-in";
+      const cyc = ((t - sp.delay) % 5) / 1.8;
+      const bx = -200 + cyc * (sp.shine.width + 400);
+      const lg = g.createLinearGradient(bx - 120, 0, bx + 120, sp.shine.height * .4);
+      lg.addColorStop(0, "rgba(255,248,220,0)"); lg.addColorStop(.5, "rgba(255,248,220,.75)"); lg.addColorStop(1, "rgba(255,248,220,0)");
+      g.fillStyle = lg; g.fillRect(0, 0, sp.shine.width, sp.shine.height);
+      ctx.globalAlpha = a * 0.55;
+      ctx.drawImage(sp.shine, sp.x, sp.y + floatY);
+      ctx.restore();
+    };
+
+    const drawPts = (pts, t, floatY) => {
+      for (const p of pts) {
+        const k = ease(clamp((t - p.d) / 1.8));
+        if (k <= 0) continue;
+        const x = p.sx + (p.x - p.sx) * k, y = p.sy + (p.y + floatY - p.sy) * k;
+        const tw = Math.sin(t * p.sp + p.ph);
+        // bright while flying in, then settle into a gentle twinkle on top of the art
+        ctx.globalAlpha = k < 1 ? 0.95 : (tw > .92 ? 1 : 0.12 * tw * tw);
+        ctx.fillStyle = p.c;
+        const s = p.s * (tw > .97 ? 2.2 : 1);
+        ctx.fillRect(x, y, s, s);
+      }
+    };
+
     const frame = (now) => {
       const t = (now - t0) / 1000;
       ctx.clearRect(0, 0, W, H);
 
-      // warm glow behind the dancer and lettering
-      const halo = ctx.createRadialGradient(360, 360, 20, 360, 360, 520);
+      // warm glow
+      const halo = ctx.createRadialGradient(330, 360, 20, 330, 360, 540);
       halo.addColorStop(0, "rgba(120,82,18," + (0.35 * clamp(t / 2)) + ")"); halo.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
 
       // bokeh
       for (const b of bokeh) {
-        b.x += b.vx; b.y += b.vy; if (b.y < -50) { b.y = H + 40; }
+        b.x += b.vx; b.y += b.vy; if (b.y < -50) b.y = H + 40;
         const a = b.a * (0.7 + 0.3 * Math.sin(t * .8 + b.ph)) * clamp(t / 1.5);
         const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
         g.addColorStop(0, "rgba(246,211,122," + a + ")"); g.addColorStop(.7, "rgba(228,178,84," + a * .6 + ")"); g.addColorStop(1, "rgba(228,178,84,0)");
@@ -713,7 +791,7 @@
       }
 
       ctx.save(); ctx.globalCompositeOperation = "lighter";
-      // swirl ring, revealed as a sweeping arc during the intro
+      // swirl ring, drawn in as a sweeping arc during the intro
       const reveal = ease(clamp(t / 2.6)) * 6.283;
       for (const p of swirl) {
         p.th += p.w / 60;
@@ -726,13 +804,11 @@
         ctx.globalAlpha = Math.min(1, fade * 1.3) * (0.5 + 0.5 * Math.sin(t * 3 + p.ph) ** 2);
         ctx.fillStyle = p.c; ctx.fillRect(x, y, p.s, p.s);
       }
-      // glowing core line of the swirl
-      ctx.globalAlpha = 0.55 * clamp(t / 2.6);
+      ctx.globalAlpha = 0.5 * clamp(t / 2.6);
       ctx.strokeStyle = "rgba(255,226,150,.9)"; ctx.lineWidth = 1.6;
       ctx.shadowColor = "rgba(246,200,90,1)"; ctx.shadowBlur = 14;
-      ctx.beginPath();
-      ctx.ellipse(SW.cx, SW.cy, SW.rx, SW.ry, SW.rot, 3.6, 3.6 + Math.max(0.001, reveal * 0.82));
-      ctx.stroke(); ctx.shadowBlur = 0;
+      ctx.beginPath(); ctx.ellipse(SW.cx, SW.cy, SW.rx, SW.ry, SW.rot, 3.6, 3.6 + Math.max(0.001, reveal * 0.82)); ctx.stroke();
+      ctx.shadowBlur = 0;
       // right swoosh
       for (const p of swoosh) {
         p.u += p.v / 60; if (p.u > 1) p.u -= 1;
@@ -743,51 +819,19 @@
       }
       ctx.restore();
 
-      if (ready) {
-        // solid glitter shapes fade in under the flying particles
-        const dA = clamp((t - 1.6) / 1.4), tA = clamp((t - 2.6) / 1.4);
-        const pulse = 0.85 + 0.15 * Math.sin(t * 1.6);
-        ctx.save();
-        ctx.shadowColor = "rgba(246,200,90,.85)";
-        ctx.shadowBlur = 28 * pulse;
-        ctx.globalAlpha = dA; ctx.drawImage(dancerBase, 0, 0);
-        ctx.shadowBlur = 22 * pulse;
-        ctx.globalAlpha = tA; ctx.drawImage(textBase, 0, 0);
-        ctx.restore();
-
-        // sparkling glitter points that assemble into the dancer and lettering
-        ctx.save(); ctx.globalCompositeOperation = "lighter";
-        const drawPts = (pts) => {
-          for (const p of pts) {
-            const k = ease(clamp((t - p.d) / 1.8));
-            if (k <= 0) continue;
-            const x = p.sx + (p.x - p.sx) * k, y = p.sy + (p.y - p.sy) * k;
-            const tw = Math.sin(t * p.sp + p.ph);
-            ctx.globalAlpha = (k < 1 ? 0.9 : 0.15 + 0.85 * tw * tw) * (0.4 + 0.6 * k);
-            ctx.fillStyle = p.c;
-            const s = p.s * (tw > .93 ? 2 : 1);
-            ctx.fillRect(x, y, s, s);
-          }
-        };
-        drawPts(dancerPts); drawPts(textPts);
-        ctx.restore();
-      }
-
-      // light sweep across the lettering every few seconds
-      const sweepT = ((t - 4.2) % 6) / 1.6;
-      if (t > 4.2 && sweepT >= 0 && sweepT <= 1) {
-        const sx = 200 + sweepT * 900;
-        ctx.save(); ctx.globalCompositeOperation = "lighter";
-        const sg = ctx.createLinearGradient(sx - 90, 0, sx + 90, 0);
-        sg.addColorStop(0, "rgba(255,240,200,0)"); sg.addColorStop(.5, "rgba(255,240,200,.07)"); sg.addColorStop(1, "rgba(255,240,200,0)");
-        ctx.fillStyle = sg; ctx.transform(1, 0, -0.35, 1, 0, 0); ctx.fillRect(sx - 90, 0, 180, H);
-        ctx.restore();
-      }
+      // the dancer and lettering
+      const floatY = Math.sin(t * 0.9) * 3;
+      drawSprite(sprites.dancer, t, floatY);
+      if (sprites.logo) drawSprite(sprites.logo, t, 0);
+      ctx.save(); ctx.globalCompositeOperation = "lighter";
+      drawPts(sprites.dancer.pts, t, floatY);
+      if (sprites.logo) drawPts(sprites.logo.pts, t, 0);
+      ctx.restore();
 
       // floor
-      const fl = ctx.createLinearGradient(0, 676, 0, H);
+      const fl = ctx.createLinearGradient(0, 680, 0, H);
       fl.addColorStop(0, "rgba(228,178,84,0)"); fl.addColorStop(.25, "rgba(228,178,84," + .16 * clamp(t / 2) + ")"); fl.addColorStop(1, "rgba(120,80,15,.05)");
-      ctx.fillStyle = fl; ctx.fillRect(0, 676, W, H - 676);
+      ctx.fillStyle = fl; ctx.fillRect(0, 680, W, H - 680);
       ctx.save(); ctx.globalCompositeOperation = "lighter";
       for (const f of floor) {
         const tw = Math.sin(t * f.sp + f.ph);
@@ -795,7 +839,6 @@
         ctx.fillStyle = tw > .9 ? "#FFF8E1" : "#E4B254";
         ctx.fillRect(f.x, f.y, f.s, f.s);
       }
-      // drifting dust
       for (const d of dust) {
         d.y += d.vy; d.x += d.vx; if (d.y > H) { d.y = -5; d.x = rand(0, W); }
         ctx.globalAlpha = (0.2 + 0.6 * Math.sin(t * 2 + d.ph) ** 2) * clamp(t / 2);
@@ -816,26 +859,21 @@
     const setActive = (on) => {
       if (on && !active) {
         active = true; t0 = performance.now();
-        if (reduce) { t0 -= 20000; active = false; frame(performance.now()); return; }
+        if (reduce) { active = false; t0 -= 20000; setTimeout(() => frame(performance.now()), 300); return; }
         raf = requestAnimationFrame(frame);
       } else if (!on && active) {
         active = false; cancelAnimationFrame(raf);
       }
     };
 
-    maskImg.onload = (e) => {
-      const fontsReady = document.fonts ? Promise.race([
-        Promise.all([document.fonts.load('900 128px "Nunito"'), document.fonts.load('500 50px "Cinzel"')]),
-        new Promise((r) => setTimeout(r, 2500))
-      ]) : Promise.resolve();
-      fontsReady.then(() => { build(); if (reduce && slides[current].id === "coverSlide") { active = false; setActive(true); } });
-    };
-    maskImg.src = "data:image/png;base64,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";
-
     return { setActive };
-  })();
+  };
+  const coverScene = makeScene("coverCanvas", null);
+  const thanksScene = makeScene("thanksCanvas", { x: 420, y: 22, s: 0.72 });
   window.coverScene = coverScene;
+  window.thanksScene = thanksScene;
   coverScene.setActive(slides[current].id === "coverSlide");
+  thanksScene.setActive(slides[current].id === "thanksSlide");
 
   // Floating gold sparkles inside the 4:3 stage
   const cv = document.getElementById("sparkle");
