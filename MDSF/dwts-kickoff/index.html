@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dancer Kickoff · Dancing With the Stars for Marlie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@800;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold-1: #A8761E;
+    --gold-2: #E4B254;
+    --gold-3: #F6D37A;
+    --gold-4: #FFF1C1;
+    --text: #F3EBDD;
+    --muted: #BBAE96;
+    --gold-grad: linear-gradient(100deg, #A8761E 0%, #E4B254 28%, #FFF1C1 45%, #E4B254 62%, #A8761E 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  body { font-family: "EB Garamond", Georgia, serif; color: var(--text); }
+
+  /* Fixed 4:3 stage (1024 x 768), scaled to fit the screen */
+  #stage {
+    position: absolute; left: 50%; top: 50%;
+    width: 1024px; height: 768px;
+    transform-origin: center center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 40%, rgba(40,28,8,.6), #000 72%);
+  }
+  .bg {
+    position: absolute; inset: 0;
+    background: url("bokeh.jpg") center/cover no-repeat;
+    opacity: .22; filter: blur(6px) saturate(1.1);
+    animation: drift 40s ease-in-out infinite alternate;
+  }
+  @keyframes drift { from { transform: scale(1.08) translateX(-12px); } to { transform: scale(1.14) translateX(12px); } }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events: none; }
+  #sparkle { position: absolute; inset: 0; width: 1024px; height: 768px; z-index: 3; pointer-events: none; }
+
+  /* Slides */
+  .slide {
+    position: absolute; inset: 0; z-index: 2;
+    padding: 56px 72px 96px;
+    display: flex; flex-direction: column; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity .7s ease, visibility 0s linear .7s;
+  }
+  .slide.active { opacity: 1; visibility: visible; transition: opacity .7s ease, visibility 0s; }
+
+  /* Entrance animation for anything marked .a (use --d for stagger) */
+  .a { opacity: 0; }
+  .slide.active .a { animation: rise .9s cubic-bezier(.2,.75,.25,1) both; animation-delay: calc(var(--d, 0) * 140ms + 250ms); }
+  .slide.active .a.pop { animation-name: pop; }
+  .slide.active .a.fade { animation-name: fadein; }
+  @keyframes rise { from { opacity: 0; transform: translateY(28px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+  @keyframes pop { 0% { opacity: 0; transform: scale(.7); } 70% { opacity: 1; transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Type */
+  .eyebrow { font-family: "Cinzel", Georgia, serif; font-size: 15px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold-2); margin: 0 0 14px; }
+  h2 {
+    font-family: "Playfair Display", Georgia, serif; font-weight: 800; margin: 0; font-size: 50px; line-height: 1.1;
+    background: var(--gold-grad); background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-2);
+    animation: sheen 6s ease-in-out infinite alternate;
+    filter: drop-shadow(0 2px 10px rgba(228,178,84,.25));
+  }
+  @keyframes sheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  .rule { width: 90px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); margin: 22px 0 26px; }
+  .center { text-align: center; align-items: center; }
+  .center .rule { margin-left: auto; margin-right: auto; }
+  p { margin: 0; }
+  .lead { font-size: 25px; line-height: 1.5; }
+  .small { font-size: 17px; color: var(--muted); }
+  .gold { color: var(--gold-3) !important; }
+  strong { color: #fff; }
+
+  /* Cards */
+  .card {
+    background: linear-gradient(160deg, rgba(40,30,12,.72), rgba(10,8,5,.8));
+    border: 1px solid rgba(228,178,84,.35);
+    border-radius: 14px;
+    padding: 24px 26px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,241,193,.08);
+  }
+  .card h3 { font-family: "Playfair Display", Georgia, serif; font-size: 25px; margin: 0 0 8px; color: var(--gold-3); }
+  .card p { font-size: 19px; line-height: 1.45; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .icon { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 3px; color: var(--gold-2); margin-bottom: 10px; display: block; }
+
+  /* ---------- Cover (fully coded, animated) ---------- */
+  .cover { padding: 0; background: radial-gradient(ellipse at 35% 45%, #1c1406 0%, #070503 55%, #000 100%); }
+  .cover canvas { position: absolute; inset: 0; width: 1024px; height: 768px; }
+  .cover .caption { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; z-index: 4; }
+  .cover .caption .k { font-family: "Playfair Display", Georgia, serif; font-weight: 800; font-size: 28px; color: #fff; letter-spacing: 1px; text-shadow: 0 2px 16px rgba(0,0,0,.95); }
+  .cover .caption .w { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 5px; color: var(--gold-3); margin-top: 6px; text-shadow: 0 2px 10px #000; }
+
+  /* ---------- Meet the Stars ---------- */
+  .stars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 10px; width: 100%; }
+  .star { text-align: center; }
+  .ring {
+    position: relative; width: 180px; height: 180px; margin: 0 auto; border-radius: 50%; padding: 7px; overflow: hidden;
+    box-shadow: 0 0 26px rgba(228,178,84,.6), 0 10px 26px rgba(0,0,0,.6);
+  }
+  .ring::before {
+    content: ""; position: absolute; inset: -25%;
+    background: conic-gradient(#A8761E, #E4B254, #FFF1C1, #E4B254, #B8862B, #F6D37A, #FFF8E1, #E4B254, #A8761E, #D9A23A, #FFF1C1, #E4B254, #A8761E);
+    animation: spin 6s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .face { position: relative; z-index: 1; width: 100%; height: 100%; border-radius: 50%; border: 3px solid #1a1308; background: #2a2010 center/cover no-repeat; }
+  .star .nm { margin-top: 20px; font-family: "Playfair Display", Georgia, serif; font-size: 23px; color: #fff; }
+  .star .ln { width: 36px; height: 2px; background: var(--gold-2); margin: 10px auto 0; }
+
+  /* Lists */
+  .list { list-style: none; padding: 0; margin: 0; }
+  .list li { position: relative; padding: 0 0 0 36px; margin: 0 0 14px; font-size: 21px; line-height: 1.38; }
+  .list li::before { content: "\2726"; position: absolute; left: 4px; top: 1px; color: var(--gold-2); font-size: 19px; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
+  .step { text-align: center; padding: 22px 14px; }
+  .num { width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%; display: grid; place-items: center; font-family: "Playfair Display", serif; font-weight: 800; font-size: 22px; color: #1b1405; background: linear-gradient(140deg, #F6D37A, #E4B254 55%, #A8761E); box-shadow: 0 0 16px rgba(228,178,84,.5); }
+  .step p { font-size: 18px; line-height: 1.35; }
+  .step .big { font-family: "Playfair Display", serif; color: var(--gold-3); font-size: 21px; }
+
+  /* Trophies */
+  .trophy { text-align: center; padding: 30px 26px; }
+  .ball {
+    width: 74px; height: 74px; margin: 0 auto 16px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 30%, rgba(255,255,255,.95) 0 6%, transparent 14%),
+      repeating-conic-gradient(from 10deg, #F6D37A 0 9deg, #8a6418 9deg 18deg, #FFF1C1 18deg 27deg, #C9952F 27deg 36deg);
+    box-shadow: 0 0 26px rgba(246,211,122,.7), inset -10px -10px 18px rgba(0,0,0,.45);
+    animation: twirl 8s linear infinite;
+  }
+  @keyframes twirl { to { filter: hue-rotate(0deg); background-position: 0 0; transform: rotate(360deg); } }
+
+  /* Alert slide */
+  .alert { border: 2px solid var(--gold-2); box-shadow: 0 0 40px rgba(228,178,84,.25), inset 0 0 30px rgba(228,178,84,.06); }
+  .badge { display: inline-block; font-family: "Cinzel", serif; font-weight: 700; font-size: 14px; letter-spacing: 4px; color: #1b1405; background: linear-gradient(100deg, #F6D37A, #E4B254, #C9952F); padding: 7px 16px; border-radius: 30px; animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(228,178,84,.55); } 50% { box-shadow: 0 0 0 10px rgba(228,178,84,0); } }
+  .check { display: inline-block; padding: 1px 10px; border: 1px dashed var(--gold-2); border-radius: 6px; font-family: "Courier New", monospace; font-size: .9em; color: var(--gold-4); }
+
+  /* Sponsorship tiers */
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tier { text-align: center; padding: 22px 12px 20px; }
+  .tier .lvl { font-family: "Cinzel", serif; font-size: 15px; letter-spacing: 3px; color: var(--gold-2); }
+  .tier .amt { font-family: "Playfair Display", serif; font-weight: 800; font-size: 34px; color: #fff; margin: 8px 0 4px; }
+  .tier .tix { font-size: 18px; color: var(--gold-4); }
+  .tier.feature { border-color: var(--gold-2); box-shadow: 0 0 26px rgba(228,178,84,.3); }
+
+  /* Seats */
+  .seats { display: grid; grid-template-columns: 320px 1fr; gap: 36px; align-items: center; }
+  .donut { position: relative; width: 300px; height: 300px; margin: 0 auto; }
+  .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .donut .track { fill: none; stroke: rgba(255,255,255,.08); stroke-width: 22; }
+  .donut .fill { fill: none; stroke: url(#gg); stroke-width: 22; stroke-linecap: round; transition: stroke-dashoffset 2s cubic-bezier(.2,.8,.2,1); }
+  .donut .label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .donut .count { font-family: "Playfair Display", serif; font-weight: 800; font-size: 88px; line-height: 1; color: var(--gold-3); text-shadow: 0 0 24px rgba(228,178,84,.45); }
+  .donut .cap { font-family: "Cinzel", serif; letter-spacing: 3px; font-size: 15px; color: var(--gold-4); margin-top: 6px; }
+  .stat { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+  .stat b { font-family: "Playfair Display", serif; font-size: 36px; color: var(--gold-3); min-width: 92px; text-align: right; }
+  .stat span { font-size: 21px; }
+
+  /* Timeline */
+  .timeline { position: relative; margin-top: 10px; }
+  .timeline::before { content: ""; position: absolute; left: 166px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--gold-2), rgba(228,178,84,.15)); }
+  .t { display: grid; grid-template-columns: 140px 1fr; gap: 44px; margin-bottom: 22px; align-items: start; }
+  .t .d { text-align: right; font-family: "Cinzel", serif; font-size: 16px; letter-spacing: 2px; color: var(--gold-2); padding-top: 4px; }
+  .t .e { position: relative; font-size: 22px; line-height: 1.35; }
+  .t .e::before { content: ""; position: absolute; left: -25px; top: 8px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold-3); box-shadow: 0 0 12px rgba(246,211,122,.9); }
+  .t .e small { display: block; font-size: 17px; color: var(--muted); }
+  .t.big .e { font-family: "Playfair Display", serif; font-size: 25px; color: #fff; }
+
+  /* Contacts */
+  .contact { text-align: center; padding: 30px 24px; }
+  .contact .who { font-family: "Playfair Display", serif; font-size: 32px; color: #fff; }
+  .contact .role { font-family: "Cinzel", serif; letter-spacing: 3px; font-size: 13px; color: var(--gold-2); margin: 6px 0 0; min-height: 18px; }
+  .contact p { font-size: 21px; line-height: 1.6; margin-top: 14px; }
+
+  /* Controls */
+  .controls { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; z-index: 6; }
+  .brand { font-family: "Cinzel", serif; font-size: 12px; letter-spacing: 4px; color: rgba(228,178,84,.7); }
+  .nav { display: flex; align-items: center; gap: 12px; }
+  .btn {
+    font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 3px; font-weight: 700;
+    color: #1b1405; background: linear-gradient(100deg, #B8862B, #F6D37A 30%, #D9A23A 60%, #B8862B);
+    border: 1px solid #A8761E; border-radius: 6px; padding: 10px 18px; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.4); transition: filter .2s ease, transform .2s ease;
+  }
+  .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn:disabled { opacity: .3; cursor: default; transform: none; filter: none; }
+  .btn.ghost { background: rgba(0,0,0,.4); color: var(--gold-3); }
+  .counter { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 2px; color: var(--muted); min-width: 64px; text-align: center; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #A8761E, #F6D37A); box-shadow: 0 0 10px rgba(246,211,122,.8); transition: width .6s ease; z-index: 7; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .a { opacity: 1 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="bg"></div>
+  <div class="vignette"></div>
+
+  <!-- 1 · COVER (fully coded, animated) -->
+  <section class="slide cover" id="coverSlide">
+    <canvas id="coverCanvas" width="1024" height="768"></canvas>
+    <div class="caption">
+      <div class="k a" style="--d:24">Dancer Kickoff</div>
+      <div class="w a fade" style="--d:26">3rd Annual Come Fly With Me Gala · January 23, 2027</div>
+    </div>
+  </section>
+
+  <!-- 2 · MEET THE STARS -->
+  <section class="slide center">
+    <p class="eyebrow a" style="--d:0">Dancing With the Stars for Marlie</p>
+    <h2 class="a" style="--d:1">Meet Our 2027 Stars</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="stars">
+      <div class="star a pop" style="--d:3"><div class="ring"><div class="face" style="background-image:url('angela.jpg')"></div></div><div class="nm">Angela Woods</div><div class="ln"></div></div>
+      <div class="star a pop" style="--d:4"><div class="ring"><div class="face" style="background-image:url('bethany.jpg')"></div></div><div class="nm">Bethany Thomas</div><div class="ln"></div></div>
+      <div class="star a pop" style="--d:5"><div class="ring"><div class="face" style="background-image:url('kevin.jpg')"></div></div><div class="nm">Dr. Kevin Miller</div><div class="ln"></div></div>
+      <div class="star a pop" style="--d:6"><div class="ring"><div class="face" style="background-image:url('lucas.jpg')"></div></div><div class="nm">Lucas McFadden</div><div class="ln"></div></div>
+    </div>
+    <p class="lead a" style="--d:8; margin-top:44px; font-style:italic; color:var(--gold-4)">Thank you for dancing for Marlie.</p>
+  </section>
+
+  <!-- 3 · WHY WE DANCE -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">The reason we gather</p>
+    <h2 class="a" style="--d:1">Live Like Marlie</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <p class="lead a" style="--d:3">From the age of four, Marlie’s love for dance brought people together. Her kind heart and welcoming smile gave everyone around her a sense of belonging. Every step you take on that dance floor carries her light forward.</p>
+    <div class="grid3" style="margin-top:38px">
+      <div class="card a" style="--d:5"><span class="icon">✦ Scholarships</span><h3>Marlie’s Closet</h3><p>Scholarships that open doors for young people in our community.</p></div>
+      <div class="card a" style="--d:6"><span class="icon">✦ The Arts</span><h3>Dance &amp; Performance</h3><p>Support for dance, artistic expression, and the performing arts.</p></div>
+      <div class="card a" style="--d:7"><span class="icon">✦ Legacy</span><h3>The Marlie Center</h3><p>A performing arts center in downtown Rock Hill named in her honor.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 · THE NIGHT -->
+  <section class="slide center">
+    <p class="eyebrow a" style="--d:0">Save the dates</p>
+    <h2 class="a" style="--d:1">Your Big Night</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2" style="width:100%; margin-top:10px">
+      <div class="card a" style="--d:3; text-align:center; padding:34px 26px">
+        <span class="icon">Dress Rehearsal</span>
+        <h3 style="font-size:30px">Friday, January 22</h3>
+        <p>Time to be announced</p>
+      </div>
+      <div class="card a pop" style="--d:4; text-align:center; padding:34px 26px; border-color:var(--gold-2); box-shadow:0 0 30px rgba(228,178,84,.25)">
+        <span class="icon">The Gala</span>
+        <h3 style="font-size:30px">Saturday, January 23</h3>
+        <p>6:30 PM to Midnight</p>
+      </div>
+    </div>
+    <p class="lead a" style="--d:6; margin-top:36px">McBryde Hall · Winthrop University<br><span class="small">695 Scholars Walk, Rock Hill, SC 29733 · Black Tie</span></p>
+    <p class="small a" style="--d:7; margin-top:24px">Each dancer is responsible for purchasing their own shoes and costume.</p>
+  </section>
+
+  <!-- 5 · TWO MIRROR BALLS -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">The competition</p>
+    <h2 class="a" style="--d:1">Two Mirror Ball Trophies</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2">
+      <div class="card trophy a pop" style="--d:3"><div class="ball"></div><span class="icon">Top Fundraiser</span><h3>Most Money Raised</h3><p>Awarded to the Star who raises the most for the Foundation.</p></div>
+      <div class="card trophy a pop" style="--d:4"><div class="ball" style="animation-direction:reverse"></div><span class="icon">Judges’ Choice</span><h3>Most Points Earned</h3><p>Awarded to the Star whose dance earns the most points from the judges at the Gala.</p></div>
+    </div>
+    <p class="small a" style="--d:6; margin-top:26px; font-size:19px">What counts toward your fundraising: gifts on your personal page or with your name selected at marliedrusullivan.org/dwts, cash and checks you record, and sponsorships credited to you.</p>
+  </section>
+
+  <!-- 6 · THE PORTAL -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Your backstage pass</p>
+    <h2 class="a" style="--d:1">Your Fundraising Portal</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2">
+      <div class="card a" style="--d:3"><span class="icon">✦ 01</span><h3>Your Personal Page</h3><p>Your photo, your story, and your “why.” This is the link to share with friends, family, and supporters.</p></div>
+      <div class="card a" style="--d:4"><span class="icon">✦ 02</span><h3>Progress &amp; Leaderboard</h3><p>Watch your total grow and see where you stand at any time.</p></div>
+      <div class="card a" style="--d:5"><span class="icon">✦ 03</span><h3>Record Offline Gifts</h3><p>Enter cash and check donations yourself. They count once the Foundation receives and verifies them.</p></div>
+      <div class="card a" style="--d:6"><span class="icon">✦ 04</span><h3>Digital Asset Library</h3><p>Social media post templates, donation letters, and more to help you share your story and Marlie’s.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · CASH & CHECKS -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Every gift matters</p>
+    <h2 class="a" style="--d:1">Recording Cash &amp; Checks</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="steps">
+      <div class="card step a" style="--d:3"><div class="num">1</div><p class="big">Collect</p><p>Checks payable to <strong>Marlie Dru Sullivan Foundation</strong></p></div>
+      <div class="card step a" style="--d:4"><div class="num">2</div><p class="big">Record</p><p>Log in to your portal and enter the donation</p></div>
+      <div class="card step a" style="--d:5"><div class="num">3</div><p class="big">Deliver</p><p>Get the gift to the Foundation, or mail to PO Box 36762, Rock Hill, SC 29732</p></div>
+      <div class="card step a" style="--d:6"><div class="num">4</div><p class="big">Verified</p><p>Our team verifies it once received, and it posts to your total</p></div>
+    </div>
+    <p class="lead a" style="--d:8; margin-top:34px; text-align:center">Recorded but not yet received? It won’t count until it reaches the Foundation.</p>
+  </section>
+
+  <!-- 8 · SPONSORSHIP RULE -->
+  <section class="slide">
+    <div class="a" style="--d:0"><span class="badge">Your Responsibility</span></div>
+    <h2 class="a" style="--d:1; margin-top:18px">Sponsorships Credited to You</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="card alert a" style="--d:3; padding:28px 32px">
+      <p class="lead">When a sponsor credits their sponsorship to you, <strong>you’ll receive an email</strong>. It is <strong class="gold">YOUR responsibility</strong> to add it to your total.</p>
+    </div>
+    <div class="steps" style="grid-template-columns:repeat(3,1fr); margin-top:24px">
+      <div class="card step a" style="--d:5"><div class="num">1</div><p class="big">Log In</p><p>Open your fundraising portal</p></div>
+      <div class="card step a" style="--d:6"><div class="num">2</div><p class="big">Enter as a CHECK</p><p>Record the sponsorship amount as a <strong>check</strong> donation</p></div>
+      <div class="card step a" style="--d:7"><div class="num">3</div><p class="big">Check Number</p><p>Type <span class="check">Sponsorship</span></p></div>
+    </div>
+    <p class="small a" style="--d:9; margin-top:22px; text-align:center">Until you enter it, it won’t appear in your total. Our team verifies once the sponsor’s payment is received.</p>
+  </section>
+
+  <!-- 9 · SPONSORSHIP LEVELS -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Partner with the Foundation</p>
+    <h2 class="a" style="--d:1">Sponsorship Levels</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="tiers">
+      <div class="card tier a" style="--d:3"><div class="lvl">Diamond</div><div class="amt">$22,000</div><div class="tix">2 tables · 16 tickets</div></div>
+      <div class="card tier feature a" style="--d:4"><div class="lvl">Platinum</div><div class="amt">$10,000</div><div class="tix">1 table · 8 tickets</div></div>
+      <div class="card tier a" style="--d:5"><div class="lvl">Gold</div><div class="amt">$3,000</div><div class="tix">4 tickets</div></div>
+      <div class="card tier a" style="--d:6"><div class="lvl">Silver</div><div class="amt">$1,220</div><div class="tix">2 tickets</div></div>
+    </div>
+    <div class="grid2" style="margin-top:26px">
+      <div class="card a" style="--d:8"><span class="icon">✦ Logos due for print</span><h3>Thursday, December 31, 2026</h3><p>Later sponsors are welcome; print recognition isn’t guaranteed, but digital always is.</p></div>
+      <div class="card a" style="--d:9"><span class="icon">✦ Payment due</span><h3>Friday, January 15, 2027</h3><p>The commitment form is on page 8 of your guidebook.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · YOUR TABLE -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">A $10,000 asset in your hands</p>
+    <h2 class="a" style="--d:1">Your Table &amp; Tickets</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2" style="grid-template-columns: 1.1fr 1fr; align-items:stretch">
+      <div class="card a" style="--d:3">
+        <span class="icon">✦ Your table</span>
+        <h3>8 tickets · a full table</h3>
+        <p style="margin-bottom:12px">Two seats are for you and your spouse. The other six are among the most valuable fundraising tools we can give you.</p>
+        <p>A table is a <strong>$10,000 Platinum sponsorship</strong>. Our strong hope is that yours raises <strong class="gold">at least $10,000</strong> toward your goal.</p>
+      </div>
+      <div class="card a" style="--d:4">
+        <span class="icon">✦ Ways to fill it</span>
+        <ul class="list" style="margin-top:6px">
+          <li style="font-size:19px">Sell seats individually</li>
+          <li style="font-size:19px">Find a sponsor to underwrite the table</li>
+          <li style="font-size:19px">Invite guests who will give generously</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead a" style="--d:6; margin-top:24px; font-size:21px">A complimentary seat is a gracious thank-you for a major supporter. We ask that each seat be filled <em>with intention</em>; these seats raise support for Marlie’s mission, not free tickets for family and friends.</p>
+    <p class="small a" style="--d:7; margin-top:14px">Allocate your tickets by <span class="gold">January 15, 2027</span>. For any ticket questions, text Stacie (843-754-7135) and Carter (803-554-0556).</p>
+  </section>
+
+  <!-- 11 · SEATS REMAINING -->
+  <section class="slide" id="seatsSlide">
+    <p class="eyebrow a" style="--d:0">Beyond your table</p>
+    <h2 class="a" style="--d:1">Seats Are Going Fast</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="seats">
+      <div class="donut a pop" style="--d:3">
+        <svg viewBox="0 0 300 300">
+          <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6D37A"/><stop offset=".5" stop-color="#E4B254"/><stop offset="1" stop-color="#A8761E"/></linearGradient></defs>
+          <circle class="track" cx="150" cy="150" r="128"/>
+          <!-- circumference 804.25; claimed 290/368 = 78.8% -->
+          <circle class="fill" id="donutFill" cx="150" cy="150" r="128" stroke-dasharray="804.25" stroke-dashoffset="170.5"/>
+        </svg>
+        <div class="label"><div class="count" id="seatCount">78</div><div class="cap">Seats Left</div></div>
+      </div>
+      <div>
+        <div class="stat a" style="--d:4"><b>368</b><span>total seats · 46 tables</span></div>
+        <div class="stat a" style="--d:5"><b>290</b><span>already claimed (79%)</span></div>
+        <div class="stat a" style="--d:6"><b style="color:#fff">78</b><span><strong>left to sell</strong>, just under 10 tables</span></div>
+        <div class="card a" style="--d:8; margin-top:18px; padding:18px 22px">
+          <p style="font-size:19px">Split evenly, that’s <strong class="gold">about 20 seats per Star</strong>. Point businesses to a <strong>Gold</strong> (4 seats) or <strong>Silver</strong> (2 seats) sponsorship and have them credit it to you. Once they’re gone, they’re gone.</p>
+        </div>
+      </div>
+    </div>
+    <p class="small a" style="--d:10; margin-top:22px; text-align:center">Seat counts as of October 12, 2026.</p>
+  </section>
+
+  <!-- 12 · RULES & POLICIES -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Keep it fair &amp; friendly</p>
+    <h2 class="a" style="--d:1">Rules &amp; Policies</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <ul class="list">
+      <li class="a" style="--d:3">Two mirror balls: <strong>most money raised</strong> and <strong>most judges’ points</strong> at the Gala.</li>
+      <li class="a" style="--d:4">Cash and checks count once they’re <strong>received and verified</strong> by the Foundation.</li>
+      <li class="a" style="--d:5">Sponsorships credited to you: <strong>enter them yourself</strong> as a check, with <span class="check">Sponsorship</span> as the check number.</li>
+      <li class="a" style="--d:6"><strong>Previous years’ sponsors</strong> cannot count toward your total unless the sponsor is <strong>your own company or family</strong>.</li>
+      <li class="a" style="--d:7">Fill your table <strong>with intention</strong>, and allocate your tickets by <strong>January 15</strong>.</li>
+      <li class="a" style="--d:8">The internal leaderboard link is <strong>for Stars only</strong>. Please don’t share it or post screenshots.</li>
+      <li class="a" style="--d:9">You provide your own <strong>shoes and costume</strong>.</li>
+    </ul>
+  </section>
+
+  <!-- 13 · KEY DATES -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Mark your calendar</p>
+    <h2 class="a" style="--d:1">Key Dates</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="timeline">
+      <div class="t a" style="--d:3"><div class="d">Tonight</div><div class="e">Kickoff! Fundraising is officially on.<small>Log in, set up your page, and share your link.</small></div></div>
+      <div class="t a" style="--d:4"><div class="d">Dec 31</div><div class="e">Sponsor logos due for print<small>Sponsorships after this date get digital recognition.</small></div></div>
+      <div class="t a" style="--d:5"><div class="d">Jan 15</div><div class="e">Sponsorship payments due · Ticket allocations due<small>Text Stacie and Carter your table list.</small></div></div>
+      <div class="t a" style="--d:6"><div class="d">Jan 22</div><div class="e">Dress rehearsal<small>Time TBA</small></div></div>
+      <div class="t big a" style="--d:7"><div class="d">Jan 23</div><div class="e">The Come Fly With Me Gala<small>Both mirror ball trophies are awarded.</small></div></div>
+    </div>
+  </section>
+
+  <!-- 14 · SPREAD THE WORD -->
+  <section class="slide">
+    <p class="eyebrow a" style="--d:0">Spread her light</p>
+    <h2 class="a" style="--d:1">Share Your Story</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2">
+      <div class="card a" style="--d:3"><span class="icon">✦ Your why</span><h3>Make it personal</h3><p>Tell people why you’re dancing for Marlie. Personal stories inspire generous gifts.</p></div>
+      <div class="card a" style="--d:4"><span class="icon">✦ Ask directly</span><h3>Email from your portal</h3><p>Send personal donation requests to friends, family, and colleagues right from your fundraising center.</p></div>
+      <div class="card a" style="--d:5"><span class="icon">✦ Social</span><h3>Tag &amp; hashtag</h3><p>Tag @marliedrusullivanfoundation and use #LiveLikeMarlie and #ComeFlyWithMeGala.</p></div>
+      <div class="card a" style="--d:6"><span class="icon">✦ Give link</span><h3>marliedrusullivan.org/dwts</h3><p>Donors select your name to give you credit.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · CONTACTS / CLOSE -->
+  <section class="slide center">
+    <p class="eyebrow a" style="--d:0">We’re here for you</p>
+    <h2 class="a" style="--d:1">Questions?</h2>
+    <div class="rule a fade" style="--d:2"></div>
+    <div class="grid2" style="width:100%">
+      <div class="card contact a" style="--d:3"><div class="who">Stacie Sullivan</div><div class="role">President &amp; Founder</div><p>stacie@marliedrusullivan.org<br>(843) 754-7135</p></div>
+      <div class="card contact a" style="--d:4"><div class="who">Carter Threatt</div><div class="role">&nbsp;</div><p>cthreatt@marliedrusullivan.org<br>(803) 554-0556</p></div>
+    </div>
+    <p class="lead a" style="--d:5; margin-top:24px; font-size:21px">Reach out to both of us for tickets, sponsorships, acknowledgments, and your fundraising portal.</p>
+    <p class="a" style="--d:7; margin-top:34px; font-family:'Playfair Display',serif; font-style:italic; font-size:30px; color:var(--gold-4)">Thank you for dancing for Marlie.</p>
+    <p class="eyebrow a fade" style="--d:8; margin-top:14px">#LiveLikeMarlie</p>
+  </section>
+
+  <canvas id="sparkle" width="1024" height="768"></canvas>
+
+  <div class="controls">
+    <div class="brand">Marlie Dru Sullivan Foundation</div>
+    <div class="nav">
+      <button class="btn ghost" id="prevBtn" aria-label="Previous slide">‹ Back</button>
+      <div class="counter" id="counter"></div>
+      <button class="btn" id="nextBtn" aria-label="Next slide">Next ›</button>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</div>
+
+<script>
+  const stage = document.getElementById("stage");
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const counter = document.getElementById("counter");
+  const progress = document.getElementById("progress");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current = 0;
+
+  // Keep the 1024x768 (4:3) stage fitted to the screen
+  const fit = () => {
+    const s = Math.min(window.innerWidth / 1024, window.innerHeight / 768);
+    stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
+  };
+
+  // Seats slide: final numbers are already in the HTML; this just animates into them
+  const SEATS_TOTAL = 368, SEATS_LEFT = 78;
+  let seatTimer = null;
+  const runSeats = () => {
+    const fill = document.getElementById("donutFill");
+    const count = document.getElementById("seatCount");
+    const circ = 804.25;
+    const finalOffset = circ * SEATS_LEFT / SEATS_TOTAL;
+    clearInterval(seatTimer);
+    if (reduce) { fill.setAttribute("stroke-dashoffset", finalOffset); count.textContent = SEATS_LEFT; return; }
+    fill.style.transition = "none";
+    fill.setAttribute("stroke-dashoffset", circ);
+    fill.getBoundingClientRect();
+    setTimeout(() => {
+      fill.style.transition = "";
+      fill.setAttribute("stroke-dashoffset", finalOffset);
+    }, 500);
+    let step = 0;
+    const steps = 60;
+    count.textContent = SEATS_TOTAL;
+    setTimeout(() => {
+      seatTimer = setInterval(() => {
+        step++;
+        const t = 1 - Math.pow(1 - step / steps, 3);
+        count.textContent = Math.round(SEATS_TOTAL - (SEATS_TOTAL - SEATS_LEFT) * t);
+        if (step >= steps) { clearInterval(seatTimer); count.textContent = SEATS_LEFT; }
+      }, 30);
+    }, 500);
+  };
+
+  const show = (i) => {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, n) => s.classList.toggle("active", n === current));
+    counter.textContent = (current + 1) + " / " + slides.length;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === slides.length - 1;
+    progress.style.width = ((current + 1) / slides.length * 100) + "%";
+    history.replaceState(null, "", "#" + (current + 1));
+    if (slides[current].id === "seatsSlide") runSeats();
+    if (window.coverScene) coverScene.setActive(slides[current].id === "coverSlide");
+  };
+
+  prevBtn.onclick = (e) => show(current - 1);
+  nextBtn.onclick = (e) => show(current + 1);
+
+  document.onkeydown = (e) => {
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(current + 1); }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(current - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(slides.length - 1);
+    if (e.key === "f" || e.key === "F") {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen();
+    }
+  };
+
+  // Swipe on touch screens
+  let touchX = null;
+  document.ontouchstart = (e) => { touchX = e.touches[0].clientX; };
+  document.ontouchend = (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  };
+
+  window.onresize = (e) => fit();
+  fit();
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+
+
+  // ================= COVER SCENE =================
+  // Everything on the cover is drawn in code: a glitter dancer, glitter lettering,
+  // swirling particle trails, drifting bokeh, star flares, and a sparkling floor.
+  const coverScene = (() => {
+    const cv = document.getElementById("coverCanvas");
+    const ctx = cv.getContext("2d");
+    const W = 1024, H = 768;
+    const GOLDS = ["#FFF8E1", "#FFF1C1", "#F6D37A", "#E4B254", "#D9A23A"];
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const clamp = (v) => Math.max(0, Math.min(1, v));
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    let ready = false, active = false, raf = null, t0 = 0;
+    let dancerBase, textBase, dancerPts = [], textPts = [];
+
+    // Dancer silhouette (traced from the homepage art) as a tiny 1-bit mask
+    const DANCER = { x: 36, y: 36, w: 395, h: 640 };
+    const maskImg = new Image();
+
+    const off = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
+
+    // Fill whatever is already drawn on c with a gold gradient + static glitter texture
+    const goldify = (c, x0, y0, x1, y1) => {
+      const g = c.getContext("2d");
+      g.globalCompositeOperation = "source-in";
+      const grad = g.createLinearGradient(x0, y0, x1, y1);
+      grad.addColorStop(0, "#FFF4CC"); grad.addColorStop(.35, "#F2C55E");
+      grad.addColorStop(.65, "#D9A23A"); grad.addColorStop(1, "#9E6E1A");
+      g.fillStyle = grad; g.fillRect(0, 0, W, H);
+      g.globalCompositeOperation = "source-atop";
+      for (let i = 0; i < 26000; i++) {
+        const x = rand(x0, x1), y = rand(y0, y1), r = Math.random();
+        g.fillStyle = r < .5 ? "rgba(255,250,225,.55)" : r < .8 ? "rgba(120,80,15,.45)" : "rgba(255,215,120,.7)";
+        const s = rand(.8, 2.4);
+        g.fillRect(x, y, s, s);
+      }
+      g.globalCompositeOperation = "source-over";
+    };
+
+    // Pick random points inside the drawn shape on canvas c
+    const sample = (c, n, x0, y0, x1, y1) => {
+      const g = c.getContext("2d");
+      const data = g.getImageData(0, 0, W, H).data;
+      const pts = [];
+      let tries = 0;
+      while (pts.length < n && tries < n * 60) {
+        tries++;
+        const x = Math.floor(rand(x0, x1)), y = Math.floor(rand(y0, y1));
+        if (data[(y * W + x) * 4 + 3] > 128) pts.push({ x, y });
+      }
+      return pts;
+    };
+
+    const spaced = (g, text, cx, y, spacing) => {
+      const widths = [...text].map((ch) => g.measureText(ch).width);
+      const total = widths.reduce((a, b) => a + b, 0) + spacing * (text.length - 1);
+      let x = cx - total / 2;
+      [...text].forEach((ch, i) => { g.fillText(ch, x, y); x += widths[i] + spacing; });
+      return total;
+    };
+
+    const build = () => {
+      // Dancer
+      dancerBase = off();
+      dancerBase.getContext("2d").drawImage(maskImg, DANCER.x, DANCER.y, DANCER.w, DANCER.h);
+      const dancerShape = off(); dancerShape.getContext("2d").drawImage(dancerBase, 0, 0);
+      goldify(dancerBase, DANCER.x, DANCER.y, DANCER.x + DANCER.w, DANCER.y + DANCER.h);
+      dancerPts = sample(dancerShape, 2400, DANCER.x, DANCER.y, DANCER.x + DANCER.w, DANCER.y + DANCER.h);
+
+      // Lettering
+      textBase = off();
+      const g = textBase.getContext("2d");
+      g.fillStyle = "#fff"; g.textBaseline = "alphabetic";
+      const round = '"Nunito", "Arial Rounded MT Bold", "Helvetica Neue", Arial, sans-serif';
+      g.font = "900 128px " + round; g.fillText("dancing", 300, 318);
+      const danW = g.measureText("dancing").width;
+      g.font = "800 46px " + round; g.fillText("with the", 336, 372);
+      g.font = "900 158px " + round; g.fillText("STARS", 312, 510);
+      const starsW = g.measureText("STARS").width;
+      const cx = 312 + starsW / 2;
+      g.font = "500 50px Cinzel, Georgia, serif";
+      const fmW = spaced(g, "FOR MARLIE", cx, 588, 7);
+      // thin rules either side of FOR MARLIE
+      g.fillRect(cx - fmW / 2 - 190, 570, 165, 2);
+      g.fillRect(cx + fmW / 2 + 25, 570, 165, 2);
+      const textShape = off(); textShape.getContext("2d").drawImage(textBase, 0, 0);
+      goldify(textBase, 290, 200, Math.max(300 + danW, cx + fmW / 2 + 200), 600);
+      textPts = sample(textShape, 3000, 290, 200, 1000, 600);
+
+      // Each glitter point flies in from somewhere on screen to its spot
+      const prep = (p, delay) => {
+        p.sx = rand(-100, W + 100); p.sy = rand(-100, H + 100);
+        p.d = delay + Math.random() * 0.9; p.ph = Math.random() * 6.28;
+        p.sp = rand(1.5, 4); p.s = rand(.8, 2.2); p.c = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+      };
+      dancerPts.forEach((p) => prep(p, 0.4));
+      textPts.forEach((p) => prep(p, 1.4));
+      ready = true;
+    };
+
+    // Swirl ring around the dancer
+    const swirl = [];
+    for (let i = 0; i < 2600; i++) {
+      const th = Math.random() * 6.283;
+      swirl.push({ th, w: rand(.12, .32), off: (Math.random() + Math.random() + Math.random() - 1.5) * 22, s: rand(.9, 2.8), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
+    }
+    const SW = { cx: 330, cy: 360, rx: 345, ry: 262, rot: -0.32 };
+
+    // Right-side swoosh (quadratic curve)
+    const swoosh = [];
+    for (let i = 0; i < 650; i++) swoosh.push({ u: Math.random(), v: rand(.04, .12), off: (Math.random() + Math.random() - 1) * 24, s: rand(.6, 2), ph: Math.random() * 6.28, c: GOLDS[i % 5] });
+    const curve = (u) => {
+      const p0 = { x: 1080, y: 20 }, p1 = { x: 900, y: 440 }, p2 = { x: 600, y: 470 };
+      const a = (1 - u) * (1 - u), b = 2 * (1 - u) * u, c = u * u;
+      return { x: a * p0.x + b * p1.x + c * p2.x, y: a * p0.y + b * p1.y + c * p2.y };
+    };
+
+    // Bokeh
+    const bokeh = [];
+    for (let i = 0; i < 26; i++) {
+      const right = Math.random() < .7;
+      bokeh.push({ x: right ? rand(680, 1040) : rand(-20, 300), y: rand(0, 760), r: rand(8, 38), a: rand(.05, .22), vx: rand(-.08, .08), vy: rand(-.12, -.02), ph: Math.random() * 6.28 });
+    }
+
+    // Floor glitter
+    const floor = [];
+    for (let i = 0; i < 700; i++) { const y = rand(686, 768); floor.push({ x: rand(0, W), y, s: rand(.6, 1.6) + (y - 686) / 50, ph: Math.random() * 6.28, sp: rand(1, 4) }); }
+
+    // Falling dust
+    const dust = [];
+    for (let i = 0; i < 140; i++) dust.push({ x: rand(0, W), y: rand(0, H), vy: rand(.15, .55), vx: rand(-.1, .1), s: rand(.5, 1.6), ph: Math.random() * 6.28 });
+
+    // Star flares
+    const flares = [
+      { x: 286, y: 54, r: 46, d: 2.0 }, { x: 815, y: 262, r: 62, d: 3.1 }, { x: 812, y: 420, r: 40, d: 4.2 },
+      { x: 120, y: 560, r: 34, d: 5.0 }, { x: 960, y: 150, r: 30, d: 2.6 }, { x: 410, y: 140, r: 26, d: 3.7 }
+    ];
+    const drawFlare = (x, y, r, a) => {
+      ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = a;
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, r * .45);
+      glow.addColorStop(0, "rgba(255,250,230,1)"); glow.addColorStop(1, "rgba(246,211,122,0)");
+      ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(x, y, r * .45, 0, 6.283); ctx.fill();
+      const lineG = (x0, y0, x1, y1) => { const lg = ctx.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, "rgba(255,240,200,0)"); lg.addColorStop(.5, "rgba(255,250,235,1)"); lg.addColorStop(1, "rgba(255,240,200,0)"); return lg; };
+      ctx.fillStyle = lineG(x - r, y, x + r, y); ctx.fillRect(x - r, y - 1.2, r * 2, 2.4);
+      ctx.fillStyle = lineG(x, y - r, x, y + r); ctx.fillRect(x - 1.2, y - r, 2.4, r * 2);
+      ctx.restore();
+    };
+
+    const frame = (now) => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, W, H);
+
+      // warm glow behind the dancer and lettering
+      const halo = ctx.createRadialGradient(360, 360, 20, 360, 360, 520);
+      halo.addColorStop(0, "rgba(120,82,18," + (0.35 * clamp(t / 2)) + ")"); halo.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
+
+      // bokeh
+      for (const b of bokeh) {
+        b.x += b.vx; b.y += b.vy; if (b.y < -50) { b.y = H + 40; }
+        const a = b.a * (0.7 + 0.3 * Math.sin(t * .8 + b.ph)) * clamp(t / 1.5);
+        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+        g.addColorStop(0, "rgba(246,211,122," + a + ")"); g.addColorStop(.7, "rgba(228,178,84," + a * .6 + ")"); g.addColorStop(1, "rgba(228,178,84,0)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.283); ctx.fill();
+      }
+
+      ctx.save(); ctx.globalCompositeOperation = "lighter";
+      // swirl ring, revealed as a sweeping arc during the intro
+      const reveal = ease(clamp(t / 2.6)) * 6.283;
+      for (const p of swirl) {
+        p.th += p.w / 60;
+        const rel = ((p.th - 3.6) % 6.283 + 6.283) % 6.283;
+        if (rel > reveal) continue;
+        const fade = 0.25 + 0.75 * Math.pow(0.5 + 0.5 * Math.cos(p.th - 2.4), 1.4);
+        const ex = Math.cos(p.th) * (SW.rx + p.off), ey = Math.sin(p.th) * (SW.ry + p.off * .7);
+        const x = SW.cx + ex * Math.cos(SW.rot) - ey * Math.sin(SW.rot);
+        const y = SW.cy + ex * Math.sin(SW.rot) + ey * Math.cos(SW.rot);
+        ctx.globalAlpha = Math.min(1, fade * 1.3) * (0.5 + 0.5 * Math.sin(t * 3 + p.ph) ** 2);
+        ctx.fillStyle = p.c; ctx.fillRect(x, y, p.s, p.s);
+      }
+      // glowing core line of the swirl
+      ctx.globalAlpha = 0.55 * clamp(t / 2.6);
+      ctx.strokeStyle = "rgba(255,226,150,.9)"; ctx.lineWidth = 1.6;
+      ctx.shadowColor = "rgba(246,200,90,1)"; ctx.shadowBlur = 14;
+      ctx.beginPath();
+      ctx.ellipse(SW.cx, SW.cy, SW.rx, SW.ry, SW.rot, 3.6, 3.6 + Math.max(0.001, reveal * 0.82));
+      ctx.stroke(); ctx.shadowBlur = 0;
+      // right swoosh
+      for (const p of swoosh) {
+        p.u += p.v / 60; if (p.u > 1) p.u -= 1;
+        if (p.u > ease(clamp((t - .6) / 2.2))) continue;
+        const q = curve(p.u), spread = 1 - p.u * .6;
+        ctx.globalAlpha = (0.3 + 0.7 * (1 - p.u)) * (0.4 + 0.6 * Math.sin(t * 3 + p.ph) ** 2);
+        ctx.fillStyle = p.c; ctx.fillRect(q.x, q.y + p.off * spread, p.s, p.s);
+      }
+      ctx.restore();
+
+      if (ready) {
+        // solid glitter shapes fade in under the flying particles
+        const dA = clamp((t - 1.6) / 1.4), tA = clamp((t - 2.6) / 1.4);
+        const pulse = 0.85 + 0.15 * Math.sin(t * 1.6);
+        ctx.save();
+        ctx.shadowColor = "rgba(246,200,90,.85)";
+        ctx.shadowBlur = 28 * pulse;
+        ctx.globalAlpha = dA; ctx.drawImage(dancerBase, 0, 0);
+        ctx.shadowBlur = 22 * pulse;
+        ctx.globalAlpha = tA; ctx.drawImage(textBase, 0, 0);
+        ctx.restore();
+
+        // sparkling glitter points that assemble into the dancer and lettering
+        ctx.save(); ctx.globalCompositeOperation = "lighter";
+        const drawPts = (pts) => {
+          for (const p of pts) {
+            const k = ease(clamp((t - p.d) / 1.8));
+            if (k <= 0) continue;
+            const x = p.sx + (p.x - p.sx) * k, y = p.sy + (p.y - p.sy) * k;
+            const tw = Math.sin(t * p.sp + p.ph);
+            ctx.globalAlpha = (k < 1 ? 0.9 : 0.15 + 0.85 * tw * tw) * (0.4 + 0.6 * k);
+            ctx.fillStyle = p.c;
+            const s = p.s * (tw > .93 ? 2 : 1);
+            ctx.fillRect(x, y, s, s);
+          }
+        };
+        drawPts(dancerPts); drawPts(textPts);
+        ctx.restore();
+      }
+
+      // light sweep across the lettering every few seconds
+      const sweepT = ((t - 4.2) % 6) / 1.6;
+      if (t > 4.2 && sweepT >= 0 && sweepT <= 1) {
+        const sx = 200 + sweepT * 900;
+        ctx.save(); ctx.globalCompositeOperation = "lighter";
+        const sg = ctx.createLinearGradient(sx - 90, 0, sx + 90, 0);
+        sg.addColorStop(0, "rgba(255,240,200,0)"); sg.addColorStop(.5, "rgba(255,240,200,.07)"); sg.addColorStop(1, "rgba(255,240,200,0)");
+        ctx.fillStyle = sg; ctx.transform(1, 0, -0.35, 1, 0, 0); ctx.fillRect(sx - 90, 0, 180, H);
+        ctx.restore();
+      }
+
+      // floor
+      const fl = ctx.createLinearGradient(0, 676, 0, H);
+      fl.addColorStop(0, "rgba(228,178,84,0)"); fl.addColorStop(.25, "rgba(228,178,84," + .16 * clamp(t / 2) + ")"); fl.addColorStop(1, "rgba(120,80,15,.05)");
+      ctx.fillStyle = fl; ctx.fillRect(0, 676, W, H - 676);
+      ctx.save(); ctx.globalCompositeOperation = "lighter";
+      for (const f of floor) {
+        const tw = Math.sin(t * f.sp + f.ph);
+        ctx.globalAlpha = (0.15 + 0.85 * tw * tw) * clamp(t / 1.5) * 0.8;
+        ctx.fillStyle = tw > .9 ? "#FFF8E1" : "#E4B254";
+        ctx.fillRect(f.x, f.y, f.s, f.s);
+      }
+      // drifting dust
+      for (const d of dust) {
+        d.y += d.vy; d.x += d.vx; if (d.y > H) { d.y = -5; d.x = rand(0, W); }
+        ctx.globalAlpha = (0.2 + 0.6 * Math.sin(t * 2 + d.ph) ** 2) * clamp(t / 2);
+        ctx.fillStyle = "#F6D37A"; ctx.fillRect(d.x, d.y, d.s, d.s);
+      }
+      ctx.restore();
+
+      // star flares
+      for (const f of flares) {
+        if (t < f.d) continue;
+        const a = Math.pow(Math.max(0, Math.sin((t - f.d) * 1.3)), 3);
+        drawFlare(f.x, f.y, f.r * (0.7 + 0.3 * a), a);
+      }
+
+      if (active) raf = requestAnimationFrame(frame);
+    };
+
+    const setActive = (on) => {
+      if (on && !active) {
+        active = true; t0 = performance.now();
+        if (reduce) { t0 -= 20000; active = false; frame(performance.now()); return; }
+        raf = requestAnimationFrame(frame);
+      } else if (!on && active) {
+        active = false; cancelAnimationFrame(raf);
+      }
+    };
+
+    maskImg.onload = (e) => {
+      const fontsReady = document.fonts ? Promise.race([
+        Promise.all([document.fonts.load('900 128px "Nunito"'), document.fonts.load('500 50px "Cinzel"')]),
+        new Promise((r) => setTimeout(r, 2500))
+      ]) : Promise.resolve();
+      fontsReady.then(() => { build(); if (reduce && slides[current].id === "coverSlide") { active = false; setActive(true); } });
+    };
+    maskImg.src = "data:image/png;base64,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";
+
+    return { setActive };
+  })();
+  window.coverScene = coverScene;
+  coverScene.setActive(slides[current].id === "coverSlide");
+
+  // Floating gold sparkles inside the 4:3 stage
+  const cv = document.getElementById("sparkle");
+  const ctx = cv.getContext("2d");
+  const dots = [];
+  for (let i = 0; i < 60; i++) {
+    dots.push({
+      x: Math.random() * 1024, y: Math.random() * 768,
+      r: Math.random() * 2.4 + 0.6,
+      vy: -(Math.random() * 0.25 + 0.06),
+      vx: (Math.random() - 0.5) * 0.12,
+      p: Math.random() * Math.PI * 2,
+      big: Math.random() < 0.12
+    });
+  }
+  const draw = (t) => {
+    ctx.clearRect(0, 0, 1024, 768);
+    for (const d of dots) {
+      d.y += d.vy; d.x += d.vx;
+      if (d.y < -20) { d.y = 788; d.x = Math.random() * 1024; }
+      const a = 0.3 + 0.35 * Math.sin(t / 900 + d.p);
+      const r = d.big ? d.r * 6 : d.r;
+      const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, r * 2);
+      g.addColorStop(0, "rgba(255,236,170," + (d.big ? a * 0.3 : a) + ")");
+      g.addColorStop(1, "rgba(228,178,84,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(d.x, d.y, r * 2, 0, Math.PI * 2); ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  };
+  if (!reduce) requestAnimationFrame(draw);
+</script>
+</body>
+</html>
