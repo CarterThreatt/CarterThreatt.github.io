@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presenter View · Dancer Kickoff</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0b0906; color: #F3EBDD; font-family: "EB Garamond", Georgia, serif; overflow: hidden; }
+  .wrap { display: grid; grid-template-columns: 1fr 360px; grid-template-rows: auto 1fr auto; gap: 18px; height: 100%; padding: 18px 22px; }
+  header { grid-column: 1 / 3; display: flex; align-items: center; justify-content: space-between; }
+  .label { font-family: "Cinzel", serif; letter-spacing: 3px; font-size: 12px; color: #E4B254; text-transform: uppercase; }
+  .status { font-size: 15px; color: #BBAE96; }
+  .status b { color: #6fd38a; }
+  .status b.off { color: #e0846f; }
+  .frame { position: relative; width: 100%; aspect-ratio: 4 / 3; border: 1px solid rgba(228,178,84,.45); border-radius: 8px; overflow: hidden; background: #000; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
+  .main { display: flex; flex-direction: column; min-height: 0; }
+  .main .frame { max-height: calc(100vh - 210px); width: auto; height: 100%; margin: 6px auto 0; }
+  .side { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+  .big { font-family: "Cinzel", serif; font-size: 42px; color: #F6D37A; line-height: 1; }
+  .timer { font-family: "Cinzel", serif; font-size: 30px; color: #fff; }
+  .row { display: flex; gap: 10px; align-items: center; }
+  button {
+    font-family: "Cinzel", serif; font-weight: 700; letter-spacing: 2px; font-size: 14px; cursor: pointer;
+    color: #1b1405; background: linear-gradient(100deg, #B8862B, #F6D37A 30%, #D9A23A 60%, #B8862B);
+    border: 1px solid #A8761E; border-radius: 6px; padding: 14px 18px;
+  }
+  button.ghost { background: transparent; color: #F6D37A; }
+  button.small { padding: 7px 10px; font-size: 12px; letter-spacing: 1px; }
+  .nav { grid-column: 1 / 3; display: flex; gap: 14px; justify-content: center; }
+  .nav button { min-width: 200px; font-size: 18px; padding: 16px 22px; }
+  .jump { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  .jump button { padding: 7px 0; font-size: 13px; letter-spacing: 0; background: rgba(228,178,84,.12); color: #F6D37A; border-color: rgba(228,178,84,.35); }
+  .jump button.on { background: linear-gradient(100deg, #B8862B, #F6D37A); color: #1b1405; }
+  .help { font-size: 14px; line-height: 1.5; color: #BBAE96; }
+  .help kbd { font-family: inherit; border: 1px solid rgba(228,178,84,.4); border-radius: 4px; padding: 0 5px; color: #F6D37A; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="label">Presenter View · Dancer Kickoff</div>
+    <div class="status">Audience window: <b id="link" class="off">not connected</b></div>
+    <button class="small ghost" id="openBtn">Open Audience Window</button>
+  </header>
+
+  <div class="main">
+    <div class="label">Now showing</div>
+    <div class="frame" id="nowFrame"><iframe id="now" src="index.html?mode=embed#1" title="Current slide"></iframe></div>
+  </div>
+
+  <div class="side">
+    <div class="row" style="justify-content:space-between">
+      <div><div class="label">Slide</div><div class="big" id="count">1 / 16</div></div>
+      <div style="text-align:right"><div class="label">Elapsed</div><div class="timer" id="timer">0:00</div></div>
+    </div>
+    <div>
+      <div class="label">Up next</div>
+      <div class="frame" style="margin-top:6px"><iframe id="next" src="index.html?mode=embed#2" title="Next slide"></iframe></div>
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:6px">Jump to slide</div>
+      <div class="jump" id="jump"></div>
+    </div>
+    <div class="help">
+      <b style="color:#F6D37A">Setup:</b> click <i>Open Audience Window</i>, drag that window onto the projector, click into it and press <kbd>F</kbd> for fullscreen. Then control everything from here with the buttons or <kbd>←</kbd> <kbd>→</kbd>.<br>
+      Projector cutting off the edges? In the audience window press <kbd>−</kbd> to shrink the slide (<kbd>=</kbd> grows it, <kbd>0</kbd> resets).
+    </div>
+    <button class="small ghost" id="resetTimer">Reset timer</button>
+  </div>
+
+  <div class="nav">
+    <button class="ghost" id="prev">‹ Back</button>
+    <button id="nextBtn">Next ›</button>
+  </div>
+</div>
+
+<script>
+  const bc = new BroadcastChannel("dwts-kickoff");
+  const nowF = document.getElementById("now");
+  const nextF = document.getElementById("next");
+  const countEl = document.getElementById("count");
+  const linkEl = document.getElementById("link");
+  const jumpEl = document.getElementById("jump");
+  let total = 16, cur = 0, lastSeen = 0;
+
+  const buildJump = () => {
+    jumpEl.innerHTML = "";
+    for (let i = 0; i < total; i++) {
+      const b = document.createElement("button");
+      b.textContent = i + 1;
+      b.onclick = (e) => go(i);
+      jumpEl.appendChild(b);
+    }
+  };
+
+  const render = () => {
+    countEl.textContent = (cur + 1) + " / " + total;
+    nowF.contentWindow.location.hash = "#" + (cur + 1);
+    nextF.contentWindow.location.hash = "#" + Math.min(total, cur + 2);
+    Array.from(jumpEl.children).forEach((b, i) => b.classList.toggle("on", i === cur));
+  };
+
+  const go = (i) => {
+    cur = Math.max(0, Math.min(total - 1, i));
+    bc.postMessage({ go: cur });
+    render();
+  };
+
+  bc.onmessage = (e) => {
+    const m = e.data || {};
+    if (typeof m.slide === "number") {
+      lastSeen = Date.now();
+      if (m.total && m.total !== total) { total = m.total; buildJump(); }
+      if (m.slide !== cur) { cur = m.slide; render(); }
+    }
+  };
+
+  // connection light
+  setInterval(() => {
+    bc.postMessage({ hello: true });
+    const ok = Date.now() - lastSeen < 4000;
+    linkEl.textContent = ok ? "connected" : "not connected";
+    linkEl.classList.toggle("off", !ok);
+  }, 1500);
+
+  document.getElementById("prev").onclick = (e) => go(cur - 1);
+  document.getElementById("nextBtn").onclick = (e) => go(cur + 1);
+  document.getElementById("openBtn").onclick = (e) => window.open("index.html#" + (cur + 1), "dwtsAudience", "popup,width=1024,height=768");
+
+  document.onkeydown = (e) => {
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    if (e.key === "Home") go(0);
+    if (e.key === "End") go(total - 1);
+  };
+
+  // timer
+  let start = Date.now();
+  document.getElementById("resetTimer").onclick = (e) => { start = Date.now(); };
+  setInterval(() => {
+    const s = Math.floor((Date.now() - start) / 1000);
+    document.getElementById("timer").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  }, 500);
+
+  buildJump();
+  nowF.onload = (e) => render();
+  bc.postMessage({ hello: true });
+</script>
+</body>
+</html>

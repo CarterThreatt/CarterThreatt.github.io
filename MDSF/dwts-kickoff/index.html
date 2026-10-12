@@ -199,6 +199,7 @@
   #stage.clean .controls, #stage.clean .progress { opacity: 0; }
   #stage.clean .controls:hover { opacity: 1; }
   #stage.clean { cursor: none; }
+  body.embed .controls, body.embed .progress { display: none; }
   #stage.clean .controls:hover, #stage.clean .controls:hover * { cursor: pointer; }
   .progress { position: absolute; left: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #A8761E, #F6D37A); box-shadow: 0 0 10px rgba(246,211,122,.8); transition: width .6s ease; z-index: 7; }
 
@@ -490,10 +491,19 @@
   const progress = document.getElementById("progress");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let current = 0;
+  // ?mode=embed is used by the presenter view's previews
+  const MODE = new URLSearchParams(location.search).get("mode");
+  if (MODE === "embed") document.body.classList.add("embed");
+  // Sync with the presenter view (works between windows of the same browser)
+  const bc = ("BroadcastChannel" in window && MODE !== "embed") ? new BroadcastChannel("dwts-kickoff") : null;
+  // Safe-zone shrink for projectors that crop the edges: - / = keys, 0 resets
+  let zoom = 1;
+  try { zoom = parseFloat(localStorage.getItem("dwtsZoom")) || 1; } catch (err) {}
+  if (MODE === "embed") zoom = 1;
 
   // Keep the 1024x768 (4:3) stage fitted to the screen
   const fit = () => {
-    const s = Math.min(window.innerWidth / 1024, window.innerHeight / 768);
+    const s = Math.min(window.innerWidth / 1024, window.innerHeight / 768) * zoom;
     stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
   };
 
@@ -534,7 +544,8 @@
     prevBtn.disabled = current === 0;
     nextBtn.disabled = current === slides.length - 1;
     progress.style.width = ((current + 1) / slides.length * 100) + "%";
-    history.replaceState(null, "", "#" + (current + 1));
+    history.replaceState(null, "", location.pathname + location.search + "#" + (current + 1));
+    if (bc) bc.postMessage({ slide: current, total: slides.length });
     if (slides[current].id === "seatsSlide") runSeats();
     if (window.coverScene) coverScene.setActive(slides[current].id === "coverSlide");
     if (window.thanksScene) thanksScene.setActive(slides[current].id === "thanksSlide");
@@ -549,6 +560,12 @@
     if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(current - 1); }
     if (e.key === "Home") show(0);
     if (e.key === "End") show(slides.length - 1);
+    if (e.key === "-" || e.key === "_" || e.key === "=" || e.key === "+" || e.key === "0") {
+      zoom = e.key === "0" ? 1 : Math.max(0.6, Math.min(1, zoom + ((e.key === "-" || e.key === "_") ? -0.02 : 0.02)));
+      try { localStorage.setItem("dwtsZoom", zoom); } catch (err) {}
+      fit();
+    }
+    if (e.key === "p" || e.key === "P") window.open("presenter.html", "dwtsPresenter");
     if (e.key === "f" || e.key === "F") {
       if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen();
     }
@@ -565,6 +582,12 @@
   };
 
   window.onresize = (e) => fit();
+  window.onhashchange = (e) => { const n = (parseInt(location.hash.slice(1), 10) || 1) - 1; if (n !== current) show(n); };
+  if (bc) bc.onmessage = (e) => {
+    const m = e.data || {};
+    if (m.go !== undefined && m.go !== current) show(m.go);
+    if (m.hello) bc.postMessage({ slide: current, total: slides.length });
+  };
   fit();
   show((parseInt(location.hash.slice(1), 10) || 1) - 1);
 
