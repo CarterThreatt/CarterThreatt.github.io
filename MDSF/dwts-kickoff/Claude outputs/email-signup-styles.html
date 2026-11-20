@@ -1,0 +1,306 @@
+<!-- ============================================================
+     MDSF Email Sign-Up: styled wrapper for the Bloomerang form
+     Paste this whole block into a Custom HTML block. Your Bloomerang
+     form code is already included at the bottom, unchanged.
+     ============================================================ -->
+<style>.mdsf-signup{max-width:620px;margin:0 auto;padding:40px 34px 34px;box-sizing:border-box;background-color:#FFFFFF;background-image:radial-gradient(ellipse at 50% 0%,#F3EAF8 0%,rgba(255,255,255,0) 60%);border:1px solid #E6DDEC;border-top:5px solid #9E5BB4;border-radius:16px;box-shadow:0 10px 30px rgba(48,34,55,0.08);font-family:Georgia,"Times New Roman",serif;color:#302237}.mdsf-signup .mdsf-eyebrow{margin:0 0 6px;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#9E5BB4}.mdsf-signup .mdsf-title{margin:0;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:32px;line-height:1.25;font-weight:normal;color:#302237}.mdsf-signup .mdsf-divider{margin:14px 0 18px;text-align:center;color:#9E5BB4;font-size:14px;line-height:1}.mdsf-signup .mdsf-divider span{display:inline-block;width:70px;height:1px;background:#D9CCE3;vertical-align:middle;margin:0 10px}.mdsf-signup .mdsf-intro{margin:0 auto 26px;max-width:480px;text-align:center;font-size:17px;line-height:1.65;color:#695F6E}.mdsf-signup .email-registration-form .section.contact{display:flex;flex-wrap:wrap;gap:0 16px}.mdsf-signup .email-registration-form .section.contact h3{display:none}.mdsf-signup .email-registration-form .field{flex:1 1 100%;padding:0 0 16px !important;box-sizing:border-box}.mdsf-signup .email-registration-form .field.first-name,.mdsf-signup .email-registration-form .field.last-name{flex:1 1 200px}.mdsf-signup .email-registration-form label{display:block;margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#302237 !important}.mdsf-signup .email-registration-form .field .required-star{color:#9E5BB4 !important;margin-left:4px}.mdsf-signup .email-registration-form .field input{display:block;width:100% !important;box-sizing:border-box;padding:13px 14px !important;font-family:Georgia,"Times New Roman",serif;font-size:17px;color:#302237;background:#FBF8FD;border:1px solid #D9CCE3;border-radius:8px;outline:none;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}.mdsf-signup .email-registration-form .field input::placeholder{color:#A99EB0}.mdsf-signup .email-registration-form .field input:focus{background:#FFFFFF;border-color:#9E5BB4;box-shadow:0 0 0 3px rgba(158,91,180,0.18)}.mdsf-signup .email-registration-form label.error{display:block;margin:6px 0 0;padding:0 !important;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0;text-transform:none;color:#A23B5A !important}.mdsf-signup .email-registration-form input.error{border-color:#A23B5A;background:#FFF7F9}.mdsf-signup .email-registration-form .errors:not(.hidden){margin:0 0 18px;padding:12px 14px !important;border:1px solid #E8B9C7 !important;border-radius:8px;background:#FFF7F9;color:#A23B5A !important;font-size:15px}.mdsf-signup .email-registration-form .consent{flex:1 1 100%;padding:0 0 18px !important;font-size:14px;font-style:italic;color:#695F6E;text-align:center}.mdsf-signup .btn-group{text-align:center}.mdsf-signup .btn-group .btn-submit-email{display:block;width:100%;padding:15px 20px !important;border:none;border-radius:8px;background:#9E5BB4;color:#FFFFFF;font-family:Arial,Helvetica,sans-serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 16px rgba(158,91,180,0.3);transition:background .2s ease,transform .2s ease;-webkit-appearance:none;appearance:none}.mdsf-signup .btn-group .btn-submit-email:hover{background:#874A9C;transform:translateY(-1px)}.mdsf-signup .btn-group .btn-submit-email.disabled,.mdsf-signup .btn-group .btn-submit-email:disabled{opacity:.65;cursor:default;transform:none}.mdsf-signup .donation-success{text-align:center;padding:6px 0 4px}.mdsf-signup .donation-success h2{margin:0 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:28px;font-weight:normal;color:#9E5BB4}.mdsf-signup .donation-success p{margin:0;font-size:17px;color:#695F6E}.mdsf-signup-open{display:inline-block;padding:14px 32px;border:2px solid #FFFFFF !important;border-radius:8px;background:transparent !important;color:#FFFFFF !important;font-family:Arial,Helvetica,sans-serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:none !important;transition:background .2s ease,color .2s ease}.mdsf-signup-open:hover{background:#FFFFFF !important;color:#302237 !important}.mdsf-signup-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px 14px;box-sizing:border-box;background:rgba(48,34,55,0.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}.mdsf-signup-overlay.is-open{opacity:1;visibility:visible;transition:opacity .3s ease,visibility 0s}.mdsf-signup-overlay .mdsf-signup{position:relative;width:100%;margin:auto;transform:translateY(18px) scale(.98);transition:transform .35s cubic-bezier(.2,.8,.2,1)}.mdsf-signup-overlay.is-open .mdsf-signup{transform:none}.mdsf-signup-close{display:block;text-decoration:none;position:absolute;top:12px;right:14px;width:36px;height:36px;border:none;border-radius:50%;background:#F5EFF9;color:#302237;font-size:24px;line-height:36px;text-align:center;cursor:pointer;padding:0}.mdsf-signup-close:hover{background:#E6DDEC}body.mdsf-signup-locked{overflow:hidden}@media (max-width:520px){.mdsf-signup{padding:30px 18px 24px;border-radius:12px}.mdsf-signup .mdsf-title{font-size:26px}.mdsf-signup-overlay .mdsf-signup{padding-top:54px}}</style>
+<div style="text-align:center;">
+  <a href="#email-updates" class="mdsf-signup-open" id="mdsfSignupOpen" role="button" style="display:inline-block; padding:14px 32px; border:2px solid #FFFFFF; border-radius:8px; background:transparent; color:#FFFFFF; font-family:Arial,Helvetica,sans-serif; font-size:14px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; box-shadow:none;">Get Email Updates</a>
+</div>
+<div class="mdsf-signup-overlay" id="mdsfSignupOverlay" role="dialog" aria-modal="true" aria-labelledby="mdsfSignupTitle" aria-hidden="true">
+<div class="mdsf-signup">
+  <a href="#close" class="mdsf-signup-close" id="mdsfSignupClose" role="button" aria-label="Close">&times;</a>
+  <p class="mdsf-eyebrow">Marlie Dru Sullivan Foundation</p>
+  <h2 class="mdsf-title" id="mdsfSignupTitle">Get Email Updates</h2>
+  <div class="mdsf-divider"><span></span>&#10022;<span></span></div>
+  <p class="mdsf-intro">Sign up for emails and be the first to hear about our events, Marlie Center progress, and all the ways you can help carry Marlie’s light forward.</p>
+  <!-- Bloomerang email sign-up form (unchanged) -->
+<script type="text/javascript" id="bloomerangForm538624"></script>
+<script type="text/javascript">
+    var insertForm538624 = function() {
+        var html538624 = '<style text=\'text/css\'>' +
+'.email-registration-form label{color: #404040;' +
+'                display: block;}' +
+'' +
+'.email-registration-form label.error{color:#900;' +
+'                display: inline-block; ' +
+'                padding: 0 10px;}' +
+'' +
+'.email-registration-form .field{padding: 4px 0;}' +
+'' +
+'.email-registration-form .consent{padding-bottom: 4px;}' +
+'' +
+'.email-registration-form .field .required-star{color: #aa0000; ' +
+'                display: inline-block; ' +
+'                margin-left: 5px;}' +
+'' +
+'.email-registration-form .field .checkboxes{max-width:275px;' +
+'                border: 1px solid #A9A9A9;' +
+'                -webkit-transition: all .3s ease-out;' +
+'                -moz-transition: all .3s ease-out;' +
+'                transition: all .3s ease-out;}' +
+'' +
+'.email-registration-form .field .checkbox{display:block;' +
+'                position:relative;' +
+'                -moz-box-sizing:border-box;' +
+'                box-sizing:border-box;' +
+'                height:30px;' +
+'                line-height:26px;' +
+'                padding:2px 28px 2px 8px;' +
+'                border-bottom:1px solid rgba(0,0,0,0.1);' +
+'                color:#404040;  ' +
+'                overflow:hidden;' +
+'                text-decoration:none; }' +
+'' +
+'.email-registration-form .field .checkbox input{opacity:0.01;' +
+'                position:absolute;' +
+'                left:-50px;  ' +
+'                z-index:-5;}' +
+'' +
+'.email-registration-form .field .checkbox:last-child{border-bottom:none;}' +
+'' +
+'.email-registration-form .field .checkbox.selected{background: rgb(50, 142, 253);' +
+'                color:#fff; }' +
+'' +
+'.email-registration-form .field .checkbox.selected:before{color:#fff;' +
+'                line-height:30px;' +
+'                position:absolute;' +
+'                right:10px; }' +
+'' +
+'.email-registration-form .field input{padding: 4px; ' +
+'                width: 275px;}' +
+'' +
+'.email-registration-form .errors{border: 1px solid #900;' +
+'                color: #900;  ' +
+'                padding: 10px;}' +
+'' +
+'.email-registration-form .hidden{display: none;}' +
+'' +
+'.btn-group .btn-submit-email{padding: 4px 10px;}' +
+'' +
+'input, select, textarea, button{font-family: inherit;}' +
+'' +
+'</style>' +
+'' +
+'<div id="email-registration-form-container">' +
+'  <form id="email-registration-form" class="email-registration-form" method="post" action="javascript:void(0)">' +
+'    <div class="errors hidden"></div>' +
+'    <div class="section contact">' +
+'      <h3>Contact Information</h3>' +
+'      <div class="field text first-name required" >' +
+'<label for="first-name"><span class="label">First Name</span><span class="required-star">*</span></label>' +
+'<input id="first-name" name="first-name" class="required" type="text"></input>' +
+'</div>' +
+'<div class="field text last-name required" >' +
+'<label for="last-name"><span class="label">Last Name</span><span class="required-star">*</span></label>' +
+'<input id="last-name" name="last-name" class="required" type="text"></input>' +
+'</div>' +
+'<div class="field email email-address required" >' +
+'<label for="email-address"><span class="label">Email</span><span class="required-star">*</span></label>' +
+'<input id="email-address" name="email-address" class="email required" type="email" placeholder="someone@website.com"></input>' +
+'</div>' +
+'<div class="consent">I want to receive emails at this address</div>' +
+'' +
+'</div>' +
+'    ' +
+'    ' +
+'    <div class="btn-group">' +
+'      <input class="btn btn-submit btn-submit-email" type="submit" value="Sign up"/>' +
+'    </div>' +
+'  </form>' +
+'</div>' +
+'' +
+'' +  '';var successHtml538624 = '<div class=\'donation-success\'>' +
+                                                       '  <h2>Thank you for Registering!</h2>' +
+                                                       '  <p>Your email address has been added to our mailing list.</p>' +
+                                                        '\u003cdiv class=\"social-media-buttons\" style=\"margin-top:10px;\"\u003e\u003cdiv class=\"fb-like\" data-href=\"https://facebook.com/people/marlie-dru-sullivan-foundation/61564964477811/\" data-layout=\"button_count\" data-show-faces=\"true\" style=\"padding-right: 10px;\" data-action=\"like\" \u003e\u003c/div\u003e\u003cdiv id=\"facebookShareOnly\" class=\"fb-share-button\" data-href=\"https://facebook.com/people/marlie-dru-sullivan-foundation/61564964477811/\" data-layout=\"button_count\"\u003e\u003c/div\u003e\u003cscript type=\u0027text/javascript\u0027\u003edocument.getElementById(\u0027facebookShareOnly\u0027).setAttribute(\u0027data-href\u0027, window.location.href);\u003c/script\u003e\u003c/div\u003e  \u003cdiv id=\"fb-root\"\u003e\u003c/div\u003e \u003cscript\u003e(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = \"//connect.facebook.net/en_US/sdk.js#xfbml=1\u0026version=v2.8\"; fjs.parentNode.insertBefore(js, fjs); }(document, \u0027script\u0027, \u0027facebook-jssdk\u0027));\u003c/script\u003e ' + 
+                                                        '</div>';( function($) {if (!Bloomerang.useEmailId('538624')) {
+                                    html538624 = '<p style="color: red">Only one email sign-up form can be used on each page.</p>';
+                                }
+                                if (jQuery('#bloomerangForm538624').length) {
+                        jQuery('#bloomerangForm538624').after(html538624);
+                    };
+                    if (Bloomerang.emailSignupFormLoaded) {
+                                            return false;
+                                        }
+                                        Bloomerang.emailSignupFormLoaded = true;
+                     jQuery('.email-registration-form .section.captcha').attr('style', 'display: none');
+                    Bloomerang.useKey('pub_c37820ef-1ca6-11f1-9ea1-06612d4c9559');
+        // Register proper callbacks for various stages/outcomes of submission
+        Bloomerang.Widget.Email.OnSubmit = function (args) {
+            jQuery(".btn-submit-email").val("Registering...").prop("disabled", true).addClass("disabled");
+            var val = function (selector) { return jQuery(selector).val(); };
+            Bloomerang.Account
+                    .individual()
+                    .firstName(val(".email-registration-form #first-name"))
+                    .lastName(val(".email-registration-form #last-name"))
+                    .homeEmail(val(".email-registration-form #email-address"))
+                    .applyEmailSignupCustomFields();
+           Bloomerang.Interaction.applyEmailSignupCustomFields();
+        };
+        Bloomerang.ValidateEmailSignupFormCaptcha = function() {
+            if (typeof(grecaptcha) !== "undefined" && jQuery("#captcha" + Bloomerang.Data.WidgetIds.EmailSignup).children().length) {
+                var captchaResponse = grecaptcha.getResponse(jQuery(".email-registration-form").data("captcha-id"));
+                if (captchaResponse) {
+                    jQuery(".email-registration-form .noCaptchaResponseError").hide();
+                    Bloomerang.captchaResponse(captchaResponse);
+                    return true;
+                } else {
+                    jQuery(".email-registration-form .noCaptchaResponseError").show();
+                    return false;
+                }
+            } else return true;
+        };
+        Bloomerang.Api.OnSuccess = Bloomerang.Widget.Email.OnSuccess = function (response) {
+            jQuery("#email-registration-form-container").html(successHtml538624);
+            var distance = 100;
+            var offset = jQuery("#email-registration-form-container").offset().top;
+            var offsetTop = offset > distance ? offset - distance : offset;
+		        jQuery('html, body').animate({ scrollTop : offsetTop}, 500);
+        };
+        Bloomerang.Api.OnError = Bloomerang.Widget.Email.OnError = function (response) {
+            jQuery(".btn-submit-email").val("Register").prop("disabled", false).removeClass("disabled");
+            jQuery("#email-registration-form-container .errors").removeClass("hidden").html(response.Message);
+            var distance = 100;
+            var offset = jQuery("#email-registration-form-container .errors").offset().top;
+            var offsetTop = offset > distance ? offset - distance : offset;
+		        jQuery('html, body').animate({ scrollTop : offsetTop}, 500);
+            if (typeof(grecaptcha) !== "undefined" && jQuery("#captcha" + Bloomerang.Data.WidgetIds.EmailSignup).children().length) {
+              grecaptcha.reset(jQuery(".email-registration-form").data("captcha-id"));
+            }
+        };
+        Bloomerang.Util.applyEmailSignupCustomFields = function (obj, type) {
+            // Clear any fields from a previous failed submission
+            obj.clearCustomFields();
+            // Apply all <input> (not multiselect), <select> and <textarea> fields
+            jQuery(".email-registration-form .section.custom-fields :input:not(a > input, select)[id*=" + type + "]").each(function() {
+                if (jQuery(this).val().hasValue()) {
+                    obj.customFreeformField(jQuery(this).attr("id").toUntypedValue(), jQuery(this).val());
+                }
+            });
+            // Apply all <select> fields
+            jQuery(".email-registration-form .section.custom-fields select[id*=" + type + "]").each(function() {
+                if (jQuery(this).val().hasValue()) {
+                    obj.customPickField(jQuery(this).attr("id").toUntypedValue(), jQuery(this).val());
+                }
+            });
+            // Apply all multiselect fields
+            jQuery(".email-registration-form .section.custom-fields .checkboxes[id*=" + type + "]").each(function() {
+                obj.customPickField(jQuery(this).attr("id").toUntypedValue(),
+                jQuery.map(jQuery(this).children(".checkbox.selected"), function(v) { return jQuery(v).attr("data-id"); }));
+            });
+        };
+        String.prototype.hasValue = function() {
+            return (this && jQuery.trim(this)); //IE8 doesn't have a native trim function
+        };
+        Bloomerang.Account.applyEmailSignupCustomFields = function () {
+            Bloomerang.Util.applyEmailSignupCustomFields(this, "Account");
+            return this;
+        };
+        Bloomerang.Interaction.applyEmailSignupCustomFields = function () {
+            Bloomerang.Util.applyEmailSignupCustomFields(this, "Interaction");
+            return this;
+        };
+        String.prototype.toUntypedValue = function() {
+            return this.substring(this.indexOf('_') + 1);
+        };
+        jQuery.validator.addMethod("currency", function (value, element, options) {
+            return !value ||
+                value
+                  .replace("$", "")
+                  .replace(".", "")
+                  .split(",").join("")
+                  .match(/^\d+$/g);
+        }, "Not a valid currency");
+        jQuery.validator.classRuleSettings.currency = { currency: true };
+        jQuery.validator.addMethod("number", function (value, element, options) {
+            return !value ||
+                value
+                  .replace(".", "")
+                  .split(",").join("")
+                  .match(/^\d+$/g);
+        }, "Not a valid number");
+        jQuery.validator.classRuleSettings.number = { number: true };
+        jQuery.validator.addMethod("validYear", function (value, element, options) {
+            try {
+                return (!value || value.match(/^[1-9]\d\d\d$/)) ? true : false;
+            }
+            catch (e) {
+                return false;
+            }
+        }, function () { return "Must be a 4 digit year"; });
+        jQuery.validator.classRuleSettings.validYear = { validYear: true };
+        // Intercept form submission to validate then submit via API
+        jQuery("#email-registration-form-container form").validate({
+            submitHandler: function () {
+                if (!Bloomerang.ValidateEmailSignupFormCaptcha()) {
+                  return false;
+                }
+                // Restore proper callbacks in case there are multiple widgets on the page
+                Bloomerang.Api.OnSubmit = Bloomerang.Widget.Email.OnSubmit;
+                Bloomerang.Api.OnSuccess = Bloomerang.Widget.Email.OnSuccess;
+                Bloomerang.Api.OnError = Bloomerang.Widget.Email.OnError;
+                Bloomerang.Api.joinMailingList();
+            }
+        });
+})(jQuery);
+    };
+                var startBloomerangLoad = function() {
+                    if (window.bloomerangLoadStarted == undefined) {
+                        window.bloomerangLoadStarted = true;
+                        var script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = 'https://crm.bloomerang.co/Content/Scripts/Api/Bloomerang-v2.js?nocache=1792076665';
+                        document.getElementsByTagName('head')[0].appendChild(script);
+                        waitForBloomerangLoad(function() { Bloomerang.Util.requireJQueryValidation(function() { insertForm538624(); })});
+                    }
+                    else {
+                        waitForBloomerangLoad(function() { Bloomerang.Util.requireJQueryValidation(function() { insertForm538624(); })});
+                    }
+                };
+                var waitForBloomerangLoad = function(callback) {
+                    if (typeof(Bloomerang) === 'undefined' || !Bloomerang._isReady) {
+                        setTimeout(function () { waitForBloomerangLoad(callback) }, 500);
+                    }
+                    else {
+                        if (true) {
+                            callback();
+                        } else {
+                            window.bloomerangLoadStarted = undefined;
+                            Bloomerang = undefined; // The version of Blomerang.js is not what we want. So blow it away and reload.
+                            startBloomerangLoad();
+                        }
+                    }
+                };
+                startBloomerangLoad();
+</script>
+</div>
+</div>
+<script type="text/javascript">
+  (function () {
+    var overlay = document.getElementById("mdsfSignupOverlay");
+    var openBtn = document.getElementById("mdsfSignupOpen");
+    var closeBtn = document.getElementById("mdsfSignupClose");
+    // Move the pop-up to the end of the page so the site's layout can't clip it
+    document.body.appendChild(overlay);
+    var openPopup = function () {
+      overlay.classList.add("is-open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("mdsf-signup-locked");
+      setTimeout(function () {
+        var first = overlay.querySelector("#first-name");
+        if (first) first.focus();
+      }, 350);
+    };
+    var closePopup = function () {
+      overlay.classList.remove("is-open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("mdsf-signup-locked");
+      openBtn.focus();
+    };
+    openBtn.onclick = (e) => { e.preventDefault(); openPopup(); };
+    closeBtn.onclick = (e) => { e.preventDefault(); closePopup(); };
+    overlay.onclick = (e) => { if (e.target === overlay) closePopup(); };
+    overlay.onkeydown = (e) => { if (e.key === "Escape") closePopup(); };
+  })();
+</script>

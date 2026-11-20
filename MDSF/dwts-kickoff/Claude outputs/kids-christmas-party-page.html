@@ -1,0 +1,488 @@
+<!-- Marlie's Closet — Kids Christmas Party — Landing Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Kids Christmas Party — Tickets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Dancing+Script:wght@600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     MOBILE-FIRST: base styles target phones.
+     min-width queries layer on tablet (521px+) and desktop (821px+).
+     All styles are scoped to .kcp so they won't clash with the site theme.
+     ========================================================= */
+  .kcp{
+    --red:       #c8202f;   /* headline red */
+    --berry:     #9e1622;   /* deep red text */
+    --green:     #1f6b3a;   /* headline green */
+    --pine:      #154d2a;   /* deep green text */
+    --mint:      #e8f3eb;   /* pale green wash */
+    --blush:     #fdecee;   /* price badge */
+    --rose:      #f2b8bf;   /* soft red accents */
+    --cream:     #fffaf3;   /* page */
+    --ink:       #2f2a2a;
+    --muted:     #6b6262;
+
+    background: var(--cream);
+    color: var(--ink);
+    font: 16px/1.6 "Lora", Georgia, serif;
+    overflow: hidden;
+  }
+  .kcp *, .kcp *::before, .kcp *::after{ box-sizing: border-box; }
+
+  /* Theme guard: website themes often style headings/text globally
+     (ALL CAPS, letter-spacing, etc.). Reset those inside this block. */
+  .kcp h1, .kcp h2, .kcp p, .kcp li, .kcp dt, .kcp dd, .kcp a, .kcp span, .kcp div, .kcp small{
+    text-transform: none; letter-spacing: normal; word-spacing: normal; font-style: normal;
+  }
+  .kcp .hero h1{ text-transform: none; letter-spacing: normal; font-style: normal; border: 0; padding: 0; background: none; }
+  .kcp h1, .kcp h2, .kcp p, .kcp ul, .kcp dl{ max-width: 100%; }
+  .kcp .page{ max-width: 1040px; margin: 0 auto; padding: 0 1rem; }
+
+  /* ---------- Hero ---------- */
+  .kcp .hero{
+    position: relative;
+    text-align: center;
+    padding: 4.6rem 0 1.5rem;
+    background:
+      linear-gradient(180deg, transparent 72%, var(--mint) 100%),
+      radial-gradient(ellipse at 50% 0%, rgba(242,184,191,.35), transparent 60%),
+      radial-gradient(ellipse at 10% 90%, rgba(31,107,58,.08), transparent 50%),
+      var(--cream);
+  }
+  .kcp .frame{
+    /* Open at the bottom and fading out, so the hero doesn't read as "the end" */
+    position: absolute; inset: 14px 14px 0;
+    border: 2px solid var(--rose); border-bottom: 0; border-radius: 6px 6px 0 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .kcp .holly{ position: absolute; width: 84px; height: auto; pointer-events: none; }
+  .kcp .holly--l{ top: 18px; left: 1%;  transform: rotate(-8deg); }
+  .kcp .holly--r{ top: 18px; right: 1%; transform: rotate(8deg) scaleX(-1); }
+  .kcp .flake{ display: none; position: absolute; width: 34px; height: 34px; pointer-events: none; }
+  .kcp .flake--1{ top: 170px; left: 9%;  color: var(--red);   opacity: .55; }
+  .kcp .flake--2{ top: 260px; left: 5%;  color: var(--green); opacity: .45; width: 24px; height: 24px; }
+  .kcp .flake--3{ top: 170px; right: 9%; color: var(--green); opacity: .55; }
+  .kcp .flake--4{ top: 260px; right: 5%; color: var(--red);   opacity: .45; width: 24px; height: 24px; }
+
+  .kcp .presented{
+    font-family: "Cormorant Garamond", serif; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase; font-size: .82rem;
+    color: var(--muted); margin: 0 0 1.1rem;
+  }
+  .kcp .presented b{ color: var(--red); }
+
+  /* Ribbon banner */
+  .kcp .ribbon-wrap{ position: relative; z-index: 1; display: inline-block; isolation: isolate; }
+  .kcp .ribbon{
+    position: relative; display: inline-block;
+    padding: .15rem 1.4rem .3rem;
+    background: linear-gradient(180deg, #2a8048, var(--green));
+    color: #fff;
+    font-family: "Dancing Script", cursive; font-weight: 700;
+    font-size: 1.7rem; line-height: 1.2;
+    box-shadow: 0 3px 0 rgba(21,77,42,.15);
+  }
+  .kcp .ribbon::before, .kcp .ribbon::after{
+    content: ""; position: absolute; top: 12px; width: 44px; height: 100%;
+    background: var(--pine); z-index: -1;
+  }
+  .kcp .ribbon::before{ left: -30px;  clip-path: polygon(0 0,100% 0,100% 100%,0 100%,28% 50%); }
+  .kcp .ribbon::after { right: -30px; clip-path: polygon(0 0,100% 0,72% 50%,100% 100%,0 100%); }
+
+  .kcp h1{
+    margin: .6rem 0 0;
+    font-family: "Dancing Script", cursive; font-weight: 700;
+    font-size: clamp(2.6rem, 14vw, 3.8rem); line-height: 1;
+    color: var(--red);
+    text-shadow: 0 2px 0 rgba(255,255,255,.8);
+  }
+  .kcp h1 .party{ display: block; color: var(--green); font-size: .78em; margin-top: .08em; }
+  .kcp .tagline{
+    margin: .9rem 0 0;
+    font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600;
+    font-size: 1.4rem; line-height: 1.3; color: var(--berry);
+  }
+
+  /* Divider */
+  .kcp .divider{
+    display: flex; align-items: center; justify-content: center; gap: .8rem;
+    margin: 1.6rem auto; max-width: 520px; color: var(--red);
+  }
+  .kcp .divider::before, .kcp .divider::after{
+    content: ""; flex: 1; height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--rose));
+  }
+  .kcp .divider::after{ background: linear-gradient(90deg, var(--rose), transparent); }
+  .kcp .divider svg{ width: 20px; height: 20px; flex: none; }
+
+  /* Quick facts — stacked list on phones */
+  .kcp .facts{ display: grid; grid-template-columns: 1fr; margin: 0 auto; max-width: 300px; }
+  .kcp .fact{
+    display: flex; align-items: center; gap: .85rem; text-align: left;
+    padding: .7rem .4rem; font-size: 1.08rem; line-height: 1.3; color: var(--pine);
+  }
+  .kcp .fact + .fact{ border-top: 1.5px solid var(--rose); }
+  .kcp .fact svg{ width: 42px; height: 42px; flex: none; color: var(--red); }
+
+  /* Venue */
+  .kcp .venue{ margin: 1.8rem 0 0; }
+  .kcp .venue-name{
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: "Dancing Script", cursive; font-weight: 700;
+    font-size: clamp(1.6rem, 8.5vw, 2.1rem); line-height: 1.1; color: var(--pine); white-space: nowrap;
+  }
+  .kcp .venue-name svg{ width: 22px; height: 30px; flex: none; color: var(--red); }
+  .kcp .venue-addr{ margin: .3rem 0 0; font-size: 1.08rem; color: var(--ink); }
+  .kcp .venue-addr a{ color: inherit; text-decoration-color: var(--rose); text-underline-offset: 3px; }
+
+  /* Price + CTA — stacked on phones */
+  .kcp .ticket-row{
+    display: flex; flex-direction: column; align-items: center;
+    gap: 1.5rem; margin: 2.2rem 0 0;
+  }
+  .kcp .price{
+    position: relative; padding: 1rem 2.2rem 1.1rem;
+    background: var(--blush); border-radius: 46px;
+    box-shadow: 0 0 0 6px var(--cream), 0 0 0 8px var(--rose);
+    text-align: center; color: var(--berry);
+  }
+  .kcp .price::before{
+    content: ""; position: absolute; inset: 7px; border-radius: 40px;
+    border: 1.5px dashed #e79aa3; pointer-events: none;
+  }
+  .kcp .price-amt{ font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 3rem; line-height: 1; }
+  .kcp .price-per{ font-family: "Dancing Script", cursive; font-weight: 700; font-size: 1.45rem; line-height: 1.1; }
+  .kcp .price-add{ margin-top: .45rem; padding-top: .45rem; border-top: 1.5px dashed #e79aa3; font-family: "Lora", serif; font-weight: 600; font-size: .98rem; color: var(--pine); }
+
+  .kcp .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+    min-height: 48px; padding: 1rem 2rem; border-radius: 999px; text-decoration: none;
+    font-family: "Lora", serif; font-weight: 600; font-size: 1.05rem; letter-spacing: .02em;
+    color: #fff; background: linear-gradient(135deg, #e0343f, var(--berry));
+    box-shadow: 0 8px 22px rgba(158,22,34,.28);
+    transition: transform .15s ease, box-shadow .15s ease;
+    /* <button> resets + theme guard */
+    border: 0; margin: 0; cursor: pointer; line-height: 1.2; text-transform: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .kcp .btn:focus-visible{ outline: 3px solid var(--green); outline-offset: 3px; }
+  .kcp .btn:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(158,22,34,.34); }
+  .kcp .btn svg{ width: 16px; height: 16px; }
+
+  .kcp .potty{
+    display: inline-block; margin: 0;
+    font-family: "Dancing Script", cursive; font-weight: 700; font-size: 1.4rem;
+    color: var(--green); transform: rotate(-3deg);
+  }
+
+  /* Scroll cue — tells visitors there's more below */
+  .kcp .scroll-cue{
+    display: flex; flex-direction: column; align-items: center; gap: .1rem;
+    width: max-content; margin: 1.6rem auto 0; padding: .4rem 1rem;
+    color: var(--pine); text-decoration: none;
+    font-family: "Cormorant Garamond", serif; font-weight: 700;
+    font-size: .95rem; letter-spacing: .22em; text-transform: uppercase;
+  }
+  .kcp .scroll-cue svg{ width: 26px; height: 26px; color: var(--red); animation: kcp-bob 1.8s ease-in-out infinite; }
+  .kcp .scroll-cue:hover{ color: var(--red); }
+  @keyframes kcp-bob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce){ .kcp .scroll-cue svg{ animation: none; } }
+
+  /* ---------- Details band ---------- */
+  .kcp .details{
+    background:
+      radial-gradient(circle at 14px 14px, rgba(31,107,58,.10) 2px, transparent 3px) 0 0/28px 28px,
+      var(--mint);
+    padding: 1rem 0 2.5rem;
+  }
+  .kcp .card{ scroll-margin-top: 1.5rem; }
+  .kcp .grid{ display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+  .kcp .card{
+    background: #fff; border-radius: 22px; padding: 1.5rem 1.3rem 1.6rem;
+    border: 1px solid #d9eadd; border-top: 4px solid var(--red);
+    box-shadow: 0 10px 30px rgba(21,77,42,.08);
+  }
+  .kcp .card h2{
+    display: flex; align-items: center; gap: .9rem;
+    margin: 0 0 1rem; color: var(--pine);
+    font-family: "Cormorant Garamond", serif; font-weight: 700;
+    font-size: 1.05rem; letter-spacing: .3em; text-transform: uppercase;
+  }
+  .kcp .card h2::after{ content: ""; flex: 1; height: 1.5px; background: var(--rose); }
+
+  /* Activities — snowflake bullets */
+  .kcp ul.flakes{ list-style: none; margin: 0; padding: 0; }
+  .kcp ul.flakes li{
+    position: relative; padding: .45rem 0 .45rem 2rem; color: var(--ink); font-size: 1.05rem;
+  }
+  .kcp ul.flakes li::before{
+    content: ""; position: absolute; left: 0; top: .78rem; width: 17px; height: 17px;
+    background: var(--red);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+  .kcp ul.flakes li:nth-child(even)::before{ background: var(--green); }
+
+  /* Detail list — label above value on phones */
+  .kcp dl.info{ margin: 0; display: grid; gap: .95rem; }
+  .kcp dl.info div{ display: grid; grid-template-columns: 1fr; gap: .1rem; }
+  .kcp dl.info dt{
+    font-family: "Cormorant Garamond", serif; font-weight: 700; color: var(--red);
+    text-transform: uppercase; letter-spacing: .14em; font-size: .9rem;
+  }
+  .kcp dl.info dd{ margin: 0; color: var(--ink); }
+  .kcp .note{ margin: 1.3rem 0 0; font-size: .95rem; color: var(--muted); }
+
+  /* ---------- Closing ---------- */
+  .kcp .closing{ text-align: center; padding: 2.75rem 0 3rem; position: relative; }
+  .kcp .closing .script-line{
+    font-family: "Dancing Script", cursive; font-weight: 700; color: var(--berry);
+    font-size: 1.8rem; line-height: 1.3; margin: 0 0 1.1rem;
+  }
+  .kcp .closing small{ display: block; margin-top: 1.1rem; color: var(--muted); font-size: .92rem; }
+  .kcp .closing .holly{ display: none; width: 90px; bottom: 26px; right: 8%; top: auto; transform: rotate(16deg); }
+
+  /* =========================================================
+     TABLET — 521px and up
+     ========================================================= */
+  @media (min-width: 521px){
+    .kcp{ font-size: 17px; }
+    .kcp .page{ padding: 0 1.25rem; }
+    .kcp .hero{ padding-top: 3.75rem; }
+    .kcp .ribbon{ padding: .2rem 2.2rem .35rem; font-size: clamp(1.7rem, 3vw + .6rem, 2.3rem); }
+    .kcp h1{ font-size: clamp(3.8rem, 10vw + .5rem, 6.8rem); }
+    .kcp .tagline{ font-size: clamp(1.5rem, 1.8vw + .8rem, 2rem); }
+    .kcp .venue-name{ font-size: clamp(2.3rem, 3vw + 1rem, 2.8rem); }
+    .kcp .venue-name svg{ width: 30px; height: 38px; }
+    .kcp .venue-addr{ font-size: 1.15rem; }
+    .kcp .ticket-row{ flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem; }
+    .kcp .price-amt{ font-size: 3.2rem; }
+    .kcp .price-per{ font-size: 1.55rem; }
+    .kcp .potty{ font-size: 1.5rem; }
+    .kcp .details{ padding: 1.5rem 0 3.5rem; }
+    .kcp .card{ padding: 2rem 2rem 2.1rem; }
+    .kcp ul.flakes li{ font-size: 1.08rem; }
+    .kcp dl.info div{ grid-template-columns: 6.2rem 1fr; gap: .75rem; align-items: baseline; }
+    .kcp .closing{ padding: 3rem 0 3.4rem; }
+    .kcp .closing .script-line{ font-size: clamp(1.9rem, 2.5vw + 1rem, 2.5rem); }
+  }
+
+  /* =========================================================
+     DESKTOP — 821px and up
+     ========================================================= */
+  @media (min-width: 821px){
+    .kcp .holly{ width: 140px; }
+    .kcp .holly--l{ top: 26px; left: 3%; }
+    .kcp .holly--r{ top: 26px; right: 3%; }
+    .kcp .flake{ display: block; }
+    .kcp .hero{ padding-top: 2.6rem; }
+    .kcp h1{ font-size: clamp(3.8rem, 10vw + .5rem, 6rem); }
+    .kcp .divider{ margin: 1.1rem auto; }
+    .kcp .venue{ margin-top: 1.2rem; }
+    .kcp .ticket-row{ margin-top: 1.5rem; }
+    .kcp .price{ padding: .75rem 2.1rem .85rem; }
+    .kcp .scroll-cue{ margin-top: 1.1rem; }
+
+    .kcp .facts{ grid-template-columns: repeat(3, auto); justify-content: center; max-width: 820px; }
+    .kcp .fact{ padding: .4rem 1.8rem; font-size: 1.12rem; }
+    .kcp .fact + .fact{ border-top: 0; border-left: 1.5px solid var(--rose); }
+    .kcp .fact svg{ width: 46px; height: 46px; }
+
+    .kcp .grid{ grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .kcp .closing .holly{ display: block; }
+  }
+</style>
+</head>
+<body style="margin:0">
+
+<!-- Reusable holiday artwork -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="kcpLeaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f8a4f"/>
+      <stop offset="1" stop-color="#155c30"/>
+    </linearGradient>
+    <radialGradient id="kcpBerry" cx=".35" cy=".35" r=".7">
+      <stop offset="0" stop-color="#ff6b6b"/>
+      <stop offset=".6" stop-color="#d42532"/>
+      <stop offset="1" stop-color="#9e1622"/>
+    </radialGradient>
+    <symbol id="kcpHolly" viewBox="0 0 140 100">
+      <g stroke="#0f4724" stroke-width="1.2" stroke-linejoin="round" fill="url(#kcpLeaf)">
+        <path d="M68 52 C60 44, 52 46, 46 40 C44 46, 36 46, 30 40 C30 46, 22 48, 16 44 C20 54, 14 60, 8 62 C22 66, 30 74, 42 72 C40 66, 48 62, 54 64 C54 58, 62 56, 68 52 Z"/>
+        <path d="M72 52 C80 40, 78 32, 86 26 C80 24, 82 16, 88 10 C82 10, 80 2, 84 -2 C74 4, 68 0, 64 -2 C64 12, 58 22, 62 34 C68 32, 72 38, 70 44 C74 46, 74 50, 72 52 Z" transform="translate(0 6)"/>
+        <path d="M74 56 C84 54, 90 60, 98 58 C96 64, 102 70, 110 70 C104 74, 106 82, 112 88 C100 86, 90 92, 80 86 C84 80, 80 74, 74 74 C76 68, 72 62, 74 56 Z"/>
+      </g>
+      <g fill="none" stroke="#7fc596" stroke-width="1" opacity=".7">
+        <path d="M66 53 C50 56, 30 62, 12 62"/><path d="M71 50 C70 34, 74 18, 80 6"/><path d="M75 58 C88 66, 98 76, 108 86"/>
+      </g>
+      <circle cx="70" cy="56" r="8" fill="url(#kcpBerry)"/>
+      <circle cx="60" cy="62" r="7" fill="url(#kcpBerry)"/>
+      <circle cx="78" cy="64" r="7" fill="url(#kcpBerry)"/>
+      <g fill="#fff" opacity=".85"><circle cx="67" cy="53" r="2"/><circle cx="58" cy="59.5" r="1.6"/><circle cx="76" cy="61.5" r="1.6"/></g>
+    </symbol>
+    <symbol id="kcpFlake" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/>
+        <path d="M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5M3.8 10.5l3-1-.6-3.1M20.2 13.5l-3 1 .6 3.1M3.8 13.5l3 1-.6 3.1M20.2 10.5l-3-1 .6-3.1"/>
+      </g>
+    </symbol>
+    <symbol id="kcpStar" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="kcp">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="frame"></div>
+    <svg class="holly holly--l" viewBox="0 0 140 100" aria-hidden="true"><use href="#kcpHolly"/></svg>
+    <svg class="holly holly--r" viewBox="0 0 140 100" aria-hidden="true"><use href="#kcpHolly"/></svg>
+    <svg class="flake flake--1" aria-hidden="true"><use href="#kcpFlake"/></svg>
+    <svg class="flake flake--2" aria-hidden="true"><use href="#kcpFlake"/></svg>
+    <svg class="flake flake--3" aria-hidden="true"><use href="#kcpFlake"/></svg>
+    <svg class="flake flake--4" aria-hidden="true"><use href="#kcpFlake"/></svg>
+
+    <div class="page">
+      <p class="presented">A <b>Marlie’s Closet</b> Event</p>
+
+      <div class="ribbon-wrap"><div class="ribbon">Kids</div></div>
+
+      <h1>Christmas<span class="party">Party</span></h1>
+      <p class="tagline">A Merry Morning of Crafts, Cookies, and Santa</p>
+
+      <div class="divider"><svg aria-hidden="true"><use href="#kcpStar"/></svg></div>
+
+      <div class="facts">
+        <div class="fact">
+          <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="10" width="36" height="32" rx="5"/><path d="M6 19h36M16 5v9M32 5v9"/>
+            <path fill="currentColor" stroke="none" d="M24 24l1.9 4.1 4.5.5-3.3 3.1.9 4.4-4-2.2-4 2.2.9-4.4-3.3-3.1 4.5-.5z"/>
+          </svg>
+          <span>Monday,<br>December 21st</span>
+        </div>
+        <div class="fact">
+          <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <circle cx="24" cy="24" r="19"/><path d="M24 13v11l7 5"/>
+          </svg>
+          <span>10:00 AM – 1:00 PM</span>
+        </div>
+        <div class="fact">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="8" y="20" width="32" height="24" rx="3" fill="currentColor"/>
+            <rect x="5" y="13" width="38" height="9" rx="2.5" fill="currentColor"/>
+            <rect x="21" y="13" width="6" height="31" fill="#1f6b3a"/>
+            <path d="M24 13c-3-6-11-7-11-2 0 3 6 3 11 2zM24 13c3-6 11-7 11-2 0 3-6 3-11 2z" fill="#1f6b3a"/>
+          </svg>
+          <span>Crafts, lunch<br>&amp; Santa</span>
+        </div>
+      </div>
+
+      <div class="venue">
+        <div class="venue-name">
+          <svg viewBox="0 0 30 38" aria-hidden="true"><path fill="currentColor" d="M15 0C6.7 0 0 6.5 0 14.6 0 25.5 15 38 15 38s15-12.5 15-23.4C30 6.5 23.3 0 15 0zm0 20a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+          Rock Hill Gymnastics
+        </div>
+        <p class="venue-addr">
+          <a href="https://maps.google.com/?q=400+Mt+Gallant+Road,+Rock+Hill,+SC" target="_blank" rel="noopener noreferrer">400 Mt Gallant Road, Rock Hill, SC</a>
+        </p>
+      </div>
+
+      <div class="ticket-row">
+        <div class="price">
+          <div class="price-amt">$60</div>
+          <div class="price-per">first child</div>
+          <div class="price-add">$30 for each sibling</div>
+        </div>
+        <!-- Qgiv registration button (opens the Qgiv ticket modal) -->
+        <button
+            type="button"
+            id="qgiv-load-modal-97425"
+            class="qgiv-load-modal btn"
+            data-event-url="https://secure.qgiv.com/for/marliedrusullivanfoundation/event/1054778/embed/97425/"
+            data-embed-id="97425"
+            data-event-name="Kids Christmas Party"
+        >
+          Get Tickets
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#kcpStar"/></svg>
+        </button>
+        <div class="potty">Children must be potty trained ♡</div>
+      </div>
+
+      <a class="scroll-cue" href="#kcp-included">
+        What’s Included
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Details ===== -->
+  <section class="details">
+    <div class="page grid">
+      <div class="card" id="kcp-included">
+        <h2>Includes</h2>
+        <ul class="flakes">
+          <li>Christmas crafts</li>
+          <li>A short Christmas movie</li>
+          <li>Lunch</li>
+          <li>Story time with Santa</li>
+          <li>Reindeer games</li>
+          <li>Cookie decorating</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>The Details</h2>
+        <dl class="info">
+          <div><dt>When</dt><dd>Monday, December 21 · 10:00 AM–1:00 PM</dd></div>
+          <div><dt>Where</dt><dd>Rock Hill Gymnastics<br>400 Mt Gallant Road, Rock Hill, SC</dd></div>
+          <div><dt>Who</dt><dd>Children must be potty trained.</dd></div>
+          <div><dt>Tickets</dt><dd>$60 for the first child · $30 for each sibling of that child</dd></div>
+        </dl>
+        <p class="note">All proceeds go to Marlie’s Closet for local scholarships. You’ll receive a confirmation email with day-of details after purchase.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Closing CTA ===== -->
+  <section class="closing">
+    <svg class="holly" viewBox="0 0 140 100" aria-hidden="true"><use href="#kcpHolly"/></svg>
+    <div class="page">
+      <p class="script-line">Give your little one a merry morning to remember!</p>
+      <!-- Second CTA: opens the same Qgiv modal by clicking the main button above -->
+      <button type="button" class="btn kcp-qgiv-proxy">
+        Get Tickets
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#kcpStar"/></svg>
+      </button>
+      <small>All proceeds go to Marlie’s Closet for local scholarships</small>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Smooth-scroll the "What's Included" cue down to the Includes card
+  document.querySelector(".kcp .scroll-cue").onclick = (e) => {
+    e.preventDefault();
+    document.getElementById("kcp-included").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Bottom "Get Tickets" button opens the same Qgiv modal as the main button
+  document.querySelector(".kcp .kcp-qgiv-proxy").onclick = (e) => {
+    e.preventDefault();
+    document.querySelector(".kcp .qgiv-load-modal").click();
+  };
+</script>
+
+<!-- Qgiv embed script (from Qgiv — loads the ticket modal) -->
+<script>(function(w, d, s, id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://secure.qgiv.com/resources/core/js/embed.js";fjs.parentNode.insertBefore(js, fjs);})(window, document, 'script', 'qgiv-embedjs');</script>
+</body>
+</html>

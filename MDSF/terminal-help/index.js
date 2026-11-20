@@ -66,7 +66,7 @@ const topics = [
       {
         html: '<p>Enter the terminal’s email address and password.</p>' +
               '<div class="field"><span class="field-label">Email</span><span class="field-value">closetterminal@marliedrusullivan.org</span><button class="copy" type="button" data-copy="closetterminal@marliedrusullivan.org">Copy</button></div>' +
-              '<span class="step-note">For the password, contact Carter Threatt (contact info below).</span>'
+              '<div class="field"><span class="field-label">Password</span><span class="field-value">M@rlieDru1</span><button class="copy" type="button" data-copy="M@rlieDru1">Copy</button></div>'
       },
       {
         html: '<p>Tap <span class="kbd">Login</span> at the bottom of the screen.</p>'
