@@ -81,6 +81,7 @@ const detail = document.getElementById("detail");
 const list = document.getElementById("topic-list");
 const content = document.getElementById("detail-content");
 const backBtn = document.getElementById("back-btn");
+const request = document.getElementById("request");
 
 // ---------- Build the topic list ----------
 topics.forEach((topic) => {
@@ -126,12 +127,14 @@ const showTopic = (topic) => {
   });
 
   home.hidden = true;
+  request.hidden = true;
   detail.hidden = false;
   window.scrollTo(0, 0);
 };
 
 const showHome = () => {
   detail.hidden = true;
+  request.hidden = true;
   home.hidden = false;
   content.innerHTML = ""; // stops any playing video
   window.scrollTo(0, 0);
@@ -168,12 +171,111 @@ const fallbackCopy = (text, done) => {
   done();
 };
 
+// ---------- Request access form (sends with Web3Forms) ----------
+const form = document.getElementById("form");
+const submitBtn = form.querySelector('button[type="submit"]');
+const requestBox = document.getElementById("request-box");
+const requestSent = document.getElementById("request-sent");
+const formError = document.getElementById("form-error");
+const itemLabel = document.getElementById("item-label");
+const itemInput = document.getElementById("item-input");
+const urgentNote = document.getElementById("urgent-note");
+
+const showRequest = () => {
+  home.hidden = true;
+  detail.hidden = true;
+  request.hidden = false;
+  content.innerHTML = "";
+  window.scrollTo(0, 0);
+};
+
+// Change the wording of the second question to match what they picked
+form.querySelectorAll('input[name="request_type"]').forEach((radio) => {
+  radio.onchange = (e) => {
+    if (radio.value === "App") {
+      itemLabel.textContent = "What’s the name of the app?";
+      itemInput.placeholder = "e.g. Square, Canva, or Zelle";
+    } else if (radio.value === "Website") {
+      itemLabel.textContent = "What’s the website?";
+      itemInput.placeholder = "e.g. squareup.com, or paste the link";
+    } else {
+      itemLabel.textContent = "What do you need?";
+      itemInput.placeholder = "e.g. A setting, a printer, or Wi-Fi access";
+    }
+  };
+});
+
+// Show the "call Carter" note when a sale is being held up
+form.querySelectorAll('input[name="urgency"]').forEach((radio) => {
+  radio.onchange = (e) => {
+    urgentNote.hidden = !radio.value.startsWith("Right now");
+  };
+});
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  formError.hidden = true;
+
+  const formData = new FormData(form);
+  formData.append("access_key", "b74803eb-a9da-4b57-b9f3-b6c76b8655ba");
+  formData.append("sent_at", new Date().toLocaleString());
+
+  // Put the important details in the email subject so it stands out in the inbox
+  const urgent = String(formData.get("urgency") || "").startsWith("Right now");
+  formData.set("subject", (urgent ? "URGENT: " : "") + "Closet iPad request: " + formData.get("request_type") + " (" + formData.get("requested_item") + ")");
+
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Sending...";
+  submitBtn.disabled = true;
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      form.reset();
+      urgentNote.hidden = true;
+      requestBox.hidden = true;
+      requestSent.hidden = false;
+      window.scrollTo(0, 0);
+    } else {
+      formError.textContent = "Your request didn’t go through: " + data.message;
+      formError.hidden = false;
+    }
+  } catch (error) {
+    formError.textContent = "Something went wrong. Check that the iPad is connected to Wi-Fi and try again.";
+    formError.hidden = false;
+  } finally {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+};
+
+document.getElementById("send-another").onclick = (e) => {
+  requestSent.hidden = true;
+  requestBox.hidden = false;
+  window.scrollTo(0, 0);
+};
+
+document.getElementById("request-card").onclick = (e) => {
+  location.hash = "request";
+};
+
+document.getElementById("request-back").onclick = (e) => {
+  location.hash = "";
+};
+
 // ---------- Simple routing (so the iPad's swipe-back and links work) ----------
 const route = () => {
   const id = location.hash.replace("#", "");
   const topic = topics.find((t) => t.id === id);
   if (topic) {
     showTopic(topic);
+  } else if (id === "request") {
+    showRequest();
   } else {
     showHome();
   }

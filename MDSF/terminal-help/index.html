@@ -172,6 +172,89 @@
   .help-foot strong{ color: var(--ink); font-weight: 500; }
   .help-foot a{ color: var(--purple-deep); font-weight: 500; text-decoration: none; }
 
+  /* ---------- Request access ---------- */
+  .request-card{
+    display: flex; align-items: center; gap: 18px; width: 100%; margin-top: 22px;
+    padding: 20px 22px; text-align: left; cursor: pointer;
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+    border: 0; border-radius: var(--radius); color: #fff;
+    box-shadow: 0 14px 32px rgba(107,72,224,.28);
+    transition: transform .15s ease;
+  }
+  .request-card:active{ transform: scale(.985); }
+  .request-card .topic-num{ background: rgba(255,255,255,.18); color: #fff; }
+  .request-card .topic-title{ color: #fff; }
+  .request-card .topic-sub{ color: #ece5ff; }
+  .request-card .chev{ color: #fff; }
+
+  .info-box{
+    margin: 0 0 22px; padding: 16px 18px; border-radius: 14px;
+    background: var(--white); border: 1px solid var(--line); border-left: 4px solid var(--purple);
+    font-size: 16.5px; color: var(--soft);
+  }
+  .info-box strong{ color: var(--ink); font-weight: 500; }
+
+  .form-card{
+    padding: 24px 22px; background: var(--white);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: 0 10px 28px rgba(48,34,55,.06);
+  }
+  .q{ display: block; margin: 0 0 22px; border: 0; padding: 0; min-width: 0; }
+  .q-label{ display: block; margin: 0 0 8px; padding: 0; font-size: 17px; font-weight: 500; color: var(--ink); }
+  .q-label small{ font-weight: 400; color: var(--soft); }
+  .q input[type="text"], .q textarea{
+    display: block; width: 100%; padding: 14px 16px; border-radius: 12px;
+    border: 1.5px solid var(--line); background: var(--lav);
+    font: inherit; font-size: 18px; color: var(--ink); -webkit-appearance: none; appearance: none;
+  }
+  .q textarea{ min-height: 110px; resize: vertical; }
+  .q input[type="text"]:focus, .q textarea:focus{ outline: none; border-color: var(--purple); background: #fff; box-shadow: 0 0 0 4px rgba(141,108,247,.15); }
+
+  .chips{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip{ position: relative; }
+  .chip input{ position: absolute; opacity: 0; pointer-events: none; }
+  .chip span{
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--line); background: var(--lav); font-size: 16.5px; font-weight: 500; color: var(--ink);
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .chip span svg{ width: 20px; height: 20px; }
+  .chip input:checked + span{ background: var(--purple); border-color: var(--purple); color: #fff; }
+  .chip input:focus-visible + span{ box-shadow: 0 0 0 4px rgba(141,108,247,.25); }
+  .chip--urgent input:checked + span{ background: var(--warn); border-color: var(--warn); }
+
+  .urgent-note{
+    margin: 10px 0 0; padding: 12px 14px; border-radius: 12px;
+    background: var(--warn-bg); border: 1px solid var(--warn-line); font-size: 15.5px; color: var(--warn);
+  }
+  .urgent-note a{ color: var(--warn); font-weight: 600; }
+
+  .submit{
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    min-height: 56px; padding: 14px 20px; border: 0; border-radius: 14px; cursor: pointer;
+    background: linear-gradient(135deg, var(--purple), var(--purple-deep)); color: #fff;
+    font-size: 18px; font-weight: 500; box-shadow: 0 10px 24px rgba(107,72,224,.28);
+  }
+  .submit:disabled{ opacity: .65; cursor: default; }
+  .form-error{
+    margin: 14px 0 0; padding: 12px 14px; border-radius: 12px;
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn); font-size: 15.5px;
+  }
+
+  .sent{ text-align: center; padding: 34px 22px; }
+  .sent-check{
+    width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%;
+    display: grid; place-items: center; background: #e7f6ee; color: var(--ok);
+  }
+  .sent-check svg{ width: 38px; height: 38px; }
+  .sent h3{ margin: 0 0 8px; font-family: "Italiana", Georgia, serif; font-weight: 400; font-size: 32px; }
+  .sent p{ margin: 0 auto 20px; max-width: 480px; font-size: 17px; color: var(--soft); }
+  .ghost{
+    padding: 12px 22px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--line); background: var(--white); color: var(--purple-deep); font-size: 16px; font-weight: 500;
+  }
+  .hp{ display: none !important; }
+
   [hidden]{ display: none !important; }
 
   @media (min-width: 700px){
@@ -195,6 +278,86 @@
     <section id="home">
       <p class="intro">Tap a topic for step-by-step help.</p>
       <div class="topics" id="topic-list"></div>
+
+      <button class="request-card" id="request-card" type="button">
+        <span class="topic-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 7.6-1.7"/><path d="M12 14.5v2.5"/></svg></span>
+        <span class="topic-text"><span class="topic-title">Request access</span><span class="topic-sub">Need an app or website that’s blocked on this iPad? Ask for it here.</span></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </section>
+
+    <!-- Request access form -->
+    <section id="request" hidden>
+      <button class="back" id="request-back" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        All help topics
+      </button>
+      <div class="detail-head">
+        <h2>Request access</h2>
+        <p>Ask for an app, website, or setting that’s blocked on this iPad.</p>
+      </div>
+
+      <div class="info-box">
+        <strong>Why is it blocked?</strong> This iPad is managed by the Marlie Dru Sullivan Foundation. There’s no App Store, and some websites are blocked for security, so every app and site has to be approved and sent to the iPad by remotly. Send a request and it will be reviewed.
+      </div>
+
+      <div class="form-card" id="request-box">
+        <form id="form">
+          <input type="hidden" name="subject" value="Marlie’s Closet iPad: Access Request">
+          <input type="hidden" name="from_name" value="Marlie’s Closet Terminal">
+          <input type="hidden" name="device" value="Marlie’s Closet iPad (POS terminal)">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+          <fieldset class="q">
+            <legend class="q-label">What do you need?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="request_type" value="App" required><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>An app</span></label>
+              <label class="chip"><input type="radio" name="request_type" value="Website"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"/></svg>A website</span></label>
+              <label class="chip"><input type="radio" name="request_type" value="Something else"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>Something else</span></label>
+            </div>
+          </fieldset>
+
+          <label class="q">
+            <span class="q-label" id="item-label">Name of the app or website</span>
+            <input type="text" name="requested_item" id="item-input" required autocomplete="off" autocapitalize="sentences" placeholder="e.g. Square, Canva, or squareup.com">
+          </label>
+
+          <label class="q">
+            <span class="q-label">Why do you need it?</span>
+            <textarea name="reason" required placeholder="e.g. A customer wants to pay a different way, or I need it to print a receipt."></textarea>
+          </label>
+
+          <fieldset class="q">
+            <legend class="q-label">How soon do you need it?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="urgency" value="Whenever" required><span>Whenever</span></label>
+              <label class="chip"><input type="radio" name="urgency" value="Today"><span>Today</span></label>
+              <label class="chip chip--urgent"><input type="radio" name="urgency" value="Right now: it is stopping a sale"><span>Right now, it’s stopping a sale</span></label>
+            </div>
+            <p class="urgent-note" id="urgent-note" hidden>If a customer is waiting, send this request <strong>and</strong> call or text Carter at <a href="tel:+18035540556">(803) 554-0556</a>.</p>
+          </fieldset>
+
+          <label class="q">
+            <span class="q-label">Your name</span>
+            <input type="text" name="name" required autocomplete="off" autocapitalize="words">
+          </label>
+
+          <label class="q">
+            <span class="q-label">How can we reach you? <small>(phone or email, optional)</small></span>
+            <input type="text" name="contact" autocomplete="off" autocapitalize="none" placeholder="So we can let you know when it’s ready">
+          </label>
+
+          <button class="submit" type="submit">Send Request</button>
+          <p class="form-error" id="form-error" hidden></p>
+        </form>
+      </div>
+
+      <div class="form-card sent" id="request-sent" hidden>
+        <div class="sent-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3>Request sent</h3>
+        <p>Thank you! The admin will review it. Once it’s approved, the app or website will show up on this iPad on its own. You don’t need to do anything else.</p>
+        <button class="ghost" id="send-another" type="button">Send another request</button>
+      </div>
     </section>
 
     <!-- One topic's steps (filled in by index.js) -->
